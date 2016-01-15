@@ -206,6 +206,37 @@ class Reuse_org(webapp2.RequestHandler):
 		entity.key.delete()
 		self.response.write('Reuse_org entity with reuse_org_ID = ' + kwargs['reuse_org_ID'] + ' was successfully deleted from the datastore')			
 		return
+		
+# get Reuse_org entities containing a specific Reuse_item key reference in Reuse.org.items property
+# requires the id of the Reuse_item entity being searched (variable = reuse_item.ID)
+class Search_by_item(webapp2.RequestHandler):	
+	def get(self, **kwargs):
+
+		if 'application/json' not in self.request.accept:
+			self.response.status = 406
+			self.response.status_message = 'Not acceptable. API only supports application/json MIME type'
+			self.response.write('Not acceptable. API only supports application/json MIME type')
+			return
+				
+		if 'reuse_item_ID' not in kwargs:
+			self.response.status = 400
+			self.response.status_message = 'reuse_item_ID is missing or invalid'
+			self.response.write('reuse_item_ID is missing or invalid')	
+			return		
 			
+		# get key of Reuse_item from its id
+		item_key = ndb.Key('Entity', 'reuse_item_root', 'Reuse_item', int(kwargs['reuse_item_ID']))
+		
+		# check all Reuse_org entities for presence of item_key in Reuse_org.items property
+		query = entities.Reuse_org.query(ancestor = self.app.config.get('ROOT_KEY_REUSE_ORGANIZATION')).order(entities.Reuse_org.name).fetch()
+		query = [entity for entity in query if item_key in entity.items]		
+		# return results as json object		
+		output = {}
+		# create json object 
+		for entity in query:
+			output[entity.key.id()] = entity.to_dict()
+		self.response.write(json.dumps(output))
+		return
+		
 	
 		

@@ -55,6 +55,17 @@ class URI(webapp2.RequestHandler):
 		self.response.write('</ul>')					
 		self.response.write('</ul>')	
 		
+		# /reuse_org/search_by_item/<reuse_item_ID>
+		self.response.write('<li><h2>')
+		self.response.write(cgi.escape('/reuse_org/search_by_item/<reuse_item_ID>'))
+		self.response.write('</h2></li>')
+		self.response.write('<ul>')
+		self.response.write('<li><h4>HTTP GET returns JSON object with all Reuse_org entities (in alphabetical order) which have a key reference to a the queried Reuse_item entity</h4></li>')
+		self.response.write('<ul>')	
+		self.response.write('<li>reuse_item_ID - The ID portion of the Reuse_item entity\'s key</li>')		
+		self.response.write('</ul>')					
+		self.response.write('</ul>')	
+		
 		# /reuse_item
 		self.response.write('<li><h2>/reuse_item</h2></li>')
 		self.response.write('<ul>')
@@ -81,4 +92,3 @@ class URI(webapp2.RequestHandler):
 		self.response.write('</ul>')					
 		self.response.write('</ul>')					
 
-	

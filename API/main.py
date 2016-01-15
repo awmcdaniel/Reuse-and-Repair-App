@@ -23,6 +23,8 @@ app = webapp2.WSGIApplication([
 app.router.add(webapp2.Route(r'/reuse_org', 'reuse_org.Reuse_org'))
 # reuse_org DELETE
 app.router.add(webapp2.Route(r'/reuse_org/delete/<reuse_org_ID:[0-9]+>', 'reuse_org.Reuse_org'))
+# reuse_org GET
+app.router.add(webapp2.Route(r'/reuse_org/search_by_item/<reuse_item_ID:[0-9]+>', 'reuse_org.Search_by_item'))
 
 # reuse_item GET, POST, PUT
 app.router.add(webapp2.Route(r'/reuse_item', 'reuse_item.Reuse_item'))
