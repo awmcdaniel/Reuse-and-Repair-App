@@ -7,6 +7,7 @@ import entities
 from google.appengine.ext import ndb
 import re
 import json
+import datetime
 
 
 class Reuse_org(webapp2.RequestHandler):
@@ -23,7 +24,7 @@ class Reuse_org(webapp2.RequestHandler):
 		output = {}
 		# create json object 
 		for entity in query:
-			output[entity.key.id()] = entity.to_dict()
+			output[entity.name] = entity.to_dict()
 		self.response.write(json.dumps(output))
 		return
 		
@@ -87,7 +88,8 @@ class Reuse_org(webapp2.RequestHandler):
 		items = self.request.get_all('items')
 		for item in items:
 			# item will be a urlsafe key
-			new_entity.items.append(ndb.Key(urlsafe = item))	
+			new_entity.items.append(ndb.Key(urlsafe = item))
+		new_entity.created = datetime.datetime.now()
 
 		# save entity to datastore and return entity information to user
 		new_entity_key = new_entity.put()
@@ -95,8 +97,8 @@ class Reuse_org(webapp2.RequestHandler):
 		self.response.write(json.dumps(output))
 		return
 	
-	#  update an existing Reuse_org entity
-	# requires the id of the Reuse_org entity being updated (variable = reuse_org_ID)		
+	# update an existing Reuse_org entity
+	# requires the urlsafe key of the Reuse_org entity being updated (variable = reuse_org_urlsafe_key)		
 	def  put(self):
 		if 'application/json' not in self.request.accept:
 			self.response.status = 406
@@ -105,18 +107,20 @@ class Reuse_org(webapp2.RequestHandler):
 			return
 					
 		# validate reuse_org_ID and get Reuse_org entity to update
-		reuse_org_ID = self.request.get('reuse_org_ID', None)
-		if not reuse_org_ID or re.match('^[0-9]+$', reuse_org_ID) == None:
+		reuse_org_urlsafe_key = self.request.get('reuse_org_urlsafe_key', None)
+		if not reuse_org_urlsafe_key or re.match('^[0-9A-Za-z_-]+$', reuse_org_urlsafe_key) == None:
 			self.response.status = 400
-			self.response.status_message = 'reuse_org_ID is missing or invalid'
-			self.response.write( 'reuse_org_ID is missing or invalid')
+			self.response.status_message = 'reuse_org_urlsafe_key is missing or invalid'
+			self.response.write( 'reuse_org_urlsafe_key is missing or invalid')
 			return	
-		reuse_entity = ndb.Key('Entity', 'reuse_organization_root', 'Reuse_org', int(reuse_org_ID)).get()
-		if not reuse_entity:
+ 		try:
+ 			reuse_entity = ndb.Key(urlsafe = reuse_org_urlsafe_key).get()
+ 		except:
 			self.response.status = 400
 			self.response.status_message = 'reuse_org_ID is invalid'
 			self.response.write( 'reuse_org_ID is invalid')
 			return	
+		self.response.write("entity = " + str(reuse_entity))
 					
 		# update entity values and save to datastore, returning new information to user
 		# check for required name field and update entity if present
@@ -125,7 +129,7 @@ class Reuse_org(webapp2.RequestHandler):
 			self.response.status_message = 'Required field: name'
 			self.response.write('Required field: name')
 			return
-		reuse_entity.name = self.request.get('name')	
+		reuse_entity.name = self.request.get('name')
 
  		# check validity of longitude and update entity if valid
  		longitude = self.request.get('longitude', None)
@@ -167,20 +171,18 @@ class Reuse_org(webapp2.RequestHandler):
 		reuse_entity.webpage = self.request.get('webpage')
 		reuse_entity.note = self.request.get('note')
 		reuse_entity.hours = self.request.get('hours')
-		itemIDs = self.request.get_all('items')
-		reuse_entity.items = []
-		for item in itemIDs:
-			# item will be a urlsafe key		
-			reuseEntity.item.append(ndb.Key(urlsafe = item))
-		
+		reuse_entity.items = [ndb.Key(urlsafe = item) for item in self.request.get_all('items')]
+		reuse_entity.updated = datetime.datetime.now()
+		reuse_entity.updated_by = self.request.get('updated_by', 'unknown')
+	
 		# save entity and return information to user	
 		reuse_entity.put()
 		output = reuse_entity.to_dict()
 		self.response.write(json.dumps(output))
 		return		
-		
-	# delete a Reuse_org entity from the datastore
-	# requires the id of the Reuse_org entity being deleted (variable = resuse_org_ID)
+
+ 	# delete a Reuse_org entity from the datastore
+ 	# requires the urlsafe key of the Reuse_org entity being deleted (variable = resuse_org_urlsafe_key)
 	def delete(self, **kwargs):
 		if 'application/json' not in self.request.accept:
 			self.response.status = 406
@@ -188,51 +190,52 @@ class Reuse_org(webapp2.RequestHandler):
 			self.response.write('Not acceptable. API only supports application/json MIME type')
 			return
 				
-		if 'reuse_org_ID' not in kwargs:
+		if 'reuse_org_urlsafe_key' not in kwargs:
 			self.response.status = 400
-			self.response.status_message = 'reuse_org_ID is missing or invalid'
-			self.response.write('reuse_org_ID is missing or invalid')	
-			return		
+			self.response.status_message = 'reuse_org_urlsafe_key is missing or invalid'
+			self.response.write('reuse_org_urlsafe_key is missing or invalid')	
+			return	
+			
+		self.response.write("urlsafe key = "  + kwargs['reuse_org_urlsafe_key'])	
+		#key = kwargs['reuse_org_urlsafe_key']
+		#self.response.write("key = " + key)
 		
-		# get Reuse_org entity to delete
-		entity = ndb.Key('Entity', 'reuse_organization_root', 'Reuse_org', int(kwargs['reuse_org_ID'])).get()
-		if not entity:
+ 		# get Reuse_org entity to delete
+ 		try:
+ 			entity = ndb.Key(urlsafe = kwargs['reuse_org_urlsafe_key']).get()
+ 		except:
 			self.response.status = 400
-			self.response.status_message = 'Invalid reuse_org_ID'
-			self.response.write('Invalid reuse_org_ID')	
+			self.response.status_message = 'Invalid reuse_org_urlsafe_key'
+			self.response.write('Invalid reuse_org_url_key')	
 			return			
 	
 		# delete Reuse_org entity
 		entity.key.delete()
-		self.response.write('Reuse_org entity with reuse_org_ID = ' + kwargs['reuse_org_ID'] + ' was successfully deleted from the datastore')			
+		self.response.write('Reuse_org entity with reuse_org_ID = ' + kwargs['reuse_org_urlsafe_key'] + ' was successfully deleted from the datastore')			
 		return
-		
-# get Reuse_org entities containing a specific Reuse_item key reference in Reuse.org.items property
-# requires the id of the Reuse_item entity being searched (variable = reuse_item.ID)
-class Search_by_item(webapp2.RequestHandler):	
-	def get(self, **kwargs):
 
+#  get Reuse_org entities containing a specific Reuse_item key reference in Reuse.org.items property
+#  requires the urlsafe key of the Reuse_item entity being searched (variable = reuse_iitem_urlsafe_key)
+class Search_by_item(webapp2.RequestHandler):	
+ 	def get(self, **kwargs):
 		if 'application/json' not in self.request.accept:
 			self.response.status = 406
 			self.response.status_message = 'Not acceptable. API only supports application/json MIME type'
 			self.response.write('Not acceptable. API only supports application/json MIME type')
 			return
 				
-		if 'reuse_item_ID' not in kwargs:
+		if 'reuse_iitem_urlsafe_key' not in kwargs:
 			self.response.status = 400
-			self.response.status_message = 'reuse_item_ID is missing or invalid'
-			self.response.write('reuse_item_ID is missing or invalid')	
+			self.response.status_message = 'reuse_iitem_urlsafe_key is missing or invalid'
+			self.response.write('reuse_iitem_urlsafe_key is missing or invalid')	
 			return		
-			
-		# get key of Reuse_item from its id
-		item_key = ndb.Key('Entity', 'reuse_item_root', 'Reuse_item', int(kwargs['reuse_item_ID']))
-		
-		# check all Reuse_org entities for presence of item_key in Reuse_org.items property
+	
+		# check all Reuse_org entities for presence of reuse_Item's key in Reuse_org.items property
+		item_key = ndb.Key(urlsafe = kwargs['reuse_item_urlsafe_key'])
 		query = entities.Reuse_org.query(ancestor = self.app.config.get('ROOT_KEY_REUSE_ORGANIZATION')).order(entities.Reuse_org.name).fetch()
 		query = [entity for entity in query if item_key in entity.items]		
 		# return results as json object		
 		output = {}
-		# create json object 
 		for entity in query:
 			output[entity.key.id()] = entity.to_dict()
 		self.response.write(json.dumps(output))

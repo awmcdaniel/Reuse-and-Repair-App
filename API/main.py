@@ -22,11 +22,11 @@ app = webapp2.WSGIApplication([
 # reuse_org GET, POST, PUT
 app.router.add(webapp2.Route(r'/reuse_org', 'reuse_org.Reuse_org'))
 # reuse_org DELETE
-app.router.add(webapp2.Route(r'/reuse_org/delete/<reuse_org_ID:[0-9]+>', 'reuse_org.Reuse_org'))
+app.router.add(webapp2.Route(r'/reuse_org/delete/<reuse_org_urlsafe_key:[0-9A-Za-z_-]+>', 'reuse_org.Reuse_org'))
 # reuse_org GET
 app.router.add(webapp2.Route(r'/reuse_org/search_by_item/<reuse_item_ID:[0-9]+>', 'reuse_org.Search_by_item'))
 
 # reuse_item GET, POST, PUT
 app.router.add(webapp2.Route(r'/reuse_item', 'reuse_item.Reuse_item'))
 # reuse_item DELETE
-app.router.add(webapp2.Route(r'/reuse_item/delete/<reuse_item_ID:[0-9]+>', 'reuse_item.Reuse_item'))
+app.router.add(webapp2.Route(r'/reuse_item/delete/<reuse_item_urlsafe_key:[0-9A-Za-z_-]+>', 'reuse_item.Reuse_item'))
