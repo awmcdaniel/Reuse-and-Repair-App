@@ -1,4 +1,5 @@
 ## PHP API  
+---
   
 
 #### ItemCategories  
@@ -32,7 +33,8 @@
 
 
 #### Organizations
->**param:** name*, org_type (int), name, street1, street2, city, state, zip, webpage, phone, notes,  
+>**param:** name*, org_type (int), name, street1, street2, city, state, zip, webpage, phone, notes  
+>**other notes:**   all varchar except for org_type; org_type must be an id of itemtypes {reuse | repair}
 >###### ```GET``` /organizations
 >###### ```GET``` /organization/{id}
 >###### ```POST``` /organization
