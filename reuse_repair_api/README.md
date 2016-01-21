@@ -3,7 +3,7 @@
 ###### ```BASE URL``` 	/api   
 ###### ```EXAMPLE ``` 	GET localhost:8080/api/item/2  
 
-![Alt text](/images/get_example.PNG?raw=true "Optional Title")
+![Alt text](https://raw.githubusercontent.com/awmcdaniel/Reuse-and-Repair-App/master/reuse_repair_api/images/get_example.PNG)
 
   
 #### ItemCategories  
