@@ -28,7 +28,7 @@ CREATE TABLE UserRoles (
 );
 
 CREATE TABLE ItemType (
-	id 			int PRIMARY KEY,
+	id 			int AUTO_INCREMENT PRIMARY KEY,
 	description	varchar(255)
 );
 
