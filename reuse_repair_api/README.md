@@ -3,7 +3,7 @@
 ###### ```BASE URL``` 	/api   
 ###### ```EXAMPLE ``` 	GET localhost:8080/api/item/2  
 
-![GET_EXAMPLE](images/get_example.png)  
+![GET_EXAMPLE](/images/get_example.png)  
 
   
 #### ItemCategories  
