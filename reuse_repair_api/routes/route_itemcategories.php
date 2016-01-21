@@ -4,7 +4,7 @@
 LIST ALL
 =========================================================================== */
 
-$app->get('/itemcategories', function () use ($app, $db) {
+$app->get('/api/itemcategories', function () use ($app, $db) {
 
     $results = array();
 
@@ -22,7 +22,7 @@ $app->get('/itemcategories', function () use ($app, $db) {
 /* ===========================================================================
 LIST ONE
 =========================================================================== */
-$app->get('/itemcategory/:id', function ($id) use ($app, $db) {
+$app->get('/api/itemcategory/:id', function ($id) use ($app, $db) {
 
     $app->response()->header("Content-Type", "application/json");
 
@@ -49,7 +49,7 @@ $app->get('/itemcategory/:id', function ($id) use ($app, $db) {
 /* ===========================================================================
 INSERT ONE
 =========================================================================== */
-$app->post('/itemcategory', function () use ($app, $db) {
+$app->post('/api/itemcategory', function () use ($app, $db) {
     $app->response()->header("Content-Type", "application/json");
 
     //check if data already exist
@@ -94,7 +94,7 @@ $app->post('/itemcategory', function () use ($app, $db) {
 /* ===========================================================================
 UPDATE ONE
 =========================================================================== */
-$app->put('/itemcategory/:id', function ($id) use ($app, $db) {
+$app->put('/api/itemcategory/:id', function ($id) use ($app, $db) {
 
     $app->response()->header("Content-Type", "application/json");
 
@@ -127,7 +127,7 @@ $app->put('/itemcategory/:id', function ($id) use ($app, $db) {
 DELETE ONE
 =========================================================================== */
 
-$app->delete('/itemcategory/:id', function ($id) use ($app, $db) {
+$app->delete('/api/itemcategory/:id', function ($id) use ($app, $db) {
     $app->response()->header("Content-Type", "application/json");
 
     $query = $db->itemcategories()->where('id', $id);

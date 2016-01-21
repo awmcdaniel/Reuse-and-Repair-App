@@ -1,32 +1,45 @@
 <?php
 
+$rules_org = array(
+    'name'     => 'required|alpha_numeric|max_len,254',
+    'service'  => 'numeric',
+    'street_1' => 'street_address|max_len,254',
+    'street_2' => 'street_address|max_len,254',
+    'city'     => 'alpha_space',
+    'state'    => 'alpha|exact_len,2',
+    'zip_code' => 'numeric|max_len,11',
+    'webpage'  => 'valid_url',
+    'phone'    => 'phone_number',
+    //'notes'    => '',
+);
+
 /* ===========================================================================
 LIST ALL
 =========================================================================== */
 
-$app->get('/organizations', function () use ($app, $db) {
+$app->get('/api/organizations', function () use ($app, $db) {
     $results = array();
     foreach ($db->organizations() as $row) {
 
         $org_type = null;
 
         $query = $db->itemtype->where('id', intval($row['org_type']));
-        if($data = $query->fetch()) {
+        if ($data = $query->fetch()) {
             $org_type = $data['description'];
         }
 
         $results[] = array(
-            'id'        => $row['id'],
-            'name'      => $row['name'],
-            'service'   => $org_type,
-            'street_1'  => $row['street1'],
-            'street_2'  => $row['street2'],
-            'city'      => $row['city'],
-            'state'     => $row['state'],
-            'zip_code'  => $row['zip'],
-            'webpage'   => $row['webpage'],
-            'phone'     => $row['phone'],
-            'notes'     => $row['notes'],
+            'id'       => $row['id'],
+            'name'     => $row['name'],
+            'service'  => $org_type,
+            'street_1' => $row['street1'],
+            'street_2' => $row['street2'],
+            'city'     => $row['city'],
+            'state'    => $row['state'],
+            'zip_code' => $row['zip'],
+            'webpage'  => $row['webpage'],
+            'phone'    => $row['phone'],
+            'notes'    => $row['notes'],
         );
     }
 
@@ -34,12 +47,11 @@ $app->get('/organizations', function () use ($app, $db) {
     echo json_encode(["data" => $results]);
 });
 
-
 /* ===========================================================================
 LIST ONE
 =========================================================================== */
 
-$app->get('/organizations/:id', function ($id) use ($app, $db) {
+$app->get('/api/organizations/:id', function ($id) use ($app, $db) {
 
     $app->response()->header("Content-Type", "application/json");
 
@@ -47,24 +59,24 @@ $app->get('/organizations/:id', function ($id) use ($app, $db) {
     if ($row = $query->fetch()) {
 
         //get the type as text instead of id
-        $org_type = null;
+        $org_type   = null;
         $type_query = $db->itemtype->where('id', intval($row['org_type']));
-        if($data = $type_query->fetch()) {
+        if ($data = $type_query->fetch()) {
             $org_type = $data['description'];
         }
 
         $results = array(
-            'id'        => $row['id'],
-            'name'      => $row['name'],
-            'service'   => $org_type,
-            'street_1'  => $row['street1'],
-            'street_2'  => $row['street2'],
-            'city'      => $row['city'],
-            'state'     => $row['state'],
-            'zip_code'  => $row['zip'],
-            'webpage'   => $row['webpage'],
-            'phone'     => $row['phone'],
-            'notes'     => $row['notes'],
+            'id'       => $row['id'],
+            'name'     => $row['name'],
+            'service'  => $org_type,
+            'street_1' => $row['street1'],
+            'street_2' => $row['street2'],
+            'city'     => $row['city'],
+            'state'    => $row['state'],
+            'zip_code' => $row['zip'],
+            'webpage'  => $row['webpage'],
+            'phone'    => $row['phone'],
+            'notes'    => $row['notes'],
         );
 
         echo json_encode(["data" => $results]);
@@ -82,13 +94,13 @@ $app->get('/organizations/:id', function ($id) use ($app, $db) {
 /* ===========================================================================
 INSERT ONE
 =========================================================================== */
-$app->post('/organization', function () use ($app, $db) {
+$app->post('/api/organization', function () use ($app, $db) {
     $app->response()->header("Content-Type", "application/json");
-    
+
     //check if data already exist
-    $name = $app->request()->post('name');
+    $name    = $app->request()->post('name');
     $street1 = $app->request()->post('street1');
-    $zip = $app->request()->post('zip');
+    $zip     = $app->request()->post('zip');
 
     $query = $db->organizations()->where('name=? AND street1=? AND zip=?', $name, $street1, $zip);
     if ($data = $query->fetch()) {
@@ -102,29 +114,29 @@ $app->post('/organization', function () use ($app, $db) {
 
         //no duplicate found
         $post_data = $app->request()->post();
-        $result = $db->organizations->insert($post_data); //returns the index where it was inserted
+        $result    = $db->organizations->insert($post_data); //returns the index where it was inserted
 
         $query = $db->organizations()->where('id', $result);
         if ($row = $query->fetch()) {
             //get the type as text instead of id
-            $org_type = null;
+            $org_type   = null;
             $type_query = $db->itemtype->where('id', intval($row['org_type']));
-            if($data = $type_query->fetch()) {
+            if ($data = $type_query->fetch()) {
                 $org_type = $data['description'];
             }
 
             $results = array(
-                'id'        => $row['id'],
-                'name'      => $row['name'],
-                'service'   => $org_type,
-                'street_1'  => $row['street1'],
-                'street_2'  => $row['street2'],
-                'city'      => $row['city'],
-                'state'     => $row['state'],
-                'zip_code'  => $row['zip'],
-                'webpage'   => $row['webpage'],
-                'phone'     => $row['phone'],
-                'notes'     => $row['notes'],
+                'id'       => $row['id'],
+                'name'     => $row['name'],
+                'service'  => $org_type,
+                'street_1' => $row['street1'],
+                'street_2' => $row['street2'],
+                'city'     => $row['city'],
+                'state'    => $row['state'],
+                'zip_code' => $row['zip'],
+                'webpage'  => $row['webpage'],
+                'phone'    => $row['phone'],
+                'notes'    => $row['notes'],
             );
 
             echo json_encode(["message" => "Successfull insertion to DB.", "data" => $results]);
@@ -139,14 +151,12 @@ $app->post('/organization', function () use ($app, $db) {
         }
     }
 
-    
 });
-
 
 /* ===========================================================================
 UPDATE ONE
 =========================================================================== */
-$app->put('/organization/:id', function($id) use($app, $db){
+$app->put('/api/organization/:id', function ($id) use ($app, $db) {
 
     $app->response()->header("Content-Type", "application/json");
 
@@ -155,28 +165,28 @@ $app->put('/organization/:id', function($id) use($app, $db){
     if ($row = $query->fetch()) {
 
         $post_data = $app->request()->put();
-        $result = $query->update($post_data); //result = true/false
+        $result    = $query->update($post_data); //result = true/false
 
         //get the type as text instead of id
-        $row = $db->organizations()->where("id", intval($id))->fetch();
-        $org_type = null;
+        $row        = $db->organizations()->where("id", intval($id))->fetch();
+        $org_type   = null;
         $type_query = $db->itemtype->where('id', intval($row['org_type']));
-        if($data = $type_query->fetch()) {
+        if ($data = $type_query->fetch()) {
             $org_type = $data['description'];
         }
 
         $results = array(
-            'id'        => $row['id'],
-            'name'      => $row['name'],
-            'service'   => $org_type,
-            'street_1'  => $row['street1'],
-            'street_2'  => $row['street2'],
-            'city'      => $row['city'],
-            'state'     => $row['state'],
-            'zip_code'  => $row['zip'],
-            'webpage'   => $row['webpage'],
-            'phone'     => $row['phone'],
-            'notes'     => $row['notes'],
+            'id'       => $row['id'],
+            'name'     => $row['name'],
+            'service'  => $org_type,
+            'street_1' => $row['street1'],
+            'street_2' => $row['street2'],
+            'city'     => $row['city'],
+            'state'    => $row['state'],
+            'zip_code' => $row['zip'],
+            'webpage'  => $row['webpage'],
+            'phone'    => $row['phone'],
+            'notes'    => $row['notes'],
         );
 
         echo json_encode(["message" => "Successfull insertion to DB.", "data" => $results]);
@@ -195,24 +205,21 @@ $app->put('/organization/:id', function($id) use($app, $db){
 DELETE ONE
 =========================================================================== */
 
-$app->delete('/organization/:id', function($id) use($app, $db){
+$app->delete('/api/organization/:id', function ($id) use ($app, $db) {
     $app->response()->header("Content-Type", "application/json");
 
     $query = $db->organizations()->where('id', $id);
-    if($query->fetch()){
+    if ($query->fetch()) {
         $result = $query->delete();
         echo json_encode(array(
-            "status" => true,
-            "message" => "Organization deleted successfully"
+            "status"  => true,
+            "message" => "Organization deleted successfully",
         ));
     } else {
         $app->response()->setStatus(404);
         echo json_encode(array(
-            "status" => 404,
-            "message" => "Organization id $id does not exist"
+            "status"  => 404,
+            "message" => "Organization id $id does not exist",
         ));
     }
 });
-
-
-

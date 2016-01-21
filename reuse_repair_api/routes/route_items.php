@@ -4,7 +4,7 @@
 LIST ALL
 =========================================================================== */
 
-$app->get('/items', function () use ($app, $db) {
+$app->get('/api/items', function () use ($app, $db) {
     $app->response()->header("Content-Type", "application/json");
 
     $result = array();
@@ -44,7 +44,7 @@ $app->get('/items', function () use ($app, $db) {
 /* ===========================================================================
 LIST ONE
 =========================================================================== */
-$app->get('/item/:id', function ($id) use ($app, $db) {
+$app->get('/api/item/:id', function ($id) use ($app, $db) {
     $app->response()->header("Content-Type", "application/json");
 
     $query = $db->items()->where('id', intval($id));
@@ -91,7 +91,7 @@ $app->get('/item/:id', function ($id) use ($app, $db) {
 /* ===========================================================================
 INSERT ONE
 =========================================================================== */
-$app->post('/item', function () use ($app, $db) {
+$app->post('/api/item', function () use ($app, $db) {
     $app->response()->header("Content-Type", "application/json");
 
     //check if data already exist
@@ -157,7 +157,7 @@ $app->post('/item', function () use ($app, $db) {
 /* ===========================================================================
 UPDATE ONE
 =========================================================================== */
-$app->put('/item/:id', function ($id) use ($app, $db) {
+$app->put('/api/item/:id', function ($id) use ($app, $db) {
 
     $app->response()->header("Content-Type", "application/json");
 
@@ -212,7 +212,7 @@ $app->put('/item/:id', function ($id) use ($app, $db) {
 DELETE ONE
 =========================================================================== */
 
-$app->delete('/item/:id', function ($id) use ($app, $db) {
+$app->delete('/api/item/:id', function ($id) use ($app, $db) {
     $app->response()->header("Content-Type", "application/json");
 
     $query = $db->items()->where('id', $id);
