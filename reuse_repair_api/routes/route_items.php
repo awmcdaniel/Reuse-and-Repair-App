@@ -3,7 +3,7 @@
 /* ===========================================================================
 LIST ALL
 =========================================================================== */
-$items_list = function () use ($app, $db) {
+$items_listAll = function () use ($app, $db) {
     $app->response()->header("Content-Type", "application/json");
 
     $result = array();
@@ -45,7 +45,7 @@ $items_list = function () use ($app, $db) {
 LIST ONE
 =========================================================================== */
 
-$GET_item_by_id = function ($id) use ($app, $db) {
+$items_listOne = function ($id) use ($app, $db) {
     $app->response()->header("Content-Type", "application/json");
 
     $query = $db->items()->where('id', intval($id));
@@ -93,7 +93,7 @@ $GET_item_by_id = function ($id) use ($app, $db) {
 INSERT ONE
 =========================================================================== */
 
-$POST_item = function () use ($app, $db) {
+$items_insert = function () use ($app, $db) {
     $app->response()->header("Content-Type", "application/json");
 
     //check if data already exist
@@ -159,7 +159,7 @@ $POST_item = function () use ($app, $db) {
 /* ===========================================================================
 UPDATE ONE
 =========================================================================== */
-$UPDATE_item_by_id = function ($id) use ($app, $db) {
+$items_update = function ($id) use ($app, $db) {
 
     $app->response()->header("Content-Type", "application/json");
 
@@ -212,7 +212,7 @@ $UPDATE_item_by_id = function ($id) use ($app, $db) {
 /* ===========================================================================
 DELETE ONE
 =========================================================================== */
-$DELETE_item_by_id = function ($id) use ($app, $db) {
+$items_delete = function ($id) use ($app, $db) {
     $app->response()->header("Content-Type", "application/json");
 
     $query = $db->items()->where('id', $id);

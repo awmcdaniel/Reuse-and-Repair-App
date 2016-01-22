@@ -1,23 +1,10 @@
 <?php
 
-$rules_org = array(
-    'name'     => 'required|alpha_numeric|max_len,254',
-    'service'  => 'numeric',
-    'street_1' => 'street_address|max_len,254',
-    'street_2' => 'street_address|max_len,254',
-    'city'     => 'alpha_space',
-    'state'    => 'alpha|exact_len,2',
-    'zip_code' => 'numeric|max_len,11',
-    'webpage'  => 'valid_url',
-    'phone'    => 'phone_number',
-    //'notes'    => '',
-);
-
 /* ===========================================================================
 LIST ALL
 =========================================================================== */
 
-$app->get('/api/organizations', function () use ($app, $db) {
+$organizations_listAll = function () use ($app, $db) {
     $results = array();
     foreach ($db->organizations() as $row) {
 
@@ -45,13 +32,14 @@ $app->get('/api/organizations', function () use ($app, $db) {
 
     $app->response()->header("Content-Type", "application/json");
     echo json_encode(["data" => $results]);
-});
+};
+
 
 /* ===========================================================================
 LIST ONE
 =========================================================================== */
 
-$app->get('/api/organizations/:id', function ($id) use ($app, $db) {
+$organizations_listOne = function ($id) use ($app, $db) {
 
     $app->response()->header("Content-Type", "application/json");
 
@@ -89,12 +77,14 @@ $app->get('/api/organizations/:id', function ($id) use ($app, $db) {
             'message' => "Organizations ID=$id was not found in server",
         ]);
     }
-});
+};
+
 
 /* ===========================================================================
 INSERT ONE
 =========================================================================== */
-$app->post('/api/organization', function () use ($app, $db) {
+
+$organizations_insert = function () use ($app, $db) {
     $app->response()->header("Content-Type", "application/json");
 
     //check if data already exist
@@ -151,12 +141,13 @@ $app->post('/api/organization', function () use ($app, $db) {
         }
     }
 
-});
+};
 
 /* ===========================================================================
 UPDATE ONE
 =========================================================================== */
-$app->put('/api/organization/:id', function ($id) use ($app, $db) {
+
+$organizations_update = function ($id) use ($app, $db) {
 
     $app->response()->header("Content-Type", "application/json");
 
@@ -199,13 +190,13 @@ $app->put('/api/organization/:id', function ($id) use ($app, $db) {
             'message' => "Organizations ID=$id was not found in server",
         ]);
     }
-});
+};
 
 /* ===========================================================================
 DELETE ONE
 =========================================================================== */
 
-$app->delete('/api/organization/:id', function ($id) use ($app, $db) {
+$organizations_delete = function ($id) use ($app, $db) {
     $app->response()->header("Content-Type", "application/json");
 
     $query = $db->organizations()->where('id', $id);
@@ -222,4 +213,4 @@ $app->delete('/api/organization/:id', function ($id) use ($app, $db) {
             "message" => "Organization id $id does not exist",
         ));
     }
-});
+};

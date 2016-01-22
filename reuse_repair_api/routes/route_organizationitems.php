@@ -4,7 +4,7 @@
 LIST ALL
 =========================================================================== */
 
-$app->get('/api/organizationitems', function () use ($app, $db) {
+$organizationItems_listAll = function () use ($app, $db) {
     $results = array();
     foreach ($db->organizationitems() as $row) {
 
@@ -31,13 +31,13 @@ $app->get('/api/organizationitems', function () use ($app, $db) {
 
     $app->response()->header("Content-Type", "application/json");
     echo json_encode(["data" => $results]);
-});
+};
 
 /* ===========================================================================
 LIST ONE
 =========================================================================== */
 
-$app->get('/api/organizationitem/:id', function ($id) use ($app, $db) {
+$organizationItems_listOne = function ($id) use ($app, $db) {
 
     $app->response()->header("Content-Type", "application/json");
 
@@ -71,12 +71,13 @@ $app->get('/api/organizationitem/:id', function ($id) use ($app, $db) {
             'message' => "OrganizationItem ID=$id was not found in server",
         ]);
     }
-});
+};
 
 /* ===========================================================================
 INSERT ONE
 =========================================================================== */
-$app->post('/api/organizationitem', function () use ($app, $db) {
+
+$organizationItems_insert = function () use ($app, $db) {
     $app->response()->header("Content-Type", "application/json");
 
     //get the parameters
@@ -145,12 +146,13 @@ $app->post('/api/organizationitem', function () use ($app, $db) {
     
 
 
-});
+};
 
 /* ===========================================================================
 UPDATE ONE
 =========================================================================== */
-$app->put('/api/organizationitem/:id', function ($id) use ($app, $db) {
+
+$organizationItems_update = function ($id) use ($app, $db) {
 
     $app->response()->header("Content-Type", "application/json");
 
@@ -189,13 +191,13 @@ $app->put('/api/organizationitem/:id', function ($id) use ($app, $db) {
             'message' => "OrganizationItem ID=$id was not found in server",
         ]);
     }
-});
+};
 
 /* ===========================================================================
 DELETE ONE
 =========================================================================== */
 
-$app->delete('/api/organizationitem/:id', function ($id) use ($app, $db) {
+$organizationItems_delete = function ($id) use ($app, $db) {
     $app->response()->header("Content-Type", "application/json");
 
     $query = $db->organizationitems()->where('id', $id);
@@ -212,4 +214,4 @@ $app->delete('/api/organizationitem/:id', function ($id) use ($app, $db) {
             "message" => "OrganizationItem id=$id does not exist",
         ));
     }
-});
+};

@@ -1,12 +1,10 @@
 <?php
 
-
-
 /* ===========================================================================
 LIST ALL
 =========================================================================== */
 
-$GET_ItemCategories = function () use ($app, $db) {
+$itemcategories_listAll = function () use ($app, $db) {
 
     $results = array();
 
@@ -25,7 +23,7 @@ $GET_ItemCategories = function () use ($app, $db) {
 LIST ONE
 =========================================================================== */
 
-$GET_ItemCategoryById = function ($id) use ($app, $db) {
+$itemcategories_listOne = function ($id) use ($app, $db) {
 
     $app->response()->header("Content-Type", "application/json");
 
@@ -53,7 +51,7 @@ $GET_ItemCategoryById = function ($id) use ($app, $db) {
 INSERT ONE
 =========================================================================== */
 
-$POST_InsertItemCategory = function () use ($app, $db) {
+$itemcategories_insert = function () use ($app, $db) {
     $app->response()->header("Content-Type", "application/json");
 
     //check if data already exist
@@ -98,7 +96,7 @@ $POST_InsertItemCategory = function () use ($app, $db) {
 /* ===========================================================================
 UPDATE ONE
 =========================================================================== */
-$PUT_ItemCategory = function ($id) use ($app, $db) {
+$itemcategories_update = function ($id) use ($app, $db) {
 
     $app->response()->header("Content-Type", "application/json");
 
@@ -131,7 +129,7 @@ $PUT_ItemCategory = function ($id) use ($app, $db) {
 DELETE ONE
 =========================================================================== */
 
-$DELETE_ItemCategoryById = function ($id) use ($app, $db) {
+$itemcategories_delete = function ($id) use ($app, $db) {
     $app->response()->header("Content-Type", "application/json");
 
     $query = $db->itemcategories()->where('id', $id);

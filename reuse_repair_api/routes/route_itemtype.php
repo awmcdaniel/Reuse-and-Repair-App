@@ -3,7 +3,7 @@
 /* ===========================================================================
 LIST ALL
 =========================================================================== */
-$itemtype_list = function () use ($app, $db) {
+$itemtypes_listAll = function () use ($app, $db) {
     $itemtypes = array();
     foreach ($db->itemtype() as $item) {
         $itemtypes[] = array(
@@ -18,7 +18,7 @@ $itemtype_list = function () use ($app, $db) {
 /* ===========================================================================
 LIST ONE
 =========================================================================== */
-$itemtype_list_by_id = function ($id) use ($app, $db) {
+$itemtypes_listOne = function ($id) use ($app, $db) {
 
     $app->response()->header("Content-Type", "application/json");
 
@@ -43,7 +43,7 @@ $itemtype_list_by_id = function ($id) use ($app, $db) {
 /* ===========================================================================
 INSERT ONE
 =========================================================================== */
-$itemtype_add = function () use ($app, $db) {
+$itemtypes_insert = function () use ($app, $db) {
     $app->response()->header("Content-Type", "application/json");
     $description = $app->request()->post('description');
 
@@ -73,7 +73,7 @@ $itemtype_add = function () use ($app, $db) {
 /* ===========================================================================
 UPDATE ONE
 =========================================================================== */
-$itemtype_update_by_id = function ($id) use ($app, $db) {
+$itemtypes_update = function ($id) use ($app, $db) {
 
     $app->response()->header("Content-Type", "application/json");
 
@@ -106,7 +106,7 @@ $itemtype_update_by_id = function ($id) use ($app, $db) {
 /* ===========================================================================
 DELETE ONE
 =========================================================================== */
-$itemtype_delete = function ($id) use ($app, $db) {
+$itemtypes_delete = function ($id) use ($app, $db) {
     $app->response()->header("Content-Type", "application/json");
 
     $query = $db->itemtype()->where('id', $id);
