@@ -72,13 +72,9 @@ CREATE TABLE Items (
 );
 
 CREATE TABLE OrganizationItems (
+	id 			int AUTO_INCREMENT PRIMARY KEY,
 	org_id		int NOT NULL,
 	item_id		int NOT NULL,
-	CONSTRAINT PK_OrganizationItems PRIMARY KEY 
-	(
-		org_id,
-		item_id
-	),
 	FOREIGN KEY (org_id) REFERENCES Organizations (id),
 	FOREIGN KEY (item_id) REFERENCES Items (id)
 );

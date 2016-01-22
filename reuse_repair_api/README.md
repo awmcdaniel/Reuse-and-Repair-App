@@ -1,6 +1,7 @@
 ## PHP API  
 
 ###### ```BASE URL``` 	localhost/api   
+###### ```EXAMPLE ``` 	GET localhost/api/items/2  
 
 #### ItemCategories  
 > **param:** description (varchar, required)  
@@ -37,3 +38,12 @@
 >###### ```POST``` 		/organization
 >###### ```PUT``` 		/organization/{id}
 >###### ```DELETE``` 	/organization/{id} 
+
+#### OrganizationItems
+>**param:** org_id(int), item_id (int)  
+>**other notes:**   org_id is an id of an Organization entity. item_id is an id of an Item entity.  
+>###### ```GET``` 		/organizationitems  
+>###### ```GET``` 		/organizationitem/{id}  
+>###### ```POST``` 		/organizationitem  
+>###### ```PUT``` 		/organizationitem/{id}  
+>###### ```DELETE``` 	/organizationitem/{id}   
