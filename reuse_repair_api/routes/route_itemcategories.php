@@ -1,10 +1,12 @@
 <?php
 
+
+
 /* ===========================================================================
 LIST ALL
 =========================================================================== */
 
-$app->get('/api/itemcategories', function () use ($app, $db) {
+$GET_ItemCategories = function () use ($app, $db) {
 
     $results = array();
 
@@ -17,12 +19,13 @@ $app->get('/api/itemcategories', function () use ($app, $db) {
 
     $app->response()->header("Content-Type", "application/json");
     echo json_encode(["data" => $results]);
-});
+};
 
 /* ===========================================================================
 LIST ONE
 =========================================================================== */
-$app->get('/api/itemcategory/:id', function ($id) use ($app, $db) {
+
+$GET_ItemCategoryById = function ($id) use ($app, $db) {
 
     $app->response()->header("Content-Type", "application/json");
 
@@ -44,12 +47,13 @@ $app->get('/api/itemcategory/:id', function ($id) use ($app, $db) {
             'message' => "Organizations ID=$id was not found in server",
         ]);
     }
-});
+};
 
 /* ===========================================================================
 INSERT ONE
 =========================================================================== */
-$app->post('/api/itemcategory', function () use ($app, $db) {
+
+$POST_InsertItemCategory = function () use ($app, $db) {
     $app->response()->header("Content-Type", "application/json");
 
     //check if data already exist
@@ -89,12 +93,12 @@ $app->post('/api/itemcategory', function () use ($app, $db) {
         }
     }
 
-});
+};
 
 /* ===========================================================================
 UPDATE ONE
 =========================================================================== */
-$app->put('/api/itemcategory/:id', function ($id) use ($app, $db) {
+$PUT_ItemCategory = function ($id) use ($app, $db) {
 
     $app->response()->header("Content-Type", "application/json");
 
@@ -121,13 +125,13 @@ $app->put('/api/itemcategory/:id', function ($id) use ($app, $db) {
             'message' => "Item category ID=$id was not found in server",
         ]);
     }
-});
+};
 
 /* ===========================================================================
 DELETE ONE
 =========================================================================== */
 
-$app->delete('/api/itemcategory/:id', function ($id) use ($app, $db) {
+$DELETE_ItemCategoryById = function ($id) use ($app, $db) {
     $app->response()->header("Content-Type", "application/json");
 
     $query = $db->itemcategories()->where('id', $id);
@@ -144,4 +148,4 @@ $app->delete('/api/itemcategory/:id', function ($id) use ($app, $db) {
             "message" => "Item category id $id does not exist",
         ));
     }
-});
+};

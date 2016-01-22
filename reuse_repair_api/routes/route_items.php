@@ -3,8 +3,7 @@
 /* ===========================================================================
 LIST ALL
 =========================================================================== */
-
-$app->get('/api/items', function () use ($app, $db) {
+$items_list = function () use ($app, $db) {
     $app->response()->header("Content-Type", "application/json");
 
     $result = array();
@@ -39,12 +38,14 @@ $app->get('/api/items', function () use ($app, $db) {
     }
 
     echo json_encode(["data" => $result]);
-});
+};
+
 
 /* ===========================================================================
 LIST ONE
 =========================================================================== */
-$app->get('/api/item/:id', function ($id) use ($app, $db) {
+
+$GET_item_by_id = function ($id) use ($app, $db) {
     $app->response()->header("Content-Type", "application/json");
 
     $query = $db->items()->where('id', intval($id));
@@ -86,12 +87,13 @@ $app->get('/api/item/:id', function ($id) use ($app, $db) {
             'message' => "Items ID=$id was not found in server",
         ));
     }
-});
+};
 
 /* ===========================================================================
 INSERT ONE
 =========================================================================== */
-$app->post('/api/item', function () use ($app, $db) {
+
+$POST_item = function () use ($app, $db) {
     $app->response()->header("Content-Type", "application/json");
 
     //check if data already exist
@@ -152,12 +154,12 @@ $app->post('/api/item', function () use ($app, $db) {
         }
     }
 
-});
+};
 
 /* ===========================================================================
 UPDATE ONE
 =========================================================================== */
-$app->put('/api/item/:id', function ($id) use ($app, $db) {
+$UPDATE_item_by_id = function ($id) use ($app, $db) {
 
     $app->response()->header("Content-Type", "application/json");
 
@@ -205,14 +207,12 @@ $app->put('/api/item/:id', function ($id) use ($app, $db) {
             'message' => "Item ID=$id was not found in server",
         ]);
     }
-});
-
+};
 
 /* ===========================================================================
 DELETE ONE
 =========================================================================== */
-
-$app->delete('/api/item/:id', function ($id) use ($app, $db) {
+$DELETE_item_by_id = function ($id) use ($app, $db) {
     $app->response()->header("Content-Type", "application/json");
 
     $query = $db->items()->where('id', $id);
@@ -229,4 +229,4 @@ $app->delete('/api/item/:id', function ($id) use ($app, $db) {
             "message" => "Item id $id does not exist",
         ));
     }
-});
+};

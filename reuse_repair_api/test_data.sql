@@ -10,23 +10,6 @@ CREATE TABLE Users (
 	auth_level	SMALLINT
 );
 
-CREATE TABLE Roles (
-	id			int AUTO_INCREMENT PRIMARY KEY,
-	description	varchar(255)
-);
-
-CREATE TABLE UserRoles (
-	user_id		int NOT NULL,
-	role_id		int NOT NULL,
-	CONSTRAINT PK_UserRoles PRIMARY KEY 
-	(
-		user_id,
-		role_id
-	),
-	FOREIGN KEY (user_id) REFERENCES users (id),
-	FOREIGN KEY (role_id) REFERENCES roles (id)
-);
-
 CREATE TABLE ItemType (
 	id 			int AUTO_INCREMENT PRIMARY KEY,
 	description	varchar(255)
@@ -44,8 +27,6 @@ CREATE TABLE Organizations (
 	webpage		varchar(255),
 	phone		varchar(255),
 	notes		varchar(255),
-	longtitude	decimal(65,30),
-	latitude	decimal(65,30),
 	created_at	datetime,
 	updated_at	timestamp DEFAULT CURRENT_TIMESTAMP,
 	updated_by	int,
@@ -79,16 +60,6 @@ CREATE TABLE OrganizationItems (
 	FOREIGN KEY (item_id) REFERENCES Items (id)
 );
 
-
-/* ========================================================================
-	TEST DATA: User Roles
-   ======================================================================== */
-INSERT INTO 
-	Roles (description)
-VALUES 
-	("Normal"),
-	("SuperUser"),
-	("Admin");
 
 /* ========================================================================
 	TEST DATA: Users

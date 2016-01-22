@@ -3,8 +3,7 @@
 /* ===========================================================================
 LIST ALL
 =========================================================================== */
-
-$app->get('/api/itemtypes', function () use ($app, $db) {
+$itemtype_list = function () use ($app, $db) {
     $itemtypes = array();
     foreach ($db->itemtype() as $item) {
         $itemtypes[] = array(
@@ -14,12 +13,12 @@ $app->get('/api/itemtypes', function () use ($app, $db) {
     }
     $app->response()->header("Content-Type", "application/json");
     echo json_encode(["data" => $itemtypes]);
-});
+};
 
 /* ===========================================================================
 LIST ONE
 =========================================================================== */
-$app->get('/api/itemtype/:id', function ($id) use ($app, $db) {
+$itemtype_list_by_id = function ($id) use ($app, $db) {
 
     $app->response()->header("Content-Type", "application/json");
 
@@ -38,12 +37,13 @@ $app->get('/api/itemtype/:id', function ($id) use ($app, $db) {
             'message' => "Itemtypes ID=$id was not found in server",
         ));
     }
-});
+};
+
 
 /* ===========================================================================
 INSERT ONE
 =========================================================================== */
-$app->post('/api/itemtype', function () use ($app, $db) {
+$itemtype_add = function () use ($app, $db) {
     $app->response()->header("Content-Type", "application/json");
     $description = $app->request()->post('description');
 
@@ -68,12 +68,12 @@ $app->post('/api/itemtype', function () use ($app, $db) {
 
         echo json_encode(["message" => "successfull insert", "data" => $results]);
     }
-});
+};
 
 /* ===========================================================================
 UPDATE ONE
 =========================================================================== */
-$app->put('/api/itemtype/:id', function ($id) use ($app, $db) {
+$itemtype_update_by_id = function ($id) use ($app, $db) {
 
     $app->response()->header("Content-Type", "application/json");
 
@@ -100,13 +100,13 @@ $app->put('/api/itemtype/:id', function ($id) use ($app, $db) {
             'message' => "Item ID=$id was not found in server",
         ]);
     }
-});
+};
+
 
 /* ===========================================================================
 DELETE ONE
 =========================================================================== */
-
-$app->delete('/api/itemtype/:id', function ($id) use ($app, $db) {
+$itemtype_delete = function ($id) use ($app, $db) {
     $app->response()->header("Content-Type", "application/json");
 
     $query = $db->itemtype()->where('id', $id);
@@ -123,4 +123,4 @@ $app->delete('/api/itemtype/:id', function ($id) use ($app, $db) {
             "message" => "Item id $id does not exist",
         ));
     }
-});
+};
