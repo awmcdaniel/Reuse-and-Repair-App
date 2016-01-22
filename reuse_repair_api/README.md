@@ -1,8 +1,11 @@
 ## PHP API  
 
-###### ```BASE URL``` 	localhost/api   
-###### ```EXAMPLE ``` 	GET localhost/api/items/2  
+###### ```BASE URL``` 	/api   
+###### ```EXAMPLE ``` 	GET localhost:8080/api/item/2  
 
+![GET_EXAMPLE](images/get_example.png)  
+
+  
 #### ItemCategories  
 > **param:** description (varchar, required)  
 >###### ```GET``` 		/itemcategories 
