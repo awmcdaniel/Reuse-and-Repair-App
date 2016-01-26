@@ -4,20 +4,20 @@ USE test_api;
 
 
 CREATE TABLE Users (
-	id 			int AUTO_INCREMENT PRIMARY KEY,
+	id 			int UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	f_name		varchar(255),
 	l_name		varchar(255),
 	auth_level	SMALLINT
 );
 
 CREATE TABLE ItemType (
-	id 			int AUTO_INCREMENT PRIMARY KEY,
+	id 			int UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	description	varchar(255)
 );
 
 CREATE TABLE Organizations (
-	id 			int AUTO_INCREMENT PRIMARY KEY,
-	org_type	int,
+	id 			int UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	org_type	int UNSIGNED,
 	name 		varchar(255) NOT NULL,
 	street1 	varchar(255),
 	street2 	varchar(255),
@@ -29,33 +29,33 @@ CREATE TABLE Organizations (
 	notes		varchar(255),
 	created_at	datetime,
 	updated_at	timestamp DEFAULT CURRENT_TIMESTAMP,
-	updated_by	int,
-	FOREIGN KEY (updated_by) REFERENCES users (id),
+	updated_by	int UNSIGNED,
+	FOREIGN KEY (updated_by) REFERENCES Users (id),
 	FOREIGN KEY (org_type) REFERENCES ItemType (id)
 );
 
 CREATE TABLE ItemCategories (
-	id 			int AUTO_INCREMENT PRIMARY KEY,
+	id 			int UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	description	varchar(255)
 );
 
 CREATE TABLE Items (
-	id 			int AUTO_INCREMENT PRIMARY KEY,
+	id 			int UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	name 		varchar(255) NOT NULL,
-	type		int,
-	category	int,
+	type		int UNSIGNED,
+	category	int UNSIGNED,
 	created_at	datetime DEFAULT CURRENT_TIMESTAMP,
 	updated_at	timestamp DEFAULT CURRENT_TIMESTAMP,
-	updated_by	int,
-	FOREIGN KEY (updated_by) REFERENCES users (id),
+	updated_by	int UNSIGNED,
+	FOREIGN KEY (updated_by) REFERENCES Users (id),
 	FOREIGN KEY (type) REFERENCES ItemType (id),
 	FOREIGN KEY (category) REFERENCES ItemCategories (id)
 );
 
 CREATE TABLE OrganizationItems (
-	id 			int AUTO_INCREMENT PRIMARY KEY,
-	org_id		int NOT NULL,
-	item_id		int NOT NULL,
+	id 			int UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	org_id		int UNSIGNED NOT NULL,
+	item_id		int UNSIGNED NOT NULL,
 	FOREIGN KEY (org_id) REFERENCES Organizations (id),
 	FOREIGN KEY (item_id) REFERENCES Items (id)
 );
