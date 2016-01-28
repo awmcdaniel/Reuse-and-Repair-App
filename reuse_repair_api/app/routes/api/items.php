@@ -11,15 +11,7 @@ $app->get('/api/items', function () use ($app, $db) {
 
     foreach ($db->items() as $row) {
 
-        $item_type     = null;
         $item_category = null;
-
-        //get the item type
-        $query = $db->itemtype->where('id', intval($row['category']));
-        if ($data = $query->fetch()) {
-            $item_type = ['type_id' => $data['id'], 'type_desc' => $data['description']];
-            //$item_type = $data['description'];
-        }
 
         //get the category the item is under
         $query = $db->itemcategories->where('id', intval($row['category']));
@@ -31,7 +23,6 @@ $app->get('/api/items', function () use ($app, $db) {
         $result[] = array(
             'id'         => $row['id'],
             'description'       => $row['description'],
-            'category'       => $item_type,
             'category'   => $item_category,
             'created_at' => $row['created_at'],
             'updated_at' => $row['updated_at'],
@@ -51,15 +42,8 @@ $app->get('/api/item/:id', function ($id) use ($app, $db) {
     $query = $db->items()->where('id', intval($id));
     if ($row = $query->fetch()) {
 
-        $item_type     = null;
         $item_category = null;
 
-        //get the item type
-        $query = $db->itemtype->where('id', intval($row['category']));
-        if ($data = $query->fetch()) {
-            $item_type = ['type_id' => $data['id'], 'type_desc' => $data['description']];
-            //$item_type = $data['description'];
-        }
 
         //get the category the item is under
         $query = $db->itemcategories->where('id', intval($row['category']));
@@ -71,7 +55,6 @@ $app->get('/api/item/:id', function ($id) use ($app, $db) {
         $result[] = array(
             'id'         => $row['id'],
             'description'       => $row['description'],
-            'category'       => $item_type,
             'category'   => $item_category,
             'created_at' => $row['created_at'],
             'updated_at' => $row['updated_at'],
@@ -117,15 +100,8 @@ $app->post('/api/item', function () use ($app, $db) {
         $query = $db->items()->where('id', $result);
         if ($row = $query->fetch()) {
 
-            $item_type     = null;
             $item_category = null;
 
-            //get the item type
-            $query = $db->itemtype->where('id', intval($row['category']));
-            if ($data = $query->fetch()) {
-                $item_type = ['type_id' => $data['id'], 'type_desc' => $data['description']];
-                //$item_type = $data['description'];
-            }
 
             //get the category the item is under
             $query = $db->itemcategories->where('id', intval($row['category']));
@@ -137,7 +113,6 @@ $app->post('/api/item', function () use ($app, $db) {
             $results = array(
                 'id'         => $row['id'],
                 'description'       => $row['description'],
-                'category'       => $item_type,
                 'category'   => $item_category,
                 'created_at' => $row['created_at'],
                 'updated_at' => $row['updated_at'],
@@ -174,15 +149,7 @@ $app->put('/api/item/:id', function ($id) use ($app, $db) {
         $result    = $query->update($post_data); //returns true/false
         $row       = $db->items()->where("id", intval($id))->fetch();
 
-        $item_type     = null;
         $item_category = null;
-
-        //get the item type
-        $query = $db->itemtype->where('id', intval($row['category']));
-        if ($data = $query->fetch()) {
-            $item_type = ['type_id' => $data['id'], 'type_desc' => $data['description']];
-            //$item_type = $data['description'];
-        }
 
         //get the category the item is under
         $query = $db->itemcategories->where('id', intval($row['category']));
@@ -194,7 +161,6 @@ $app->put('/api/item/:id', function ($id) use ($app, $db) {
         $results = array(
             'id'         => $row['id'],
             'description'       => $row['description'],
-            'category'       => $item_type,
             'category'   => $item_category,
             'created_at' => $row['created_at'],
             'updated_at' => $row['updated_at'],
