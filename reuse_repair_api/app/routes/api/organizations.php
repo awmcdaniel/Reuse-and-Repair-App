@@ -5,7 +5,7 @@ LIST ALL
 =========================================================================== */
 $app->get('/api/organizations', function () use ($app) {
     $results = array();
-    $db = $app->db;
+    $db      = $app->db;
     foreach ($db->organizations() as $row) {
 
         $org_type = null;
@@ -33,7 +33,6 @@ $app->get('/api/organizations', function () use ($app) {
     $app->response()->header("Content-Type", "application/json");
     echo json_encode(["data" => $results]);
 });
-
 
 /* ===========================================================================
 LIST ONE
@@ -78,8 +77,6 @@ $app->get('/api/organizations/:id', function ($id) use ($app, $db) {
         ]);
     }
 });
-
-
 
 /* ===========================================================================
 INSERT ONE
@@ -144,7 +141,6 @@ $app->post('/api/organization', function () use ($app, $db) {
 
 });
 
-
 /* ===========================================================================
 UPDATE ONE
 =========================================================================== */
@@ -192,7 +188,6 @@ $app->put('/api/organization/:id', function ($id) use ($app, $db) {
         ]);
     }
 });
-
 
 /* ===========================================================================
 DELETE ONE

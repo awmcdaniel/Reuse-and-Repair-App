@@ -21,11 +21,11 @@ $app->get('/api/items', function () use ($app, $db) {
         }
 
         $result[] = array(
-            'id'         => $row['id'],
-            'description'       => $row['description'],
-            'category'   => $item_category,
-            'created_at' => $row['created_at'],
-            'updated_at' => $row['updated_at'],
+            'id'          => $row['id'],
+            'description' => $row['description'],
+            'category'    => $item_category,
+            'created_at'  => $row['created_at'],
+            'updated_at'  => $row['updated_at'],
         );
     }
 
@@ -44,7 +44,6 @@ $app->get('/api/item/:id', function ($id) use ($app, $db) {
 
         $item_category = null;
 
-
         //get the category the item is under
         $query = $db->itemcategories->where('id', intval($row['category']));
         if ($data = $query->fetch()) {
@@ -53,11 +52,11 @@ $app->get('/api/item/:id', function ($id) use ($app, $db) {
         }
 
         $result[] = array(
-            'id'         => $row['id'],
-            'description'       => $row['description'],
-            'category'   => $item_category,
-            'created_at' => $row['created_at'],
-            'updated_at' => $row['updated_at'],
+            'id'          => $row['id'],
+            'description' => $row['description'],
+            'category'    => $item_category,
+            'created_at'  => $row['created_at'],
+            'updated_at'  => $row['updated_at'],
         );
 
         echo json_encode(["data" => $result]);
@@ -71,7 +70,6 @@ $app->get('/api/item/:id', function ($id) use ($app, $db) {
         ));
     }
 });
-
 
 /* ===========================================================================
 INSERT ONE
@@ -102,7 +100,6 @@ $app->post('/api/item', function () use ($app, $db) {
 
             $item_category = null;
 
-
             //get the category the item is under
             $query = $db->itemcategories->where('id', intval($row['category']));
             if ($data = $query->fetch()) {
@@ -111,11 +108,11 @@ $app->post('/api/item', function () use ($app, $db) {
             }
 
             $results = array(
-                'id'         => $row['id'],
-                'description'       => $row['description'],
-                'category'   => $item_category,
-                'created_at' => $row['created_at'],
-                'updated_at' => $row['updated_at'],
+                'id'          => $row['id'],
+                'description' => $row['description'],
+                'category'    => $item_category,
+                'created_at'  => $row['created_at'],
+                'updated_at'  => $row['updated_at'],
             );
 
             echo json_encode(["data" => $results]);
@@ -131,7 +128,6 @@ $app->post('/api/item', function () use ($app, $db) {
     }
 
 });
-
 
 /* ===========================================================================
 UPDATE ONE
@@ -159,11 +155,11 @@ $app->put('/api/item/:id', function ($id) use ($app, $db) {
         }
 
         $results = array(
-            'id'         => $row['id'],
-            'description'       => $row['description'],
-            'category'   => $item_category,
-            'created_at' => $row['created_at'],
-            'updated_at' => $row['updated_at'],
+            'id'          => $row['id'],
+            'description' => $row['description'],
+            'category'    => $item_category,
+            'created_at'  => $row['created_at'],
+            'updated_at'  => $row['updated_at'],
         );
 
         echo json_encode(["message" => "Successfull insertion to DB.", "data" => $results]);
@@ -177,7 +173,6 @@ $app->put('/api/item/:id', function ($id) use ($app, $db) {
         ]);
     }
 });
-
 
 /* ===========================================================================
 DELETE ONE

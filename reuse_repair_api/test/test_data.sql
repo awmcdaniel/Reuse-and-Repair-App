@@ -26,8 +26,8 @@ CREATE TABLE Organizations (
 	webpage		varchar(255),
 	phone		varchar(255),
 	notes		varchar(255),
-	created_at	datetime,
-	updated_at	timestamp DEFAULT CURRENT_TIMESTAMP,
+	created_at	datetime DEFAULT CURRENT_TIMESTAMP,
+	updated_at	datetime DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (org_type) REFERENCES OrganizationType (id)
 );
 
@@ -41,7 +41,7 @@ CREATE TABLE Items (
 	description varchar(255) NOT NULL,
 	category	int UNSIGNED,
 	created_at	datetime DEFAULT CURRENT_TIMESTAMP,
-	updated_at	timestamp DEFAULT CURRENT_TIMESTAMP,
+	updated_at	datetime DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (category) REFERENCES ItemCategories (id)
 );
 
@@ -51,6 +51,25 @@ CREATE TABLE OrganizationItems (
 	item_id		int UNSIGNED NOT NULL,
 	FOREIGN KEY (org_id) REFERENCES Organizations (id),
 	FOREIGN KEY (item_id) REFERENCES Items (id)
+);
+
+CREATE TABLE OrganizationHours (
+	org_id 			int UNSIGNED UNIQUE NOT NULL,
+	mon_start	time,
+	mon_end		time,
+	tue_start	time,
+	tue_end		time,
+	wed_start	time,
+	wed_end		time,
+	thu_start	time,
+	thu_end		time,
+	fri_start	time,
+	fri_end		time,
+	sat_start	time,
+	sat_end		time,
+	sun_start	time,
+	sun_end		time,
+	FOREIGN KEY (org_id) REFERENCES Organizations (id)
 );
 
 
@@ -319,3 +338,12 @@ VALUES
 	(2, 181)
 	;
 
+
+/* ========================================================================
+	TEST DATA: Hours
+   ======================================================================== */
+INSERT INTO 
+	OrganizationHours (`org_id`, `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, `thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`) 
+VALUES 
+	('1', '06:15:00', '14:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('2', NULL, NULL, '06:15:00', '14:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);

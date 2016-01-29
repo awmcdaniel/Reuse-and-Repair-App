@@ -8,7 +8,7 @@ $app->get('/api/organizationitems', function () use ($app, $db) {
     $results = array();
     foreach ($db->organizationitems() as $row) {
 
-        $org_name = null;
+        $org_name  = null;
         $item_name = null;
 
         //get the names
@@ -23,9 +23,9 @@ $app->get('/api/organizationitems', function () use ($app, $db) {
         }
 
         $results[] = array(
-            'id' => $row['id'],
-            'org_id' => $org_name,
-            'item_id' => $item_name
+            'id'      => $row['id'],
+            'org_id'  => $org_name,
+            'item_id' => $item_name,
         );
     }
 
@@ -56,9 +56,9 @@ $app->get('/api/organizationitem/:id', function ($id) use ($app, $db) {
         }
 
         $results[] = array(
-            'id' => $row['id'],
-            'org_id' => $org_name,
-            'item_id' => $item_name
+            'id'      => $row['id'],
+            'org_id'  => $org_name,
+            'item_id' => $item_name,
         );
 
         echo json_encode(["data" => $results]);
@@ -82,10 +82,10 @@ $app->post('/api/organizationitem', function () use ($app, $db) {
 
     //get the parameters
     $organization_id = $app->request()->post('org_id');
-    $item_id = $app->request()->post('item_id');
+    $item_id         = $app->request()->post('item_id');
 
     //check if business and service item exist
-    $result_org = $db->organizations()->where("id", intval($organization_id))->fetch();
+    $result_org  = $db->organizations()->where("id", intval($organization_id))->fetch();
     $result_item = $db->items()->where("id", intval($item_id))->fetch();
 
     if ($result_org && $result_item) {
@@ -107,12 +107,12 @@ $app->post('/api/organizationitem', function () use ($app, $db) {
             }
 
             $results[] = array(
-                'id' => $row['id'],
-                'org_id' => $org_name,
-                'item_id' => $item_name
+                'id'      => $row['id'],
+                'org_id'  => $org_name,
+                'item_id' => $item_name,
             );
 
-            echo json_encode(["message" => "Successfull insertion.","data" => $results]);
+            echo json_encode(["message" => "Successfull insertion.", "data" => $results]);
         } else {
             $app->response()->setStatus(404);
             echo json_encode([
@@ -123,7 +123,7 @@ $app->post('/api/organizationitem', function () use ($app, $db) {
         }
 
     } else {
-       //items do not exist, ask user to add them first
+        //items do not exist, ask user to add them first
 
         $msg = array();
 
@@ -136,7 +136,7 @@ $app->post('/api/organizationitem', function () use ($app, $db) {
         }
 
         $results[] = array(
-            'status' => 404,
+            'status'  => 404,
             'message' => $msg,
         );
 
@@ -145,7 +145,6 @@ $app->post('/api/organizationitem', function () use ($app, $db) {
     }
 
 });
-
 
 /* ===========================================================================
 UPDATE ONE
@@ -163,7 +162,7 @@ $app->put('/api/organizationitem/:id', function ($id) use ($app, $db) {
         $result    = $query->update($post_data); //result = true/false
 
         //get the updated data
-        $row  = $db->organizationitems()->where("id", intval($id))->fetch();
+        $row   = $db->organizationitems()->where("id", intval($id))->fetch();
         $query = $db->organizations->where('id', intval($row['org_id']));
         if ($data = $query->fetch()) {
             $org_name = $data['name'];
@@ -175,12 +174,12 @@ $app->put('/api/organizationitem/:id', function ($id) use ($app, $db) {
         }
 
         $results[] = array(
-            'id' => $row['id'],
+            'id'           => $row['id'],
             'organization' => $org_name,
-            'item' => $item_name
+            'item'         => $item_name,
         );
 
-        echo json_encode(["message" => "Successfull update.","data" => $results]);
+        echo json_encode(["message" => "Successfull update.", "data" => $results]);
 
     } else {
 
@@ -191,7 +190,6 @@ $app->put('/api/organizationitem/:id', function ($id) use ($app, $db) {
         ]);
     }
 });
-
 
 /* ===========================================================================
 DELETE ONE
