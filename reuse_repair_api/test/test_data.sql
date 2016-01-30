@@ -54,7 +54,7 @@ CREATE TABLE OrganizationItems (
 );
 
 CREATE TABLE OrganizationHours (
-	org_id 			int UNSIGNED UNIQUE NOT NULL,
+	org_id 		int UNSIGNED UNIQUE NOT NULL,
 	mon_start	time,
 	mon_end		time,
 	tue_start	time,

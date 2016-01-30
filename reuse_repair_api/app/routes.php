@@ -20,11 +20,25 @@ foreach ($routes_api as $api_fname) {
 /* ============================================
 Load the WEB page routes
 ===============================================*/
-define("ROUTES_WEB", "routes/web/");
 $routes_web = array(
     'home.php',
 );
 
+define("ROUTES_WEB", "routes/web/");
 foreach ($routes_web as $web_fname) {
     require_once ROUTES_WEB . $web_fname;
+}
+
+/* ============================================
+Load the ADMIN page routes
+===============================================*/
+$routes_admin = array(
+    'organizations.php',
+    'itemcategories.php',
+    'items.php',
+);
+
+define("ROUTES_ADMIN", "routes/admin/");
+foreach ($routes_admin as $admin_fname) {
+    require_once ROUTES_ADMIN . $admin_fname;
 }

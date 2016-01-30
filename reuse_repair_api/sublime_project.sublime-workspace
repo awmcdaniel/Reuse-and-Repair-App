@@ -63,6 +63,14 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "app/views/admin/login.php",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -71,10 +79,14 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 265.0,
-		"last_filter": "codeformatter",
+		"height": 392.0,
+		"last_filter": "package",
 		"selected_items":
 		[
+			[
+				"package",
+				"Package Control: Install Package"
+			],
 			[
 				"codeformatter",
 				"CodeFormatter: Format Code"
@@ -82,10 +94,6 @@
 			[
 				"code forma",
 				"CodeFormatter: Format Code"
-			],
-			[
-				"package",
-				"Package Control: Install Package"
 			],
 			[
 				"package remo",
@@ -128,7 +136,7 @@
 				"CodeFormatter: Format Code"
 			]
 		],
-		"width": 400.0
+		"width": 512.0
 	},
 	"console":
 	{
@@ -152,16 +160,23 @@
 		"/E/OneDrive/OneDrive for Business/github_projects/Reuse-and-Repair-App/reuse_repair_api",
 		"/E/OneDrive/OneDrive for Business/github_projects/Reuse-and-Repair-App/reuse_repair_api/app",
 		"/E/OneDrive/OneDrive for Business/github_projects/Reuse-and-Repair-App/reuse_repair_api/app/routes",
-		"/E/OneDrive/OneDrive for Business/github_projects/Reuse-and-Repair-App/reuse_repair_api/app/routes/api",
+		"/E/OneDrive/OneDrive for Business/github_projects/Reuse-and-Repair-App/reuse_repair_api/app/views",
+		"/E/OneDrive/OneDrive for Business/github_projects/Reuse-and-Repair-App/reuse_repair_api/app/views/admin",
 		"/E/OneDrive/OneDrive for Business/github_projects/Reuse-and-Repair-App/reuse_repair_api/test"
 	],
 	"file_history":
 	[
-		"/C/Users/Shadow/AppData/Roaming/Sublime Text 3/Packages/CodeFormatter/CodeFormatter.sublime-settings",
-		"/E/OneDrive/OneDrive for Business/github_projects/Reuse-and-Repair-App/reuse_repair_api/app/routes/api/organizationitems.php",
-		"/E/OneDrive/OneDrive for Business/github_projects/Reuse-and-Repair-App/reuse_repair_api/app/routes/api/organizationhours.php",
-		"/E/OneDrive/OneDrive for Business/github_projects/Reuse-and-Repair-App/reuse_repair_api/app/routes/api/itemcategories.php",
 		"/E/OneDrive/OneDrive for Business/github_projects/Reuse-and-Repair-App/reuse_repair_api/test/test_data.sql",
+		"/E/OneDrive/OneDrive for Business/github_projects/Reuse-and-Repair-App/reuse_repair_api/app/routes.php",
+		"/E/OneDrive/OneDrive for Business/github_projects/Reuse-and-Repair-App/reuse_repair_api/app/static/js/npm.js",
+		"/E/OneDrive/OneDrive for Business/github_projects/Reuse-and-Repair-App/reuse_repair_api/app/bootstrap.php",
+		"/E/OneDrive/OneDrive for Business/github_projects/Reuse-and-Repair-App/reuse_repair_api/app/routes/api/items.php",
+		"/E/OneDrive/OneDrive for Business/github_projects/Reuse-and-Repair-App/reuse_repair_api/app/routes/api/itemcategories.php",
+		"/E/OneDrive/OneDrive for Business/github_projects/Reuse-and-Repair-App/reuse_repair_api/app/routes/api/organizations.php",
+		"/E/OneDrive/OneDrive for Business/github_projects/Reuse-and-Repair-App/reuse_repair_api/app/routes/api/organizationitems.php",
+		"/E/OneDrive/OneDrive for Business/github_projects/Reuse-and-Repair-App/reuse_repair_api/app/routes/web/home.php",
+		"/E/OneDrive/OneDrive for Business/github_projects/Reuse-and-Repair-App/reuse_repair_api/app/routes/api/organizationhours.php",
+		"/C/Users/Shadow/AppData/Roaming/Sublime Text 3/Packages/CodeFormatter/CodeFormatter.sublime-settings",
 		"/E/OneDrive/OneDrive for Business/github_projects/Reuse-and-Repair-App/reuse_repair_api/README.md",
 		"/C/Users/Shadow/AppData/Roaming/Sublime Text 3/Packages/phpfmt/message",
 		"/C/Users/Shadow/AppData/Roaming/Sublime Text 3/Packages/Default/Default (Windows).sublime-keymap",
@@ -315,8 +330,37 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "app/views/admin/login.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],

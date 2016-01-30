@@ -10,7 +10,7 @@ $app->get('/api/organizations', function () use ($app) {
 
         $org_type = null;
 
-        $query = $db->itemtype->where('id', intval($row['org_type']));
+        $query = $db->organizationtype->where('id', intval($row['org_type']));
         if ($data = $query->fetch()) {
             $org_type = $data['description'];
         }
@@ -18,7 +18,7 @@ $app->get('/api/organizations', function () use ($app) {
         $results[] = array(
             'id'       => $row['id'],
             'name'     => $row['name'],
-            'service'  => $org_type,
+            'org_type' => $org_type,
             'street_1' => $row['street1'],
             'street_2' => $row['street2'],
             'city'     => $row['city'],
@@ -55,7 +55,7 @@ $app->get('/api/organizations/:id', function ($id) use ($app, $db) {
         $results = array(
             'id'       => $row['id'],
             'name'     => $row['name'],
-            'service'  => $org_type,
+            'org_type' => $org_type,
             'street_1' => $row['street1'],
             'street_2' => $row['street2'],
             'city'     => $row['city'],
@@ -76,7 +76,7 @@ $app->get('/api/organizations/:id', function ($id) use ($app, $db) {
             'message' => "Organizations ID=$id was not found in server",
         ]);
     }
-});
+})->name('api_organizations.show');
 
 /* ===========================================================================
 INSERT ONE
@@ -116,7 +116,7 @@ $app->post('/api/organization', function () use ($app, $db) {
             $results = array(
                 'id'       => $row['id'],
                 'name'     => $row['name'],
-                'service'  => $org_type,
+                'org_type' => $org_type,
                 'street_1' => $row['street1'],
                 'street_2' => $row['street2'],
                 'city'     => $row['city'],
@@ -166,7 +166,7 @@ $app->put('/api/organization/:id', function ($id) use ($app, $db) {
         $results = array(
             'id'       => $row['id'],
             'name'     => $row['name'],
-            'service'  => $org_type,
+            'org_type' => $org_type,
             'street_1' => $row['street1'],
             'street_2' => $row['street2'],
             'city'     => $row['city'],
