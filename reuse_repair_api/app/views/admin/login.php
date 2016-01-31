@@ -16,18 +16,16 @@
 
     <div class="container">
 
-      <form class="form-signin">
+      <form class="form-signin" id="form-admin-login" method="POST">
         <h2 class="form-signin-heading" id="heading">ADMIN CMS</h2>
         <label for="input_username" class="sr-only">Username</label>
-        <input type="email" id="input_username" class="form-control" placeholder="Username" required autofocus>
+        <input type="email" id="input_username" name="input_username" class="form-control" placeholder="Username" required autofocus>
         <label for="input_password" class="sr-only">Password</label>
-        <input type="password" id="input_password" class="form-control" placeholder="Password" required>
+        <input type="password" id="input_password" name="input_password" class="form-control" placeholder="Password" required>
         <button class="btn btn-lg btn-primary btn-block" type="submit" id="button_signin">Sign in</button>
       </form>
 
     </div> <!-- /container -->
-
-
 
 
 

@@ -13,25 +13,13 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Add/Edit <span class="caret"></span></a>
               <ul class="dropdown-menu">
-               <li class="dropdown-header">Add</li>
-                <li><a href="add/organizations">Organizations</a></li>
-                <li><a href="add/itemcategories">Item Categories</a></li>
-                <li><a href="add/items">Items</a></li>
-              </ul>
-            </li>
-
-
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Views <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-               <li class="dropdown-header">List All</li>
-                <li><a href="organizations">Organizations</a></li>
+               <li class="dropdown-header">Do it in order!</li>
                 <li><a href="itemcategories">Item Categories</a></li>
                 <li><a href="items">Items</a></li>
+                <li><a href="organizations">Organizations</a></li>
               </ul>
             </li>
           </ul>

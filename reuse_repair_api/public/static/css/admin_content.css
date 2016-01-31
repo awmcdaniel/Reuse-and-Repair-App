@@ -1,3 +1,75 @@
+@font-face {
+  font-family: BebasNeue;
+  src: url('../fonts/BebasNeue.otf');
+}
+
+
 nav.navbar {
 	border-radius: 0px;
+}
+
+#nav_tabContent {
+	margin-bottom: 15px;
+}
+
+.modal-content {
+	border: 0px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+}
+
+#modal-delete-organization .modal-content {
+	border: 0px;
+
+}
+
+#modal-delete-organization .modal-header, 
+#modal-delete-organization .modal-footer {
+	border: 0px;
+}
+
+#modal-edit-organization .modal-body {
+	min-height: 630px;
+}
+
+.nav-pills>li>a {
+    border-radius: 0px;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+	background-color: #525860;
+}
+
+button.btn {
+	border: 0px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+}
+
+button.btn.btn-default {
+	background-color: #EEE8E8;
+}
+
+.modal-content .form-control {
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	width: 100%;
+}
+
+input + input {
+	margin-top: 5px;
+}
+
+.modal-content label {
+	color: #8F8C87;
+	font-family: BebasNeue;
+	margin-bottom: 2px;
+}
+
+.modal-title {
+	color: #29282D;
+	font-family: BebasNeue;
 }
