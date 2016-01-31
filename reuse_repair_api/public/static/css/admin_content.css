@@ -73,3 +73,17 @@ input + input {
 	color: #29282D;
 	font-family: BebasNeue;
 }
+
+span.label {
+	padding-top: 4px;
+	margin: 2px;
+
+}
+
+.label-custom1 {
+	background-color: #DEDEDE;
+	border: 0px;
+	color: #595959;
+	line-height: 2em;
+	font-size: .8em;
+}

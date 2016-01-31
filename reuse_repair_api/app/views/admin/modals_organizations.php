@@ -117,7 +117,10 @@
           </div>
 
           <div class="tab-pane" id="org_items">
-          content
+            <div class="alert alert-warning" role="alert">
+              <strong>INFO! </strong> The items you can add in this tab is based on the organization type selected in the
+              Organization Details tab.
+            </div>
           </div>
 
           </div>

@@ -14,7 +14,13 @@ $app->get('/api/organizations', function () use ($app) {
         if ($data = $query->fetch()) {
             $org_type = $data['description'];
         }
-
+/*
+$service_items = $db->organizationitems->select('item_id')->where('org_id', intval($row['id']));
+$items         = array();
+foreach ($service_items as $key => $value) {
+$items[] = $db->items->select('description')->where('id', $value['item_id'])->fetch()['description'];
+}
+ */
         $results[] = array(
             'id'       => $row['id'],
             'name'     => $row['name'],
@@ -27,6 +33,7 @@ $app->get('/api/organizations', function () use ($app) {
             'webpage'  => $row['webpage'],
             'phone'    => $row['phone'],
             'notes'    => $row['notes'],
+            /*'service'  => $items,*/
         );
     }
 
