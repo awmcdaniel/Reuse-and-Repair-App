@@ -2,6 +2,7 @@
 ================================================================= -->
 <div class="modal fade" id="modal-edit-organization">
   <div class="modal-dialog">
+  <form id="form_insert_organizations" method="POST">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -14,34 +15,36 @@
                 <li><a href="#org_items" data-toggle="tab">Add Items</a></li>
         </ul>
 
-        <form method="POST">
+
         <div class="tab-content">
         <div class="tab-pane active" id="org_details">
-          <input type="text" name="input_org_id" class="hidden">
+          <input type="text" id="input_org_id" name="id" class="hidden">
 
           <div class="form-group" id="form_container_orgtype">
             <label for="input_orgtype">Org. Type</label>
-            <select class="form-control" id="input_orgtype" name="input_orgtype" p>
+            <select class="form-control" id="input_orgtype" name="org_type" p>
             </select>
           </div>
+
           <div class="form-group">
             <label for="input_name" >Name</label>
-            <input type="text" class="form-control" id="input_name" name="input_name" placeholder="Organization Name">
+            <input type="text" class="form-control" id="input_name" name="name" placeholder="Organization Name">
           </div>
+
           <div class="form-group">
             <label for="input_addr1" >Address Line</label>
-            <input type="text" class="form-control" id="input_addr1" name="input_addr1" placeholder="Address Line1">
-            <input type="text" class="form-control" id="input_addr2" name="input_addr2" placeholder="Address Line2">
+            <input type="text" class="form-control" id="input_addr1" name="street1" placeholder="Address Line1">
+            <input type="text" class="form-control" id="input_addr2" name="street2" placeholder="Address Line2">
           </div>
           <div class="form-group form-inline">
             <div class="row">
               <div class="col-sm-4">
                 <label for="input_city" >City</label>
-                <input type="text" class="form-control" id="input_city" name="input_city" placeholder="City">
+                <input type="text" class="form-control" id="input_city" name="city" placeholder="City">
               </div>
               <div class="col-sm-4">
                 <label for="input_state" >State</label>
-                <select class="form-control" id="input_state" name="input_state" size="1">
+                <select class="form-control" id="input_state" name="state" size="1">
                   <option value="AL">Alabama</option>
                   <option value="AK">Alaska</option>
                   <option value="AZ">Arizona</option>
@@ -97,21 +100,21 @@
               </div>
               <div class="col-sm-4">
                 <label for="input_zipcode" >Zip Code</label>
-                <input type="text" class="form-control" id="input_zipcode" name="input_zipcode" placeholder="ZipCode" maxlength="11">
+                <input type="text" class="form-control" id="input_zipcode" name="zip" placeholder="ZipCode" maxlength="11">
               </div>
             </div>
           </div>
           <div class="form-group">
             <label for="input_url" >URL</label>
-            <input type="url" class="form-control" id="input_url" name="input_url" placeholder="https://">
+            <input type="url" class="form-control" id="input_url" name="webpage" placeholder="https://">
           </div>
           <div class="form-group">
             <label for="input_phone" >Phone Number</label>
-            <input type="text" class="form-control" id="input_phone" name="input_phone" placeholder="000-000-0000">
+            <input type="text" class="form-control" id="input_phone" name="phone" placeholder="000-000-0000">
           </div>
           <div class="form-group">
             <label for="input_notes" >Notes</label>
-            <input type="text" class="form-control" id="input_notes" name="input_notes" placeholder="">
+            <input type="text" class="form-control" id="input_notes" name="notes" placeholder="">
           </div>
 
           </div>
@@ -121,17 +124,21 @@
               <strong>INFO! </strong> The items you can add in this tab is based on the organization type selected in the
               Organization Details tab.
             </div>
+
+            <input type="text" class="form-control" id="input_org_items" name="items[]" value="" Placeholder="Service Items">
+
           </div>
 
           </div>
-        </form>
+
 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
       </div>
     </div>
+    </form>
   </div>
 </div>
 
@@ -149,7 +156,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-danger">Delete</button>
+        <button type="submit" class="btn btn-danger">Delete</button>
       </div>
     </div>
   </div>

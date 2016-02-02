@@ -9,7 +9,8 @@
 <div class="page-header">
   <h1>Organizations
     <small>List All</small>
-    <button type="button" class="btn btn btn-primary btn-lg pull-right add-org-entry" data-toggle="modal" href='#modal-edit-organization'>ADD Organization</button>
+    <button type="button" class="btn btn btn-primary btn-lg pull-right"
+            data-toggle="modal" href='#modal-edit-organization' id="btn_add_organizations">ADD Organization</button>
   </h1>
 </div>
 
@@ -48,7 +49,10 @@
         </td>
         <td>
           {% if item.webpage is defined %}
+            {% if item.webpage is not empty %}
             <a href="{{ item.webpage }}" id="org_url_{{item.id}}" class="row_org_url" target="_blank">Website</a> <br/>
+
+            {% endif %}
           {% endif %}
             <span id="org_phone_{{item.id}}" class="row_org_phone ">{{ item.phone }}</span><br/>
         </td>

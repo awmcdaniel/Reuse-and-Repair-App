@@ -7,7 +7,8 @@
 <div class="page-header">
   <h1>Items
     <small>List All</small>
-    <button type="button" class="btn btn btn-primary btn-lg pull-right add-org-entry" data-toggle="modal" href='#modal-insert-items'>ADD Item</button>
+    <button type="button" class="btn btn btn-primary btn-lg pull-right add-org-entry"
+            data-toggle="modal" href='#modal-insert-items' id="btn_add_item">ADD Item</button>
   </h1>
 </div>
 
@@ -36,6 +37,8 @@
         </button>
         <button type="button" class="btn btn-danger delete-item-entry" data-toggle="modal" href='#modal-delete-items'>
           <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+          <span class="hidden item_id">{{ item.id }}</span>
+          <span class="hidden item_desc">{{ item.description }}</span>
         </button>
       </div>
         </td>

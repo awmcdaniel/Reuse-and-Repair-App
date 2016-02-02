@@ -1,5 +1,6 @@
 var item_categories = {};
 var org_categories = {};
+var items_in_categories = [];
 var base_url = 'http://localhost:4000';
 
 function addslashes( str ) {
@@ -35,6 +36,7 @@ function get_db_itemcategories () {
 					$.each(get_data['data'], function(index, obj) {
 						item_categories[obj['id']] = obj['description'];
 					});
+
 				}
 			});
 	} else {
@@ -64,6 +66,8 @@ function get_db_orgcategories () {
 	} else {
 		// do nothing if it's already been retrieved
 	}
+
+
 };
 
 
@@ -83,3 +87,17 @@ function get_key(get_value, dictionary) {
 
 	return ret_key;
 };
+
+
+function get_item_source() {
+
+    $.get(base_url + "/admin/itemcategories/items", {
+
+    }, function (data) {
+       	items_in_categories = JSON.parse(data);
+    });
+};
+
+get_db_itemcategories();
+get_db_orgcategories();
+get_item_source();

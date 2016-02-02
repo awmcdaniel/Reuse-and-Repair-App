@@ -108,11 +108,14 @@ $app->post('/api/organization', function () use ($app, $db) {
     } else {
 
         //no duplicate found
+
+        //add to organizations table
         $post_data = $app->request()->post();
-        $result    = $db->organizations->insert($post_data); //returns the index where it was inserted
+        $result    = $db->organizations->insert($post_data); //returns the index where it was inserted (aka, the org_id)
 
         $query = $db->organizations()->where('id', $result);
         if ($row = $query->fetch()) {
+
             //get the type as text instead of id
             $org_type   = null;
             $type_query = $db->itemtype->where('id', intval($row['org_type']));

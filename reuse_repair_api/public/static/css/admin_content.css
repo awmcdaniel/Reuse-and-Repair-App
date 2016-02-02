@@ -87,3 +87,27 @@ span.label {
 	line-height: 2em;
 	font-size: .8em;
 }
+
+
+.ui-autocomplete{
+	z-index: 99999;
+	border: 1px solid gray;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	background-color: white;
+	overflow-y: auto;
+	overflow-x: hidden;
+	max-height: 200px;
+}
+
+span.ui-helper-hidden-accessible{
+	display: none;
+}
+
+.token {
+	max-width: 100%;
+}
+.token > span {
+	max-width: 100% !important;
+}

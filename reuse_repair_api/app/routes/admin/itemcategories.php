@@ -30,3 +30,20 @@ $app->get('/admin/itemcategories', function () use ($app, $db) {
     ]);
 
 });
+
+$app->get('/admin/itemcategories/items', function () use ($app, $db) {
+
+    $temp = get_all_itemcategories($db);
+
+    $results = array();
+    foreach ($temp as $category) {
+        foreach ($category['items'] as $item) {
+            //$results[] = "[" . $category['description'] . "] " . $item['description'];
+            $label     = "[" . $category['description'] . "] " . $item['description'];
+            $results[] = array("label" => $label, "value" => $item['id']);
+        }
+
+    }
+
+    echo json_encode($results);
+});
