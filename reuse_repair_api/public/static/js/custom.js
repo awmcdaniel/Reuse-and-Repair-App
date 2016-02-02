@@ -23,17 +23,6 @@ $(document).ready(function() {
 					event.preventDefault();
 			});
 		})
-		//restrict to db
-		.on('tokenfield:createtoken', function (event) {
-			var available_tokens = bloodhound_tokens.index.datums
-			var exists = false;
-			$.each(available_tokens, function(index, token) {
-				if (token.value === event.attrs.value)
-					exists = true;
-			});
-			if(exists === false)
-				event.preventDefault();
-		})
 		.tokenfield({
 		  autocomplete: {
 		    source: items_in_categories,

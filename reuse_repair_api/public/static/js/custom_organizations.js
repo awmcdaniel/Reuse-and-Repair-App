@@ -32,7 +32,7 @@ $("#btn_add_organizations").click(function () {
 	$("#form_insert_organizations").attr("action", base_url + '/api/organization');
 
 
-	$("#input_org_items").prop('disabled', true);
+	//$("#input_org_items").prop('disabled', true);
 
 });
 
@@ -91,7 +91,7 @@ $(".edit-org-entry").click(function () {
 	//change action
 	$("#form_insert_organizations").attr("action", base_url + '/api/organization/' + org_id);
 
-	$("#input_org_items").prop('disabled', true);
+	//$("#input_org_items").prop('disabled', true);
 });
 
 $("#form_insert_organizations").submit(function(event) {
