@@ -8,9 +8,18 @@ $app->get('/api/itemcategories', function () use ($app, $db) {
     $results = array();
 
     foreach ($db->itemcategories() as $row) {
+
+        //get the items associated with this category
+        $item_list = array();
+        $items     = $db->items->select('id', 'description')->where('category', $row['id']);
+        foreach ($items as $key => $value) {
+            $item_list[] = $value;
+        }
+
         $results[] = array(
             'id'          => $row['id'],
             'description' => $row['description'],
+            'items'       => $item_list,
         );
     }
 
@@ -28,9 +37,17 @@ $app->get('/api/itemcategory/:id', function ($id) use ($app, $db) {
     $query = $db->itemcategories()->where('id', $id);
     if ($row = $query->fetch()) {
 
+        //get the items associated with this category
+        $item_list = array();
+        $items     = $db->items->select('id', 'description')->where('category', $row['id']);
+        foreach ($items as $key => $value) {
+            $item_list[] = $value;
+        }
+
         $results = array(
             'id'          => $row['id'],
             'description' => $row['description'],
+            'items'       => $item_list,
         );
 
         echo json_encode(["data" => $results]);
@@ -68,8 +85,7 @@ $app->post('/api/itemcategory', function () use ($app, $db) {
         //no duplicate found
         $post_data = $app->request()->post();
         $result    = $db->itemcategories->insert($post_data); //returns the index
-
-        $query = $db->itemcategories()->where('id', $result);
+        $query     = $db->itemcategories()->where('id', $result);
         if ($row = $query->fetch()) {
 
             $results = array(

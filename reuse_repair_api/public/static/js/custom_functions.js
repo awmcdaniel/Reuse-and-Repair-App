@@ -66,6 +66,11 @@ function get_db_orgcategories () {
 	}
 };
 
+
+
+/* ==================================================================
+Get the key of an item in a dictionary given a target value
+=====================================================================*/
 function get_key(get_value, dictionary) {
 	var ret_key = undefined;
 

@@ -29,6 +29,8 @@ CREATE TABLE Organizations (
 	created_at	datetime DEFAULT CURRENT_TIMESTAMP,
 	updated_at	datetime DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (org_type) REFERENCES OrganizationType (id)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
 );
 
 CREATE TABLE ItemCategories (
@@ -43,14 +45,20 @@ CREATE TABLE Items (
 	created_at	datetime DEFAULT CURRENT_TIMESTAMP,
 	updated_at	datetime DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (category) REFERENCES ItemCategories (id)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
 );
 
 CREATE TABLE OrganizationItems (
 	id 			int UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	org_id		int UNSIGNED NOT NULL,
 	item_id		int UNSIGNED NOT NULL,
-	FOREIGN KEY (org_id) REFERENCES Organizations (id),
+	FOREIGN KEY (org_id) REFERENCES Organizations (id)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
 	FOREIGN KEY (item_id) REFERENCES Items (id)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
 );
 
 CREATE TABLE OrganizationHours (
@@ -70,6 +78,8 @@ CREATE TABLE OrganizationHours (
 	sun_start	time,
 	sun_end		time,
 	FOREIGN KEY (org_id) REFERENCES Organizations (id)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
 );
 
 

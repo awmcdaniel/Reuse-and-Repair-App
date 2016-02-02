@@ -8,7 +8,8 @@
 <div class="page-header">
   <h1>Item Category
     <small>List All</small>
-    <button type="button" class="btn btn btn-primary btn-lg pull-right add-org-entry" data-toggle="modal" href='#modal-insert-itemcategories'>ADD Category</button>
+    <button type="button" class="btn btn btn-primary btn-lg pull-right add-org-entry"
+            data-toggle="modal" href='#modal-insert-itemcategories' id="btn_add_category">ADD Category</button>
   </h1>
 </div>
 
@@ -36,6 +37,8 @@
         </button>
         <button type="button" class="btn btn-danger delete-itemcat-entry" data-toggle="modal" href='#modal-delete-itemcategories'>
           <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+          <span class="hidden itemcat_id">{{ item.id }}</span>
+          <span class="hidden itemcat_desc">{{ item.description }}</span>
         </button>
       </div>
         </td>
