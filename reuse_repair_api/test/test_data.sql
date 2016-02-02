@@ -26,8 +26,8 @@ CREATE TABLE Organizations (
 	webpage		varchar(255),
 	phone		varchar(255),
 	notes		varchar(255),
-	created_at	datetime DEFAULT CURRENT_TIMESTAMP,
-	updated_at	datetime DEFAULT CURRENT_TIMESTAMP,
+	created_at	datetime,
+	updated_at	datetime,
 	FOREIGN KEY (org_type) REFERENCES OrganizationType (id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
@@ -42,8 +42,8 @@ CREATE TABLE Items (
 	id 			int UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	description varchar(255) NOT NULL,
 	category	int UNSIGNED,
-	created_at	datetime DEFAULT CURRENT_TIMESTAMP,
-	updated_at	datetime DEFAULT CURRENT_TIMESTAMP,
+	created_at	datetime,
+	updated_at	datetime,
 	FOREIGN KEY (category) REFERENCES ItemCategories (id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE

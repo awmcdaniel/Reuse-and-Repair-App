@@ -19,7 +19,7 @@
     <thead>
       <tr>
         <th class="hidden-xs">ID</th>
-        <th> <span class="hidden-xs">TYPE</span></th>
+        <th class="hidden-xs">TYPE</th>
         <th>BUSINESS</th>
         <th>CONTACT</th>
         <th>ITEMS</th>
@@ -31,7 +31,7 @@
     {% for item in results %}
       <tr>
         <td id="org_id_{{item.id}}" class="row_org_id hidden-xs">{{ item.id }}</td>
-        <td id="org_type_{{item.id}}" class="row_org_type">{{ item.org_type }}</td>
+        <td id="org_type_{{item.id}}" class="row_org_type hidden-xs">{{ item.org_type }}</td>
         <td>
           <strong><span id="org_name_{{item.id}}" class="row_org_name">{{ item.name }} </span> </strong><br/>
           {% if item.street1 is defined %}
