@@ -7,8 +7,9 @@
 <div class="container">
 
 <div>
-  <label class="checkbox-inline"><input type="checkbox" value="">Reuse</label>
-  <label class="checkbox-inline"><input type="checkbox" value="">Repair</label>
+  <strong>FILTER: </strong>
+  <label class="checkbox-inline"><input type="checkbox" id="filter_reuse" value="" checked>Reuse</label>
+  <label class="checkbox-inline"><input type="checkbox" id="filter_repair" value="" checked>Repair</label>
 </div>
 
 
@@ -36,7 +37,7 @@
     </thead>
     <tbody>
     {% for item in results %}
-      <tr>
+      <tr class="row_{{item.org_type}}">
         <td id="org_id_{{item.id}}" class="row_org_id hidden-xs">{{ item.id }}</td>
         <td id="org_type_{{item.id}}" class="row_org_type hidden-xs">{{ item.org_type }}</td>
         <td>

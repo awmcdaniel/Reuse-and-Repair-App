@@ -489,3 +489,16 @@ VALUES
 	('83', '09:30:00', '18:00:00', '09:30:00', '18:00:00', '09:30:00', '18:00:00', '09:30:00', '18:00:00', '09:30:00', '18:00:00', '09:30:00', '17:00:00', '12:00:00', '16:00:00')
 	/* need to call to confirm hours: 541) 758-4556 ('84', )*/
 	;
+
+
+/* ==================================================
+Automatically add an entry for Organization in OrganizationHours.
+NOTE: place this at the very end of the file!
+====================================================*/
+CREATE TRIGGER new_org_added
+AFTER INSERT ON Organizations
+FOR EACH ROW
+	INSERT INTO OrganizationHours (org_id)
+	VALUES (NEW.id);
+
+/* END OF FILE: DO NOT MAKE ENTRIES BELOW */
