@@ -3,6 +3,11 @@ ITEMS
 =======================================================================*/
 
 $("#btn_add_item").click(function () {
+
+	//generate list
+	get_db_itemcategories();
+	create_selectlist_options("#form_container_category.form-group select", item_categories);
+
 	$("#form_insert_items #input_description").val("");
 
 	//change method
