@@ -291,7 +291,7 @@ VALUES
 	('Fax machine',13),
 	('Headset',13),
 	('Monitor',13),
-	('Office furnitur',13),
+	('Office furniture',13),
 	('Paper shredder',13),
 	('Printer cartridge refillin',13),
 	('Printer',13),
@@ -301,30 +301,106 @@ VALUES
 	('Clean foam peanut',14),
 	('Foam sheet',14),
 	('Egg carton',15),
-	('Firewoo',15),
-	('Fabri',15),
+	('Firewood',15),
+	('Fabric',15),
 	('Paper bag',15),
-	('Pet supplie',15),
-	('Shopping  bag',15),
-	('Vehicles/ part',15),
-	('Computer pape',15),
-	('Reusable metal item',15),
-	('Cell phone',16),
-	('small appliance',16),
-	('Book',16),
-	('Clothe',16),
-	('Computer',16),
-	('Furnitur',16),
-	('Lamp',16),
-	('Lawn power equipmen',16),
-	('Outdoor Gea',16),
-	('Sandal',16),
-	('Shoes, boot',16),
-	('Upholstery, ca',16),
-	('Upholstery, Furnitur',16);
+	('Pet supplies',15),
+	('Shopping bags',15),
+	('Vehicles/parts',15),
+	('Computer paper',15),
+	('Reusable metal items',15),
+	('Cell phones',16),
+	('Small appliances',16),
+	('Books',16),
+	('Clothes',16),
+	('Computers',16),
+	('Furniture',16),
+	('Lamps',16),
+	('Lawn power equipment',16),
+	('Outdoor gear',16),
+	('Sandals',16),
+	('Shoes, boots',16),
+	('Upholstery, car',16),
+	('Upholstery, furniture',16);
 
 
-
+/* ========================================================================
+	TEST DATA: Adding Reuse Businesses
+   ======================================================================== */
+INSERT INTO
+	Organizations (id, org_type, name, street1, street2, city, state, zip, webpage, phone, notes)
+VALUES
+	(1, 1, 'Albany-Corvallis ReUseIt')
+	(2, 1, 'Arc Thrift Stores  (Corvallis)')
+	(3, 1, 'Arc Thrift Stores (Philomath)')
+	(4, 1, 'Beekman Place Antique Mall')
+	(5, 1, 'Benton County Extension / 4-H  Activities')
+	(6, 1, 'Benton County Master Gardeners')
+	(7, 1, 'Book Bin')
+	(8, 1, 'Browser\'s Bookstore')
+	(9, 1, 'Boys & Girls Club \/ STARS')
+	(10, 1, 'Buckingham Palace')
+	(11, 1, 'Calvary Community Outreach')
+	(12, 1, 'CARDV (Center Against Rape/Domestic Violence)')
+	(13, 1, 'Career Closet for Women')
+	(14, 1, 'Cat\'s Meow Humane Society Thrift Shop')
+	(15, 1, 'Children\'s Farm Home')
+	(16, 1, 'Chintimini Wildlife Rehabilitation Ctr')
+	(17, 1, 'Community Outreach')
+	(18, 1, 'Corvallis Environmental Center')
+	(19, 1, 'Corvallis Bicycle Collective')
+	(20, 1, 'Corvallis Furniture')
+	(21, 1, 'Corvallis-Uzhhorod Sister Cities/The TOUCH Project')
+	(22, 1, 'Cosmic Chameleon')
+	(23, 1, 'Craigslist and Freecycle.org')
+	(24, 1, 'First Alternative Co-op Recycling Center')
+	(25, 1, 'First Alternative Co-op Store (South store)')
+	(26, 1, 'First Alternative Co-op Store (North store)')
+	(27, 1, 'Furniture Exchange')
+	(28, 1, 'Furniture Share (formerly Benton FS)')
+	(29, 1, 'Home Grown Gardens')
+	(30, 1, 'Garland Nursery')
+	(31, 1, 'Goodwill Industries')
+	(32, 1, 'Habitat for Humanity ReStore')
+	(33, 1, 'Happy Trails Records, Tapes & CDs')
+	(34, 1, 'Heartland Humane Society')
+	(35, 1, 'Home Life Inc.')
+	(36, 1, 'Jackson Street Youth Shelter')
+	(37, 1, 'Linn Benton Food Share')
+	(38, 1, 'Lions Club (box inside Elks Lodge)')
+	(39, 1, 'Love INC')
+	(40, 1, 'Mario Pastega House')
+	(41, 1, 'Mary\'s River Gleaners')
+	(42, 1, 'Midway Farms')
+	(43, 1, 'Neighbor to Neighbor')
+	(44, 1, 'Osborn Aquatic Center')
+	(45, 1, 'OSU Emergency Food Pantry')
+	(46, 1, 'OSU Folk Club Thrift Shop')
+	(47, 1, 'OSU Organic Growers Club (Crop & Soil Science Dept)')
+	(48, 1, 'Pak Mail (Timberhill Shopping Ctr)')
+	(49, 1, 'Parent Enhancement Program')
+	(50, 1, 'Pastors for Peace-Caravan to Cuba (Mike Beilstein)')
+	(51, 1, 'Philomath Community Garden (Chris Shonnard)')
+	(52, 1, 'Philomath Community Services')
+	(53, 1, 'Play It Again Sports')
+	(54, 1, 'Presbyterian Piecemakers')
+	(55, 1, 'Public Library Corvallis, Friends of')
+	(56, 1, 'Quilts From Caring Hands')
+	(57, 1, 'Rapid Refill Ink')
+	(58, 1, 're·volve')
+	(59, 1, 'Schools--Public, Private, Charter')
+	(60, 1, 'Second Glance')
+	(61, 1, 'The Annex')
+	(62, 1, 'The Alley')
+	(63, 1, 'Senior Center of Corvallis')
+	(64, 1, 'South Corvallis Food Bank')
+	(65, 1, 'St. Vincent de Paul Food Bank')
+	(66, 1, 'Stone Soup  (St Mary\'s Church)')
+	(67, 1, 'UPS Store (Philomath)')
+	(68, 1, 'UPS Stores (Corvallis)')
+	(69, 1, 'Vina Moses')
+	(70, 1, 'Spaeth Heritage House')
+	;
 
 
 /* ========================================================================
@@ -335,6 +411,18 @@ INSERT INTO
 VALUES
 	(1, 2, 'Bellevue Computers', '1865 NW 9th St', '', 'Corvallis', 'OR', '', 'http://www.bellevuepc.com/', '541-757-3487', 'repair computers and laptops'),
 	(2, 2, 'Book Binding', '108 SW 3rd St', '', 'Corvallis', 'OR', '97333', 'http://www.cornerstoneassociates.com/bj-bookbinding-about-us.html', '541-5757-9861', 'Rebind and Restore books')
+	(3, 2, 'Cell Phone Sick Bay')
+	(4, 2, 'Covallis Technical')
+	(5, 2, 'Foam Man')
+	(6, 2, 'Footwise')
+	(7, 2, 'Furniture Restoration Center')
+	(8, 2, 'Geeks \'N\' Nerds')
+	(9, 2, 'OSU Repair Fair')
+	(10, 2, 'P.K Furniture Repair & Refinishing')
+	(11, 2, 'Power equipment')
+	(12, 2, 'Robnett\'s')
+	(13, 2, 'Sedlack')
+	(14, 2, 'Specialty Sewing By Leslie')
 	;
 
 
