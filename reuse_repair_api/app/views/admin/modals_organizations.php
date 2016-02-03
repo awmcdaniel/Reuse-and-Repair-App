@@ -152,27 +152,26 @@
 ================================================================= -->
 <div class="modal fade" id="modal-insert-organizationitem">
   <div class="modal-dialog">
-    <form method="DELETE" id="form_insert_organizationitem">
+    <form method="POST" id="form_insert_organizationitem">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">ADD ITEM</h4>
+        <h4 class="modal-title">ADD ITEM  </h4>
       </div>
       <div class="modal-body">
         <input type="text" id="input_org_id" name="id" class="hidden">
 
         <div class="tab-pane" id="org_items">
           <div class="alert alert-warning" role="alert">
-            <strong>INFO! </strong>
+           <span class="label label-default" id="org_add_item"></span> <br/>
+           <strong>INFO! </strong>
             Item must already exist in the database to associate with a business. If you need to add a new item to the DB,
             select 'Items' in the Add/Edit dropdown above.
           </div>
 
         <div id="container_org_items">
-          <input type="text" class="form-control"  id="input_org_items" name="items[]" value="" Placeholder="Service Items">
+          <input type="text" class="form-control"  id="input_org_items" name="items[]" Placeholder="Service Items">
         </div>
-
-
         </div>
       </div>
       <div class="modal-footer">

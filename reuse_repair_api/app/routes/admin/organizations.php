@@ -21,7 +21,7 @@ $app->get('/admin/organizations', function () use ($app, $db) {
 
         $results[] = array(
             'id'            => $row['id'],
-            'name'          => $row['name'],
+            'name'          => utf8_encode($row['name']),
             'org_type'      => $org_type,
             'street_1'      => $row['street1'],
             'street_2'      => $row['street2'],
@@ -40,3 +40,67 @@ $app->get('/admin/organizations', function () use ($app, $db) {
     ]);
 
 })->name('organizations.showall');
+
+/* ===========================================================================
+Add/Update multiple items to organization entity
+=========================================================================== */
+
+$app->post('/admin/organizations/items', function () use ($app, $db) {
+
+    $org_id    = $app->request()->post('id');
+    $items_arr = $app->request()->post('items');
+
+    $app->response()->header("Content-Type", "application/json");
+
+    //check if organization exist
+    $query = $db->organizations()->where('id', intval($org_id));
+    if (!$query->fetch()) {
+        $app->response()->setStatus(404);
+        echo json_encode(array(
+            "status"  => 404,
+            "message" => "Organization id=$org_id does not exist",
+        ));
+        die();
+    }
+
+    //keep track of changes
+    $already_exist = array();
+    $new_items     = array();
+    $not_processed = array();
+    $deleted_items = array();
+
+    //delete all items in the database that are not in the request
+    $all_items = $db->organizationitems()->where('org_id=?', intval($org_id));
+    foreach ($all_items as $row) {
+        if (!in_array($row['item_id'], $items_arr)) {
+            $deleted_items[] = $row['item_id'];
+            $row->delete();
+        }
+    }
+
+    //add all items remaining
+    foreach ($items_arr as $item_id) {
+        $query = $db->organizationitems()->where('item_id=? AND org_id=?', intval($item_id), intval($org_id));
+        if ($data = $query->fetch()) {
+            $already_exist[] = $item_id;
+        } else {
+            $insert_id = $db->organizationitems()->insert(array("org_id" => $org_id, "item_id" => $item_id));
+            if ($insert_id) {
+                $new_items[] = $item_id;
+            } else {
+                $not_processed[] = $item_id;
+            }
+
+        }
+
+    }
+
+    echo json_encode(array(
+        "status"       => 200,
+        "added"        => $new_items,
+        "untouched"    => $already_exist,
+        "error_adding" => $not_processed,
+        "deleted"      => $deleted_items,
+    ));
+
+});

@@ -23,16 +23,15 @@
 
   <div class="panel panel-default">
     <div class="panel-body">
-  <table class="table table-hover">
+  <table class="table table-hover" id="table_organizations">
     <thead>
       <tr>
         <th class="hidden-xs">ID</th>
         <th class="hidden-xs">TYPE</th>
         <th>BUSINESS</th>
-        <th>CONTACT</th>
-        <th>ITEMS</th>
+        <th class="hidden-xs">ITEMS</th>
         <th class="hidden-xs">NOTES</th>
-        <th></th>
+        <th class="hidden-xs"></th>
       </tr>
     </thead>
     <tbody>
@@ -44,6 +43,19 @@
           <strong><span id="org_name_{{item.id}}" class="row_org_name">{{ item.name }} </span> </strong><br/>
           {% if (item.street1 is defined) and (item.street1 is not null) %}
             <span id="org_addr1_{{item.id}}" class="row_org_addr1">{{ item.street1 }} </span><br/>
+          {% endif %}
+
+          {% if item.webpage is defined %}
+            {% if (item.webpage is not empty) and (item.webpage is not null) %}
+            <a href="{{ item.webpage }}" id="org_url_{{item.id}}" class="row_org_url" target="_blank">Website</a> |
+
+            {% endif %}
+          {% endif %}
+
+          {% if item.phone is defined %}
+            {% if (item.phone is not empty) and (item.phone is not null) %}
+            <span id="org_phone_{{item.id}}" class="row_org_phone ">{{ item.phone }}</span><br/>
+            {% endif %}
           {% endif %}
 
           {% if (item.street2 is defined) and (item.street2 is not null) %}
@@ -61,15 +73,7 @@
           {% if (item.zip_code is defined) and (item.zip_code is not null) %}
           <span id="org_zip_{{item.id}}" class="row_org_zip">{{ item.zip_code }}
           {% endif %}
-        </td>
-        <td>
-          {% if item.webpage is defined %}
-            {% if (item.street1 is not empty) and (item.street1 is not null) %}
-            <a href="{{ item.webpage }}" id="org_url_{{item.id}}" class="row_org_url" target="_blank">Website</a> <br/>
 
-            {% endif %}
-          {% endif %}
-            <span id="org_phone_{{item.id}}" class="row_org_phone ">{{ item.phone }}</span><br/>
         </td>
         <td>
 
@@ -78,7 +82,7 @@
           {% endfor %}
 
         </td>
-        <td>
+        <td class="hidden-xs">
           <span id="org_notes_{{item.id}}" class="row_org_note hidden-xs">{{ item.notes }}</span><br/>
         </td>
         <td>

@@ -388,7 +388,7 @@ VALUES
 	(56, 1, 'Quilts From Caring Hands', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 	(57, 1, 'Rapid Refill Ink', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 	(58, 1, 're·volve', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(59, 1, 'Schools--Public, Private, Charter', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(59, 1, 'Schools--Public Private Charter', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 	(60, 1, 'Second Glance', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 	(61, 1, 'The Annex', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 	(62, 1, 'The Alley', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -492,9 +492,10 @@ VALUES
 
 
 /* ==================================================
-Automatically add an entry for Organization in OrganizationHours.
-NOTE: place this at the very end of the file!
+	Automatically add an entry for Organization in OrganizationHours.
+	NOTE: place this at the very end of the file!
 ====================================================*/
+
 CREATE TRIGGER new_org_added
 AFTER INSERT ON Organizations
 FOR EACH ROW

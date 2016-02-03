@@ -111,3 +111,50 @@ span.ui-helper-hidden-accessible{
 .token > span {
 	max-width: 100% !important;
 }
+
+#table_organizations.table thead tr th,
+#table_organizations.table tbody tr td {
+	max-width: 250px;
+}
+
+#table_organizations.table thead tr th {
+	color: #29282D;
+	font-family: BebasNeue;
+	font-size: 1.2em;
+}
+
+.btn-group .btn+.btn {
+	margin-left: 0px;
+}
+
+.btn-group>.btn {
+	border-radius: 0px;
+} 
+
+
+
+@media screen and (max-width: 480px) {
+
+	#table_organizations.table thead tr th,
+	#table_organizations.table tbody tr td {
+		max-width: 100%;
+	}
+
+    #table_organizations.table tbody tr td {
+    	display: block;
+    }
+
+    .table>tbody>tr>td {
+    	border: 0px;
+    }
+
+    .table>tbody>tr {
+    	margin-bottom: 5px;
+    	margin-top: 5px;
+    }
+
+    #table_organizations.table tbody tr td:last-child {
+    	border-bottom: 1px solid lightgray;
+    }
+
+}
