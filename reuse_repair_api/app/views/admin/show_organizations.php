@@ -6,6 +6,12 @@
 ================================================================= -->
 <div class="container">
 
+<div>
+  <label class="checkbox-inline"><input type="checkbox" value="">Reuse</label>
+  <label class="checkbox-inline"><input type="checkbox" value="">Repair</label>
+</div>
+
+
 <div class="page-header">
   <h1>Organizations
     <small>List All</small>
@@ -76,9 +82,14 @@
         </td>
         <td>
           <div class="btn-group btn-group-xs" role="group" aria-label="...">
-            <button type="button" class="btn btn-warning edit-org-entry" data-toggle="modal" href='#modal-edit-organization'>
+            <button type="button" class="btn btn-primary edit-org-entry" data-toggle="modal" href='#modal-edit-organization'>
               <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>
               <span class="hidden org_id">{{ item.id }}</span>
+            </button>
+            <button type="button" class="btn btn-success add-orgitem-entry" data-toggle="modal" href='#modal-insert-organizationitem'>
+              <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
+              <span class="hidden org_id">{{ item.id }}</span>
+              <span class="hidden org_name">{{ item.name }}</span>
             </button>
             <button type="button" class="btn btn-danger delete-org-entry" data-toggle="modal" href='#modal-delete-organization'>
               <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>

@@ -110,10 +110,6 @@
             <input type="text" class="form-control" id="input_notes" name="notes" placeholder="">
           </div>
 
-
-
-
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -167,8 +163,9 @@
 
         <div class="tab-pane" id="org_items">
           <div class="alert alert-warning" role="alert">
-            <strong>INFO! </strong> The items you can add in this tab is based on the organization type selected in the
-            Organization Details tab.
+            <strong>INFO! </strong>
+            Item must already exist in the database to associate with a business. If you need to add a new item to the DB,
+            select 'Items' in the Add/Edit dropdown above.
           </div>
 
         <div id="container_org_items">
@@ -177,14 +174,10 @@
 
 
         </div>
-
-
-
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-danger">Delete</button>
+        <button type="submit" class="btn btn-danger">Save</button>
       </div>
     </div>
     </form>
