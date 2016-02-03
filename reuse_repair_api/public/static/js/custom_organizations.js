@@ -2,6 +2,7 @@
 ORGANIZATION
 =======================================================================*/
 $("#btn_add_organizations").click(function () {
+
 	$("#modal-edit-organization input[name=input_org_id]").val("").prop("disabled", true);
 
 	/* CLEAR THE FORM*/
@@ -22,26 +23,23 @@ $("#btn_add_organizations").click(function () {
 	create_selectlist_options("#form_container_orgtype.form-group select", org_categories);
 
 	//change method
-	$("#form_insert_organizations").attr("method", "POST");
+	$("#form_insert_organization").attr("method", "POST");
 
 	//disable the hidden id input
-	$("#form_insert_organizations").find("input[name=id]").prop('disabled', true);
-	$("#form_insert_organizations").find("input[name=id]").val("")
+	$("#form_insert_organization").find("input[name=id]").prop('disabled', true);
+	$("#form_insert_organization").find("input[name=id]").val("")
 
 	//change action
-	$("#form_insert_organizations").attr("action", base_url + '/api/organization');
-
-
-	//$("#input_org_items").prop('disabled', true);
+	$("#form_insert_organization").attr("action", base_url + '/api/organization');
 
 });
 
 
 $(".edit-org-entry").click(function () {
+
 	org_id = $(this).find(".org_id").html();
 	
-	//$("#modal-edit-organization input[name=input_org_id]").val(org_id).prop("disabled", false);
-	//parent_ele = document.getElementById("org_"+org_id);
+	$("#modal-edit-organization input[name=org_id]").val(org_id).prop("disabled", false);
 
 	$("#modal-edit-organization .modal-title").html("EDITING");
 	/* GET THE DATA*/
@@ -60,11 +58,19 @@ $(".edit-org-entry").click(function () {
 	org_addr1 = (org_addr1 == null) ? "" : org_addr1.html();
 	org_addr2 = (org_addr2 == null) ? "" : org_addr2.html();
 	org_city = (org_city == null) ? "" : org_city.html();
-	org_state = (org_state == null) ? "" : org_state.html();
+
+	if($(document).find("#org_state_"+org_id).length == 0) {
+		$("#modal-edit-organization select#input_state.form-control").val("");
+	} else {
+		org_state = org_state.html();
+		$("#modal-edit-organization select#input_state.form-control option[value="+org_state+"]").prop('selected', true);
+	}
+
 	org_zip = (org_zip == null) ? "" : org_zip.html();
 
 
 	/* PREFILL DATA */
+
 	$("#modal-edit-organization input[id=input_name]").val(org_name);
 	$("#modal-edit-organization input[id=input_url]").val(org_url);
 	$("#modal-edit-organization input[id=input_phone]").val(org_phone);
@@ -72,7 +78,7 @@ $(".edit-org-entry").click(function () {
 	$("#modal-edit-organization input[id=input_addr1]").val(org_addr1);
 	$("#modal-edit-organization input[id=input_addr2]").val(org_addr2);
 	$("#modal-edit-organization input[id=input_city]").val(org_city);
-	$("#modal-edit-organization select#input_state.form-control option[value="+org_state+"]").prop('selected', true);
+	
 	$("#modal-edit-organization input[id=input_zipcode]").val(org_zip);
 
 	$("#form_container_orgtype.form-group select").empty();
@@ -84,29 +90,34 @@ $(".edit-org-entry").click(function () {
 	};
 
 	//change method
-	$("#form_insert_organizations").attr("method", "PUT");
-	$("#form_insert_organizations").find("input[name=id]").prop('disabled', false);
-	$("#form_insert_organizations").find("input[name=id]").val(org_id);
+	$("#form_insert_organization").attr("method", "PUT");
+	$("#form_insert_organization").find("input[name=id]").prop('disabled', false);
+	$("#form_insert_organization").find("input[name=id]").val(org_id);
 
 	//change action
-	$("#form_insert_organizations").attr("action", base_url + '/api/organization/' + org_id);
-
-	//$("#input_org_items").prop('disabled', true);
+	$("#form_insert_organization").attr("action", base_url + '/api/organization/' + org_id);
 });
 
-$("#form_insert_organizations").submit(function(event) {
+$("#form_insert_organization").submit(function(event) {
 	//stop default event
 	event.preventDefault();
 
 	//get all the input data
-	var postData = $(this).serializeArray();
-	var method = $("#form_insert_organizations").attr("method");
-	var action = $("#form_insert_organizations").attr("action");
+	var method = $("#form_insert_organization").attr("method");
+	var action = $("#form_insert_organization").attr("action");
+
+	var postData = $("#form_insert_organization :input[value!='']").serializeArray();
+	var postData_filtered = [];
+	$.each(postData, function(index, object) {
+		if(object['value'] !== "") {
+			postData_filtered.push(object);
+		}
+	});
 
 	$.ajax({
 			url: action,
 			type: method,
-			data: postData,
+			data: postData_filtered,
 			dataType: "json", 
 			success: function (data) {
 				console.log(data);
@@ -117,4 +128,41 @@ $("#form_insert_organizations").submit(function(event) {
 		//close the modal
 		$("#modal-edit-organization").modal('hide');
 	});
+});
+
+$(".delete-org-entry").click(function(event){
+
+
+	//get the id to be deleted
+	var id = $(this).find(".org_id").html();
+	$("#modal-delete-organization input[name=id]").val(id);
+	
+	var name = $(this).find(".org_name").html();
+	$("#modal-delete-organization #org_del_item").html(name);
+
+});
+
+
+$("#form_delete_organization").submit(function(){
+
+	//stop default event
+	event.preventDefault();
+
+	//get all the input data
+	var id = $(this).find("input[name=id]").val();
+
+	$.ajax({
+			url: base_url + '/api/organization/' + id,
+			type: 'delete',
+			dataType: "json", 
+			success: function (data) {
+				console.log(data);
+			}
+		})
+	.done(function(data) {
+
+		//close the modal
+		$("#modal-delete-organization").modal('hide');
+	});
+
 });

@@ -2,7 +2,7 @@
 ================================================================= -->
 <div class="modal fade" id="modal-edit-organization">
   <div class="modal-dialog">
-  <form id="form_insert_organizations" method="POST">
+  <form id="form_insert_organization" method="POST">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -10,14 +10,6 @@
       </div>
       <div class="modal-body">
 
-        <ul class="nav nav-pills nav-justified" id="nav_tabContent">
-                <li class="active"><a href="#org_details" data-toggle="tab">Organization Details</a></li>
-                <li><a href="#org_items" data-toggle="tab">Add Items</a></li>
-        </ul>
-
-
-        <div class="tab-content">
-        <div class="tab-pane active" id="org_details">
           <input type="text" id="input_org_id" name="id" class="hidden">
 
           <div class="form-group" id="form_container_orgtype">
@@ -96,6 +88,7 @@
                   <option value="WV">West Virginia</option>
                   <option value="WI">Wisconsin</option>
                   <option value="WY">Wyoming</option>
+                  <option value="NULL">Unknown</option>
                 </select>
               </div>
               <div class="col-sm-4">
@@ -117,19 +110,8 @@
             <input type="text" class="form-control" id="input_notes" name="notes" placeholder="">
           </div>
 
-          </div>
 
-          <div class="tab-pane" id="org_items">
-            <div class="alert alert-warning" role="alert">
-              <strong>INFO! </strong> The items you can add in this tab is based on the organization type selected in the
-              Organization Details tab.
-            </div>
 
-            <input type="text" class="form-control" id="input_org_items" name="items[]" value="" Placeholder="Service Items">
-
-          </div>
-
-          </div>
 
 
       </div>
@@ -146,12 +128,58 @@
 ================================================================= -->
 <div class="modal fade" id="modal-delete-organization">
   <div class="modal-dialog">
+    <form method="DELETE" id="form_delete_organization">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title">DELETE</h4>
       </div>
       <div class="modal-body">
+        <input type="text" id="input_org_id" name="id" class="hidden">
+        <div class="alert alert-danger" role="alert">
+          <strong>WARNING! </strong> <br/>
+          You are about to delete the <span class="label label-default" id="org_del_item"></span> organization.
+          This is permanent and cannot be undone once processed.
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+
+
+<!-- Add Item to Org
+================================================================= -->
+<div class="modal fade" id="modal-insert-organizationitem">
+  <div class="modal-dialog">
+    <form method="DELETE" id="form_insert_organizationitem">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">ADD ITEM</h4>
+      </div>
+      <div class="modal-body">
+        <input type="text" id="input_org_id" name="id" class="hidden">
+
+        <div class="tab-pane" id="org_items">
+          <div class="alert alert-warning" role="alert">
+            <strong>INFO! </strong> The items you can add in this tab is based on the organization type selected in the
+            Organization Details tab.
+          </div>
+
+        <div id="container_org_items">
+          <input type="text" class="form-control"  id="input_org_items" name="items[]" value="" Placeholder="Service Items">
+        </div>
+
+
+        </div>
+
+
+
 
       </div>
       <div class="modal-footer">
@@ -159,5 +187,6 @@
         <button type="submit" class="btn btn-danger">Delete</button>
       </div>
     </div>
+    </form>
   </div>
 </div>

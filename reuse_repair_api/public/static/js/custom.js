@@ -27,7 +27,7 @@ $(document).ready(function() {
 		  autocomplete: {
 		    source: items_in_categories,
 		    delay: 100,
-		    appendTo: "#org_items"
+		    appendTo: "#container_org_items"
 		  },
 		  showAutocompleteOnFocus: false
 		});

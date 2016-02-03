@@ -35,21 +35,29 @@
         <td id="org_type_{{item.id}}" class="row_org_type hidden-xs">{{ item.org_type }}</td>
         <td>
           <strong><span id="org_name_{{item.id}}" class="row_org_name">{{ item.name }} </span> </strong><br/>
-          {% if item.street1 is defined %}
+          {% if (item.street1 is defined) and (item.street1 is not null) %}
             <span id="org_addr1_{{item.id}}" class="row_org_addr1">{{ item.street1 }} </span><br/>
           {% endif %}
 
-          {% if item.street2 is defined %}
+          {% if (item.street2 is defined) and (item.street2 is not null) %}
             <span id="org_addr2_{{item.id}}" class="row_org_addr2">{{ item.street2 }} </span><br/>
           {% endif %}
 
+          {% if (item.city is defined) and (item.city is not null) %}
           <span id="org_city_{{item.id}}" class="row_org_city">{{ item.city }}</span>
+          {% endif %}
+
+          {% if (item.state is defined) and (item.state is not null) %}
           <span id="org_state_{{item.id}}" class="row_org_state">{{ item.state }}</span>,
+          {% endif %}
+
+          {% if (item.zip_code is defined) and (item.zip_code is not null) %}
           <span id="org_zip_{{item.id}}" class="row_org_zip">{{ item.zip_code }}
+          {% endif %}
         </td>
         <td>
           {% if item.webpage is defined %}
-            {% if item.webpage is not empty %}
+            {% if (item.street1 is not empty) and (item.street1 is not null) %}
             <a href="{{ item.webpage }}" id="org_url_{{item.id}}" class="row_org_url" target="_blank">Website</a> <br/>
 
             {% endif %}
@@ -75,6 +83,7 @@
             <button type="button" class="btn btn-danger delete-org-entry" data-toggle="modal" href='#modal-delete-organization'>
               <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
               <span class="hidden org_id">{{ item.id }}</span>
+              <span class="hidden org_name">{{ item.name }}</span>
             </button>
           </div>
         </td>
