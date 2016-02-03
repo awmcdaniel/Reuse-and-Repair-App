@@ -330,75 +330,75 @@ VALUES
 INSERT INTO
 	Organizations (id, org_type, name, street1, street2, city, state, zip, webpage, phone, notes)
 VALUES
-	(1, 1, 'Albany-Corvallis ReUseIt')
-	(2, 1, 'Arc Thrift Stores  (Corvallis)')
-	(3, 1, 'Arc Thrift Stores (Philomath)')
-	(4, 1, 'Beekman Place Antique Mall')
-	(5, 1, 'Benton County Extension / 4-H  Activities')
-	(6, 1, 'Benton County Master Gardeners')
-	(7, 1, 'Book Bin')
-	(8, 1, 'Browser\'s Bookstore')
-	(9, 1, 'Boys & Girls Club \/ STARS')
-	(10, 1, 'Buckingham Palace')
-	(11, 1, 'Calvary Community Outreach')
-	(12, 1, 'CARDV (Center Against Rape/Domestic Violence)')
-	(13, 1, 'Career Closet for Women')
-	(14, 1, 'Cat\'s Meow Humane Society Thrift Shop')
-	(15, 1, 'Children\'s Farm Home')
-	(16, 1, 'Chintimini Wildlife Rehabilitation Ctr')
-	(17, 1, 'Community Outreach')
-	(18, 1, 'Corvallis Environmental Center')
-	(19, 1, 'Corvallis Bicycle Collective')
-	(20, 1, 'Corvallis Furniture')
-	(21, 1, 'Corvallis-Uzhhorod Sister Cities/The TOUCH Project')
-	(22, 1, 'Cosmic Chameleon')
-	(23, 1, 'Craigslist and Freecycle.org')
-	(24, 1, 'First Alternative Co-op Recycling Center')
-	(25, 1, 'First Alternative Co-op Store (South store)')
-	(26, 1, 'First Alternative Co-op Store (North store)')
-	(27, 1, 'Furniture Exchange')
-	(28, 1, 'Furniture Share (formerly Benton FS)')
-	(29, 1, 'Home Grown Gardens')
-	(30, 1, 'Garland Nursery')
-	(31, 1, 'Goodwill Industries')
-	(32, 1, 'Habitat for Humanity ReStore')
-	(33, 1, 'Happy Trails Records, Tapes & CDs')
-	(34, 1, 'Heartland Humane Society')
-	(35, 1, 'Home Life Inc.')
-	(36, 1, 'Jackson Street Youth Shelter')
-	(37, 1, 'Linn Benton Food Share')
-	(38, 1, 'Lions Club (box inside Elks Lodge)')
-	(39, 1, 'Love INC')
-	(40, 1, 'Mario Pastega House')
-	(41, 1, 'Mary\'s River Gleaners')
-	(42, 1, 'Midway Farms')
-	(43, 1, 'Neighbor to Neighbor')
-	(44, 1, 'Osborn Aquatic Center')
-	(45, 1, 'OSU Emergency Food Pantry')
-	(46, 1, 'OSU Folk Club Thrift Shop')
-	(47, 1, 'OSU Organic Growers Club (Crop & Soil Science Dept)')
-	(48, 1, 'Pak Mail (Timberhill Shopping Ctr)')
-	(49, 1, 'Parent Enhancement Program')
-	(50, 1, 'Pastors for Peace-Caravan to Cuba (Mike Beilstein)')
-	(51, 1, 'Philomath Community Garden (Chris Shonnard)')
-	(52, 1, 'Philomath Community Services')
-	(53, 1, 'Play It Again Sports')
-	(54, 1, 'Presbyterian Piecemakers')
-	(55, 1, 'Public Library Corvallis, Friends of')
-	(56, 1, 'Quilts From Caring Hands')
-	(57, 1, 'Rapid Refill Ink')
-	(58, 1, 're·volve')
-	(59, 1, 'Schools--Public, Private, Charter')
-	(60, 1, 'Second Glance')
-	(61, 1, 'The Annex')
-	(62, 1, 'The Alley')
-	(63, 1, 'Senior Center of Corvallis')
-	(64, 1, 'South Corvallis Food Bank')
-	(65, 1, 'St. Vincent de Paul Food Bank')
-	(66, 1, 'Stone Soup  (St Mary\'s Church)')
-	(67, 1, 'UPS Store (Philomath)')
-	(68, 1, 'UPS Stores (Corvallis)')
-	(69, 1, 'Vina Moses')
+	(1, 1, 'Albany-Corvallis ReUseIt'),
+	(2, 1, 'Arc Thrift Stores  (Corvallis)'),
+	(3, 1, 'Arc Thrift Stores (Philomath)'),
+	(4, 1, 'Beekman Place Antique Mall'),
+	(5, 1, 'Benton County Extension / 4-H  Activities'),
+	(6, 1, 'Benton County Master Gardeners'),
+	(7, 1, 'Book Bin'),
+	(8, 1, 'Browser\'s Bookstore'),
+	(9, 1, 'Boys & Girls Club \/ STARS'),
+	(10, 1, 'Buckingham Palace'),
+	(11, 1, 'Calvary Community Outreach'),
+	(12, 1, 'CARDV (Center Against Rape/Domestic Violence)'),
+	(13, 1, 'Career Closet for Women'),
+	(14, 1, 'Cat\'s Meow Humane Society Thrift Shop'),
+	(15, 1, 'Children\'s Farm Home'),
+	(16, 1, 'Chintimini Wildlife Rehabilitation Ctr'),
+	(17, 1, 'Community Outreach'),
+	(18, 1, 'Corvallis Environmental Center'),
+	(19, 1, 'Corvallis Bicycle Collective'),
+	(20, 1, 'Corvallis Furniture'),
+	(21, 1, 'Corvallis-Uzhhorod Sister Cities/The TOUCH Project'),
+	(22, 1, 'Cosmic Chameleon'),
+	(23, 1, 'Craigslist and Freecycle.org'),
+	(24, 1, 'First Alternative Co-op Recycling Center'),
+	(25, 1, 'First Alternative Co-op Store (South store)'),
+	(26, 1, 'First Alternative Co-op Store (North store)'),
+	(27, 1, 'Furniture Exchange'),
+	(28, 1, 'Furniture Share (formerly Benton FS)'),
+	(29, 1, 'Home Grown Gardens'),
+	(30, 1, 'Garland Nursery'),
+	(31, 1, 'Goodwill Industries'),
+	(32, 1, 'Habitat for Humanity ReStore'),
+	(33, 1, 'Happy Trails Records, Tapes & CDs'),
+	(34, 1, 'Heartland Humane Society'),
+	(35, 1, 'Home Life Inc.'),
+	(36, 1, 'Jackson Street Youth Shelter'),
+	(37, 1, 'Linn Benton Food Share'),
+	(38, 1, 'Lions Club (box inside Elks Lodge)'),
+	(39, 1, 'Love INC'),
+	(40, 1, 'Mario Pastega House'),
+	(41, 1, 'Mary\'s River Gleaners'),
+	(42, 1, 'Midway Farms'),
+	(43, 1, 'Neighbor to Neighbor'),
+	(44, 1, 'Osborn Aquatic Center'),
+	(45, 1, 'OSU Emergency Food Pantry'),
+	(46, 1, 'OSU Folk Club Thrift Shop'),
+	(47, 1, 'OSU Organic Growers Club (Crop & Soil Science Dept)'),
+	(48, 1, 'Pak Mail (Timberhill Shopping Ctr)'),
+	(49, 1, 'Parent Enhancement Program'),
+	(50, 1, 'Pastors for Peace-Caravan to Cuba (Mike Beilstein)'),
+	(51, 1, 'Philomath Community Garden (Chris Shonnard)'),
+	(52, 1, 'Philomath Community Services'),
+	(53, 1, 'Play It Again Sports'),
+	(54, 1, 'Presbyterian Piecemakers'),
+	(55, 1, 'Public Library Corvallis, Friends of'),
+	(56, 1, 'Quilts From Caring Hands'),
+	(57, 1, 'Rapid Refill Ink'),
+	(58, 1, 're·volve'),
+	(59, 1, 'Schools--Public, Private, Charter'),
+	(60, 1, 'Second Glance'),
+	(61, 1, 'The Annex'),
+	(62, 1, 'The Alley'),
+	(63, 1, 'Senior Center of Corvallis'),
+	(64, 1, 'South Corvallis Food Bank'),
+	(65, 1, 'St. Vincent de Paul Food Bank'),
+	(66, 1, 'Stone Soup  (St Mary\'s Church)'),
+	(67, 1, 'UPS Store (Philomath)'),
+	(68, 1, 'UPS Stores (Corvallis)'),
+	(69, 1, 'Vina Moses'),
 	(70, 1, 'Spaeth Heritage House')
 	;
 
@@ -409,20 +409,20 @@ VALUES
 INSERT INTO
 	Organizations (id, org_type, name, street1, street2, city, state, zip, webpage, phone, notes)
 VALUES
-	(1, 2, 'Bellevue Computers', '1865 NW 9th St', '', 'Corvallis', 'OR', '', 'http://www.bellevuepc.com/', '541-757-3487', 'repair computers and laptops'),
-	(2, 2, 'Book Binding', '108 SW 3rd St', '', 'Corvallis', 'OR', '97333', 'http://www.cornerstoneassociates.com/bj-bookbinding-about-us.html', '541-5757-9861', 'Rebind and Restore books')
-	(3, 2, 'Cell Phone Sick Bay')
-	(4, 2, 'Covallis Technical')
-	(5, 2, 'Foam Man')
-	(6, 2, 'Footwise')
-	(7, 2, 'Furniture Restoration Center')
-	(8, 2, 'Geeks \'N\' Nerds')
-	(9, 2, 'OSU Repair Fair')
-	(10, 2, 'P.K Furniture Repair & Refinishing')
-	(11, 2, 'Power equipment')
-	(12, 2, 'Robnett\'s')
-	(13, 2, 'Sedlack')
-	(14, 2, 'Specialty Sewing By Leslie')
+	(71, 2, 'Bellevue Computers', '1865 NW 9th St', '', 'Corvallis', 'OR', '', 'http://www.bellevuepc.com/', '541-757-3487', 'repair computers and laptops'),
+	(72, 2, 'Book Binding', '108 SW 3rd St', '', 'Corvallis', 'OR', '97333', 'http://www.cornerstoneassociates.com/bj-bookbinding-about-us.html', '541-5757-9861', 'Rebind and Restore books'),
+	(73, 2, 'Cell Phone Sick Bay'),
+	(74, 2, 'Covallis Technical'),
+	(75, 2, 'Foam Man'),
+	(76, 2, 'Footwise'),
+	(77, 2, 'Furniture Restoration Center'),
+	(78, 2, 'Geeks \'N\' Nerds'),
+	(79, 2, 'OSU Repair Fair'),
+	(80, 2, 'P.K Furniture Repair & Refinishing'),
+	(81, 2, 'Corvalis Power Equipment'),
+	(82, 2, 'Robnett\'s'),
+	(83, 2, 'Sedlack'),
+	(84, 2, 'Specialty Sewing By Leslie')
 	;
 
 
@@ -432,8 +432,8 @@ VALUES
 INSERT INTO
 	OrganizationItems (org_id, item_id)
 VALUES
-	(1, 184), /* (Bellevue Computers, Computers) */
-	(2, 181)
+	(71, 184), /* (Bellevue Computers, Computers) */
+	(72, 181)
 	;
 
 
@@ -443,5 +443,18 @@ VALUES
 INSERT INTO 
 	OrganizationHours (`org_id`, `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, `thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`) 
 VALUES 
-	('1', '06:15:00', '14:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('2', NULL, NULL, '06:15:00', '14:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+	('71', '09:00:00', '18:00:00', '09:00:00', '18:00:00', '09:00:00', '18:00:00', '09:00:00', '18:00:00', '09:00:00', '18:00:00', '10:00:00', '17:00:00', NULL, NULL),
+	('72', '09:00:00', '17:00:00', '09:00:00', '17:00:00', '09:00:00', '17:00:00', '09:00:00', '17:00:00', '09:00:00', '17:00:00', NULL, NULL, NULL, NULL),
+	('73', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '11:00:00', '16:00:00', NULL, NULL),
+	('74', '09:00:00', '17:00:00', '09:00:00', '17:00:00', '09:00:00', '17:00:00', '09:00:00', '17:00:00', '09:00:00', '17:00:00', NULL, NULL, NULL, NULL),
+	/* need to call to confirm hours:541-754-9378 ('75', ),*/
+	('76', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '11:00:00', '17:00:00'),
+	('77', '09:00:00', '17:00:00', '09:00:00', '17:00:00', '09:00:00', '17:00:00', '09:00:00', '17:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
+	/* need to call to confirm hours:(541) 753-0018 ('78', ),*/
+	('79', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('80', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', NULL, NULL, NULL, NULL),
+	('81', '08:00:00', '17:00:00', '08:00:00', '17:00:00', '08:00:00', '17:00:00', '08:00:00', '17:00:00', '08:00:00', '17:00:00', '08:30:00', '12:00:00', NULL, NULL),
+	('82', '07:30:00', '18:00:00', '07:30:00', '18:00:00', '07:30:00', '18:00:00', '07:30:00', '18:00:00', '07:30:00', '18:00:00', '08:30:00', '17:30:00', '10:00:00', '16:00:00'),
+	('83', '09:30:00', '18:00:00', '09:30:00', '18:00:00', '09:30:00', '18:00:00', '09:30:00', '18:00:00', '09:30:00', '18:00:00', '09:30:00', '17:00:00', '12:00:00', '16:00:00')
+	/* need to call to confirm hours: 541) 758-4556 ('84', )*/
+	;
