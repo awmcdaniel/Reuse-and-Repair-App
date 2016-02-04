@@ -121,19 +121,23 @@ $("#form_insert_organization").submit(function(event) {
 			dataType: "json", 
 			success: function (data) {
 
-				//close the modal
-				$(".modal").modal('hide');
-
-				//was this an add POST?
-				if(method.toLowerCase() == "post") {
-					$("#modal-insert-organizationitem").modal('show');
-					$("#org_add_item").html(data['data']['name']);
-					$("#modal-insert-organizationitem input[name=id]").val(data['data']['id']);
-				}
-
 			}
 		})
 	.done(function(data) {
+		$("#modal-edit-organization").modal('hide');
+
+		// Add items to organization
+		setTimeout(function() { /* This timeout is to prevent a bug in bootstrap from adding padding to body */
+			if(method.toLowerCase() == "post") {
+				$("#modal-insert-organizationitem").modal('show');
+				$("#org_add_item").html(data['data']['name']);
+				$("#modal-insert-organizationitem input[name=id]").val(data['data']['id']);
+			}
+		}
+		, 350);
+
+		// Add business hours
+
 
 	});
 });
@@ -249,6 +253,69 @@ $("#form_insert_organizationitem").submit(function(){
 
 		//close the modal
 		$("#modal-insert-organizationitem").modal('hide');
+	});
+
+});
+
+
+/*==========================================================
+	Business Hours
+  ========================================================== */
+
+$(".add-orghours-entry").click(function() {
+
+  	//clear
+  	$("#modal-insert-organizationhours input").val("");
+
+	//get the id to be updated
+	var id = $(this).find(".org_id").html();
+	$("#modal-insert-organizationhours input[name=id]").val(id);
+
+  	//request
+	$.ajax({
+			url: base_url + '/api/organizationhours/' + id,
+			type: 'GET',
+			dataType: "json", 
+			success: function (response) {
+				$.each(response['data'][0], function(key, value) {
+					if(key != "org_id" && key != "org_name") {
+						$("#modal-insert-organizationhours input[name="+key+"]").val(value);
+					} 
+				});
+			},
+			error: function(response) {
+				
+			}
+		})
+	.done(function(response) {
+
+	});
+
+});
+
+$("#form_insert_organizationhours").submit(function(){
+
+	//stop default event
+	event.preventDefault();
+
+  	var id = $("#modal-insert-organizationhours input[name=id]").val();
+
+  	var postData = $(this).serializeArray();
+
+	// send the data
+	$.ajax({
+			url: base_url + '/api/organizationhours/' + id,
+			type: 'PUT',
+			dataType: "json", 
+			data: postData,
+			success: function (data) {
+				console.log(data);
+			}
+		})
+	.done(function(data) {
+
+		//close the modal
+		$("#modal-insert-organizationhours").modal('hide');
 	});
 
 });

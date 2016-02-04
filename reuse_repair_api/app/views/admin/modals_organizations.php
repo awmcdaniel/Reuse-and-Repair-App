@@ -182,3 +182,115 @@
     </form>
   </div>
 </div>
+
+
+<!-- BUSINESS HOURS MODAL
+================================================================= -->
+<div class="modal fade" id="modal-insert-organizationhours">
+  <div class="modal-dialog">
+    <form method="PUT" id="form_insert_organizationhours">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">BUSINESS HOURS</h4>
+      </div>
+      <div class="modal-body">
+        <input type="text" id="input_org_id" name="id" class="hidden">
+
+<div class="form-horizontal">
+  <div class="form-group">
+    <label class="col-sm-2 control-label"></label>
+    <div class="col-sm-5">
+      <label>Start</label>
+    </div>
+    <div class="col-sm-5">
+      <label>End</label>
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Monday</label>
+    <div class="col-sm-5">
+      <input type="time" step="1" class="form-control" name="mon_start">
+    </div>
+    <div class="col-sm-5">
+      <input type="time" step="1" class="form-control" name="mon_end">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Tuesday</label>
+    <div class="col-sm-5">
+      <input type="time" step="1" class="form-control" name="tue_start">
+    </div>
+    <div class="col-sm-5">
+      <input type="time" step="1" class="form-control" name="tue_end">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Wednesday</label>
+    <div class="col-sm-5">
+      <input type="time" step="1" class="form-control" name="wed_start">
+    </div>
+    <div class="col-sm-5">
+      <input type="time" step="1" class="form-control" name="wed_end">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Thursday</label>
+    <div class="col-sm-5">
+      <input type="time" step="1" class="form-control" name="thu_start">
+    </div>
+    <div class="col-sm-5">
+      <input type="time" step="1" class="form-control" name="thu_end">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Friday</label>
+    <div class="col-sm-5">
+      <input type="time" step="1" class="form-control" name="fri_start">
+    </div>
+    <div class="col-sm-5">
+      <input type="time" step="1" class="form-control" name="fri_end">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Saturday</label>
+    <div class="col-sm-5">
+      <input type="time" step="1" class="form-control" name="sat_start">
+    </div>
+    <div class="col-sm-5">
+      <input type="time" step="1" class="form-control" name="sat_end">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Sunday</label>
+    <div class="col-sm-5">
+      <input type="time" step="1" class="form-control" name="sun_start">
+    </div>
+    <div class="col-sm-5">
+      <input type="time" step="1" class="form-control" name="sun_end">
+    </div>
+  </div>
+
+
+</div>
+
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success">Save</button>
+      </div>
+    </div>
+    </form>
+  </div>
+</div>

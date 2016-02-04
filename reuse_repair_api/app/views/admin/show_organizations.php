@@ -96,6 +96,11 @@
               <span class="hidden org_id">{{ item.id }}</span>
               <span class="hidden org_name">{{ item.name }}</span>
             </button>
+            <button type="button" class="btn btn-warning add-orghours-entry" data-toggle="modal" href='#modal-insert-organizationhours'>
+              <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+              <span class="hidden org_id">{{ item.id }}</span>
+              <span class="hidden org_name">{{ item.name }}</span>
+            </button>
             <button type="button" class="btn btn-danger delete-org-entry" data-toggle="modal" href='#modal-delete-organization'>
               <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
               <span class="hidden org_id">{{ item.id }}</span>
