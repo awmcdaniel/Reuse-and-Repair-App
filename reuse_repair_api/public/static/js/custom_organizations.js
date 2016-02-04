@@ -120,13 +120,21 @@ $("#form_insert_organization").submit(function(event) {
 			data: postData_filtered,
 			dataType: "json", 
 			success: function (data) {
-				console.log(data);
+
+				//close the modal
+				$(".modal").modal('hide');
+
+				//was this an add POST?
+				if(method.toLowerCase() == "post") {
+					$("#modal-insert-organizationitem").modal('show');
+					$("#org_add_item").html(data['data']['name']);
+					$("#modal-insert-organizationitem input[name=id]").val(data['data']['id']);
+				}
+
 			}
 		})
 	.done(function(data) {
 
-		//close the modal
-		$("#modal-edit-organization").modal('hide');
 	});
 });
 

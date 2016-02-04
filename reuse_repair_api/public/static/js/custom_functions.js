@@ -98,6 +98,13 @@ function get_item_source() {
     });
 };
 
+
+function build_organization_row() {
+	// 
+};
+
+
+
 get_db_itemcategories();
 get_db_orgcategories();
 get_item_source();
