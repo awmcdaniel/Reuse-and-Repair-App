@@ -302,6 +302,13 @@ $("#form_insert_organizationhours").submit(function(){
 
   	var postData = $(this).serializeArray();
 
+  	$.each(postData, function(index, object) {
+  		if( object['value'] == "") {
+  			object['value'] = 'null';
+  		}
+  	});
+
+
 	// send the data
 	$.ajax({
 			url: base_url + '/api/organizationhours/' + id,
