@@ -87,7 +87,7 @@ CREATE TABLE OrganizationHours (
 	TEST DATA: Users
    ======================================================================== */
 INSERT INTO
-	Users (username, password)
+	Users (`username`, `password`)
 VALUES
 	("TestUser", "password1"),
 	("TestUser2", "password1");
@@ -96,7 +96,7 @@ VALUES
 	TEST DATA: OrganizationTypes
    ======================================================================== */
 INSERT INTO 
-	OrganizationType (description)
+	OrganizationType (`description`)
 VALUES 
 	("Reuse"),
 	("Repair"),
@@ -106,7 +106,7 @@ VALUES
 	TEST DATA: Reuse and Repair Categories
    ======================================================================== */
 INSERT INTO 
-	ItemCategories(description)
+	ItemCategories(`description`)
 VALUES 
 	("Household"),
 	("Bedding/Bath"),
@@ -130,198 +130,250 @@ VALUES
 	TEST DATA: Reuse and Repair Items under categories
    ======================================================================== */
 INSERT INTO
-	Items (description, category)
+	Items (`id`, `description`, `category`)
 VALUES
-	('Arts and crafts',1),
-	('Barbeque grill',1),
-	('Book',1),
-	('Canning jar',1),
-	('Cleaning supplie',1),
-	('Clothes hanger',1),
-	('Cookwar',1),
-	('Dishe',1),
-	('Fabri',1),
-	('Food storage container',1),
-	('Furnitur',1),
-	('Luggag',1),
-	('Mattresse',1),
-	('Ornament',1),
-	('Toiletrie',1),
-	('Utensil',1),
-	('Blanket',2),
-	('Comforter',2),
-	('Linen',2),
-	('Sheet',2),
-	('Small rug',2),
-	('Towels',2),
-	('Arts and crafts',3),
-	('Baby carrier',3),
-	('Baby gate',3),
-	('Bike trailer',3),
-	('Book',3),
-	('Child car seat',3),
-	('Clothe',3),
-	('Crayon',3),
-	('Crib',3),
-	('Diapers',3),
-	('High chair',3),
-	('Maternit',3),
-	('Musical instrument',3),
-	('Nursing item',3),
-	('Playpen',3),
-	('School supplie',3),
-	('Stroller',3),
-	('Toy',3),
-	('Blender',4),
-	('Dehumidifier',4),
-	('Fan',4),
-	('Microwave',4),
-	('Space heater',4),
-	('Toaster',4),
-	('Vacuum cleaner',4),
-	('Dishwasher',5),
-	('Freezer',5),
-	('Refrigerator',5),
-	('Stove',5),
-	('Washers/ dryer',5),
-	('Brick',6),
-	('Carpet paddin',6),
-	('Carpet',6),
-	('Ceramic tile',6),
-	('Door',6),
-	('Drywal',6),
-	('Electrical supplie',6),
-	('Hand tool',6),
-	('Hardwar',6),
-	('Insulatio',6),
-	('Ladder',6),
-	('Light fixture',6),
-	('Lighting ballast',6),
-	('Lumbe',6),
-	('Motor',6),
-	('Pain',6),
-	('Pip',6),
-	('Plumbin',6),
-	('Power tool',6),
-	('Reusable metal item',6),
-	('Roofing',6),
-	('Viny',6),
-	('Window',6),
-	('Belt',7),
-	('Boot',7),
-	('Clothe',7),
-	('Coat',7),
-	('Hat',7),
-	('Rainwea',7),
-	('Sandal',7),
-	('Shoe',7),
-	('Calculator',8),
-	('Camera',8),
-	('Cassette player',8),
-	('Cd player',8),
-	('Cd',8),
-	('Cell phone',8),
-	('Computers',8),
-	('Curling iron',8),
-	('DVD player',8),
-	('Game console',8),
-	('GPS system',8),
-	('Hair dryer',8),
-	('Monitor',8),
-	('MP3 player',8),
-	('Printer',8),
-	('Projector',8),
-	('Receiver',8),
-	('Scanner',8),
-	('Speaker',8),
-	('Tablet',8),
-	('Telephone',8),
-	('TV',8),
-	('Backpack',9),
-	('Ball',9),
-	('Barbell',9),
-	('Bicycle',9),
-	('Bike tires',9),
-	('Camping equipmen',9),
-	('Day pack',9),
-	('Dumbbell',9),
-	('Exercise equipmen',9),
-	('Golf club',9),
-	('Helmet',9),
-	('Hiking boot',9),
-	('Skateboard',9),
-	('Ski',9),
-	('Small boat',9),
-	('Snowshoe',9),
-	('Sporting good',9),
-	('Tennis racket',9),
-	('Tent',9),
-	('Chain saw',10),
-	('Fencin',10),
-	('Garden pot',10),
-	('Garden tool',10),
-	('Hand clipper',10),
-	('Hose',10),
-	('Lawn furnitur',10),
-	('Livestock supplie',10),
-	('Lopper',10),
-	('Mower',10),
-	('Seeder',10),
-	('Soil amendmen',10),
-	('Sprinkler',10),
-	('Wheel barrow',10),
-	('Beverage',11),
-	('Surplus garden produc',11),
-	('Unopened canned good',11),
-	('Unopened packaged foo',11),
-	('Adult diaper',12),
-	('Blood pressure monitor',12),
-	('Cane',12),
-	('Crutche',12),
-	('Eye glasse',12),
-	('Glucose meter',12),
-	('Hearing aid',12),
-	('Hospital bed',12),
-	('Reach extender',12),
-	('Shower chair',12),
-	('Walker',12),
-	('Wheelchair',12),
-	('Calculator',13),
-	('Computers',13),
-	('Fax machine',13),
-	('Headset',13),
-	('Monitor',13),
-	('Office furniture',13),
-	('Paper shredder',13),
-	('Printer cartridge refillin',13),
-	('Printer',13),
-	('Scanner',13),
-	('Telephone',13),
-	('Bubble wra',14),
-	('Clean foam peanut',14),
-	('Foam sheet',14),
-	('Egg carton',15),
-	('Firewood',15),
-	('Fabric',15),
-	('Paper bag',15),
-	('Pet supplies',15),
-	('Shopping bags',15),
-	('Vehicles/parts',15),
-	('Computer paper',15),
-	('Reusable metal items',15),
-	('Cell phones',16),
-	('Small appliances',16),
-	('Books',16),
-	('Clothes',16),
-	('Computers',16),
-	('Furniture',16),
-	('Lamps',16),
-	('Lawn power equipment',16),
-	('Outdoor gear',16),
-	('Sandals',16),
-	('Shoes, boots',16),
-	('Upholstery, car',16),
-	('Upholstery, furniture',16);
+	(1, 'Arts and crafts',1),			/* category = Household */
+	(2, 'Barbeque grills',1),
+	(3, 'Books',1),
+	(4, 'Canning jars',1),
+	(5, 'Cleaning supplies',1),
+	(6, 'Clothes hangers',1),
+	(7, 'Cookware',1),
+	(8, 'Dishes',1),
+	(9, 'Fabric',1),
+	(10, 'Food storage containers',1),
+	(11, 'Furniture',1),
+	(12, 'Luggage',1),
+	(13, 'Mattresses',1),
+	(14, 'Ornaments',1),
+	(15, 'Toiletries',1),
+	(16, 'Utensils',1),
+	
+	(17, 'Blankets',2),				/* category = Bedding/Bath */
+	(18, 'Comforters',2),
+	(19, 'Linens',2),
+	(20, 'Sheets',2),
+	(21, 'Small rugs',2),
+	(22, 'Towels',2),
+	
+	(23, 'Arts and crafts',3),			/* category = Children's Goods */
+	(24, 'Baby carriers',3),
+	(25, 'Baby gates',3),
+	(26, 'Bike trailers',3),
+	(27, 'Books',3),
+	(28, 'Child car seats',3),
+	(29, 'Clothes',3),
+	(30, 'Crayons',3),
+	(31, 'Cribs',3),
+	(32, 'Diapers',3),
+	(33, 'High chairs',3),
+	(34, 'Maternity',3),
+	(35, 'Musical instruments',3),
+	(36, 'Nursing items',3),
+	(37, 'Playpens',3),
+	(38, 'School supplies',3),
+	(39, 'Strollers',3),
+	(40, 'Toys',3),
+	
+	
+	(41, 'Blenders',4),				/* category = Appliances - Small */
+	(42, 'Dehumidifiers',4),
+	(43, 'Fans',4),
+	(44, 'Microwaves',4),
+	(45, 'Space heaters',4),
+	(46, 'Toasters',4),
+	(47, 'Vacuum cleaners',4),
+	
+	(48, 'Dishwashers',5),			/* category = Appliances - Large */
+	(49, 'Freezers',5),
+	(50, 'Refrigerators',5),
+	(51, 'Stoves',5),
+	(52, 'Washers/Dryers',5),
+	
+	(53, 'Bricks',6),				/* category = Building/Home Improvement */
+	(54, 'Carpet padding',6),
+	(55, 'Carpets',6),
+	(56, 'Ceramic tiles',6),
+	(57, 'Doors',6),
+	(58, 'Drywall',6),
+	(59, 'Electrical supplies',6),
+	(60, 'Hand tools',6),
+	(61, 'Hardware',6),
+	(62, 'Insulation',6),
+	(63, 'Ladders',6),
+	(64, 'Light fixtures',6),
+	(65, 'Lighting ballasts',6),
+	(66, 'Lumber',6),
+	(67, 'Motors',6),
+	(68, 'Paint',6),
+	(69, 'Pipe',6),
+	(70, 'Plumbing',6),
+	(71, 'Power tools',6),
+	(72, 'Reusable metal items',6),
+	(73, 'Roofing',6),
+	(74, 'Vinyl',6),
+	(75, 'Windows',6),
+	
+	(76, 'Belts',7),					/* category = Wearable Items */				
+	(77, 'Boots',7),
+	(78, 'Clothes',7),
+	(79, 'Coats',7),
+	(80, 'Hats',7),
+	(81, 'Rainwear',7),
+	(82, 'Sandals',7),
+	(83, 'Shoes',7),
+	
+	(84, 'Calculators',8),				/* category = Useable Electronics */
+	(85, 'Cameras',8),
+	(86, 'Cassette players',8),
+	(87, 'CD players',8),
+	(88, 'CDs',8),
+	(89, 'Cell phones',8),
+	(90, 'Computers',8),
+	(91, 'Curling irons',8),
+	(92, 'DVD players',8),
+	(93, 'Game consoles',8),
+	(94, 'GPS systems',8),
+	(95, 'Hair dryers',8),
+	(96, 'Monitors',8),
+	(97, 'MP3 players',8),
+	(98, 'Printers',8),
+	(99, 'Projectors',8),
+	(100, 'Receivers',8),
+	(101, 'Scanners',8),
+	(102, 'Speakers',8),
+	(103,'Tablets',8),
+	(104, 'Telephones',8),
+	(105, 'TVs',8),
+	
+	(106, 'Backpacks',9),				/* category = Sporting Equipment/Camping */
+	(107, 'Balls',9),
+	(108, 'Barbells',9),
+	(109, 'Bicycles',9),
+	(110, 'Bike tires',9),
+	(111, 'Camping equipment',9),
+	(112, 'Day packs',9),
+	(113, 'Dumbbells',9),
+	(114, 'Exercise equipment',9),
+	(115, 'Golf clubs',9),
+	(116, 'Helmets',9),
+	(117, 'Hiking boots',9),
+	(118, 'Skateboards',9),
+	(119, 'Skis',9),
+	(120 ,'Small boats',9),
+	(121, 'Snowshoes',9),
+	(122, 'Sporting goods',9),
+	(123, 'Tennis rackets',9),
+	(124, 'Tents',9),
+	
+	(126, 'Chain saws',10),			/* category = Garden */
+	(127, 'Fencing',10),
+	(128, 'Garden pots',10),
+	(129, 'Garden tools',10),
+	(130 ,'Hand clippers',10),
+	(131, 'Hoses',10),
+	(132, 'Lawn furniture',10),
+	(133, 'Livestock supplies',10),
+	(134, 'Loppers',10),
+	(135, 'Mowers',10),
+	(136, 'Seeders',10),
+	(137, 'Soil amendment',10),
+	(138, 'Sprinklers',10),
+	(139, 'Wheelbarrows',10),
+	
+	(140, 'Beverages',11),			/* category = Food */
+	(141, 'Surplus garden produce',11),
+	(142, 'Unopened canned goods',11),
+	(143, 'Unopened packaged food',11),
+	
+	(144, 'Adult diapers',12),			/* category = Medical Supplies */	
+	(145, 'Blood pressure monitors',12),
+	(146, 'Canes',12),
+	(147, 'Crutches',12),
+	(148, 'Eye glasses',12),
+	(149, 'Glucose meters',12),
+	(150, 'Hearing aids',12),
+	(151, 'Hospital beds',12),
+	(152, 'Reach extenders',12),
+	(153, 'Shower chairs',12),
+	(154, 'Walkers',12),
+	(155, 'Wheelchairs',12),
+	
+	(156, 'Calculators',13),			/* category = Office Equipment */
+	(157, 'Computers',13),
+	(158, 'Fax machines',13),
+	(159, 'Headsets',13),
+	(160, 'Monitors',13),
+	(161, 'Office furniture',13),
+	(162, 'Paper shredders',13),
+	(163, 'Printer cartridge refilling',13),
+	(164, 'Printers',13),
+	(165, 'Scanners',13),
+	(166, 'Telephones',13),
+	
+	(167, 'Bubble wrap',14),			/* category = Packing Materials */
+	(168, 'Clean foam peanuts',14),
+	(169, 'Foam sheets',14),
+	
+	(170, 'Egg cartons',15),			/* category = Miscellaneous */
+	(171, 'Firewood',15),
+	(172, 'Fabric',15),
+	(173, 'Paper bags',15),
+	(174, 'Pet supplies',15),
+	(175, 'Shopping bags',15),
+	(176, 'Vehicles/Parts',15),
+	(177, 'Computer paper',15),
+	(178, 'Reusable metal items',15),
+	
+	(179, 'Cell phones',16),			/* category = Repair Items */
+	(180, 'Small appliances',16),
+	(181, 'Books',16),
+	(182, 'Clothes',16),
+	(183, 'Computers',16),
+	(184, 'Furniture',16),
+	(185, 'Lamps',16),
+	(186, 'Lawn power equipment',16),
+	(187, 'Outdoor gear',16),
+	(188, 'Sandals',16),
+	(189, 'Shoes/Boots',16),
+	(190, 'Upholstery, car',16),
+	(191, 'Upholstery, furniture',16)
+	;
+
+
+/* ========================================================================
+	PROCEDURES FOR CREATING OrganizationItems ENTITIES
+   ======================================================================== */	
+DELIMITER $$  
+CREATE PROCEDURE addHousehold(IN orgID INT(255))
+	BEGIN
+      		DECLARE num INT(255) Default 1 ;
+    	simple_loop: LOOP
+    		INSERT INTO OrganizationItems (`org_id`, `item_id`)
+    		VALUES (orgID, num);
+    		SET num = num + 1;
+         	IF num > 16 THEN
+        		LEAVE simple_loop;
+        	END IF; 	
+   	END LOOP simple_loop;
+END $$
+DELIMITER ;
+	
+DELIMITER $$  
+CREATE PROCEDURE addBeddingBath(IN orgID INT(255))
+	BEGIN
+      		DECLARE num INT(255) Default 17 ;
+    	simple_loop: LOOP
+    		INSERT INTO OrganizationItems (`org_id`, `item_id`)
+    		VALUES (orgID, num);
+    		SET num = num + 1;
+         	IF num > 22 THEN
+        		LEAVE simple_loop;
+        	END IF; 	
+   	END LOOP simple_loop;
+END $$
+DELIMITER ;
+	
 
 
 /* ========================================================================
@@ -443,52 +495,96 @@ VALUES
 INSERT INTO 
 	OrganizationHours (`org_id`, `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, `thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`) 
 VALUES 
-	/* need to call to confirm hours: 541-768-4650 ('40', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),*/
-	/* need to call to confirm hours: 541-752-1010 ('41', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),*/
-	/* need to call to confirm hours: 541-740-6141 ('42', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),*/
+	('1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('5', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('6', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('7', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('8', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('9', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('10', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('11', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('12', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('13', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('14', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('15', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('16', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('18', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('19', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('20', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('21', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('22', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('23', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('24', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('25', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('26', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('27', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('28', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('29', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('30', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('31', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('33', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('34', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('35', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('36', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('37', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('38', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('39', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('40', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), /* no hours online*/ 
+	('41', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), /* no hours online*/
+	('42', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), /* no hours online*/
 	('43', NULL, NULL, '09:30:00', '13:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	/* need to call to confirm hours: 541-766-7946 ('44', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),*/
+	('44', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), /* no hours online*/
 	('45', '17:00:00', '20:00:00', NULL, NULL, '17:00:00', '20:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 	('46', NULL, NULL, '09:30:00', '14:00:00', '09:30:00', '14:00:00', '09:30:00', '14:00:00', '09:30:00', '12:30:00', NULL, NULL, NULL, NULL),
-	/* need to call to confirm hours: 541-737-6810 ('47', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),*/
+	('47', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), /* no hours online*/
 	('48', '09:00:00', '17:30:00', '09:00:00', '17:30:00', '09:00:00', '17:30:00', '09:00:00', '17:30:00', '09:00:00', '17:30:00', '09:00:00', '16:00:00', NULL, NULL),
-	/* need to call to confirm hours: 541-758-8292 ('49', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),*/
-	('50', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('51', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('52', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('53', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('54', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('55', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('56', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('59', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('60', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('61', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('62', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('63', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('64', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('65', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('66', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('67', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('68', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('69', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('70', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('49', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), /* no hours online*/
+	('50', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), /* no hours online*/
+	('51', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), /* no hours online*/
+	('52', NULL, NULL, '17:00:00', '20:00:00', NULL, NULL, '09:00:00', '12:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
+	('53', '09:00:00', '19:00:00', '09:00:00', '19:00:00', '09:00:00', '19:00:00', '09:00:00', '19:00:00', '09:00:00', '19:00:00', '09:00:00', '18:00:00', '10:00:00', '17:00:00'),
+	('54', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), /* no hours online*/
+	('55', '10:00:00', '20:00:00', '10:00:00', '20:00:00', '10:00:00', '20:00:00', '10:00:00', '20:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '13:00:00', '17:00:00'),
+	('56', NULL, NULL, NULL, NULL, '09:30:00', '14:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('57', '09:00:00', '17:30:00', '09:00:00', '17:30:00', '09:00:00', '17:30:00', '09:00:00', '17:30:00', '09:00:00', '17:30:00', '10:00:00', '15:00:00', NULL, NULL),
+	('58', NULL, NULL, '11:00:00', '18:00:00', NULL, NULL, '11:00:00', '18:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
+	('59', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), /*no hours online*/
+	('60', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '12:00:00', '17:00:00'),
+	('61', '11:00:00', '18:00:00', '11:00:00', '18:00:00', '11:00:00', '18:00:00', '11:00:00', '18:00:00', '11:00:00', '18:00:00', '11:00:00', '18:00:00', '12:00:00', '17:00:00'),
+	('62', '11:00:00', '18:00:00', '11:00:00', '18:00:00', '11:00:00', '18:00:00', '11:00:00', '18:00:00', '11:00:00', '18:00:00', '11:00:00', '18:00:00', '12:00:00', '17:00:00'),
+	('63', '08:00:00', '16:00:00', '08:00:00', '16:00:00', '08:00:00', '16:00:00', '08:00:00', '16:00:00', '08:00:00', '16:00:00', NULL, NULL, NULL, NULL),
+	('64', '13:00:00', '15:00:00', NULL, NULL, '13:00:00', '15:00:00', '17:00:00', '19:00:00', NULL, NULL, '10:00:00', '12:00:00', NULL, NULL),
+	('65', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), /* no hours online */
+	('66', '17:30:00', '18:30:00', NULL, NULL, '11:30:00', '12:30:00', '17:30:00', '18:30:00', '11:30:00', '12:30:00', NULL, NULL, NULL, NULL),
+	('67', '07:30:00', '18:00:00', '07:30:00', '18:00:00', '07:30:00', '18:00:00', '07:30:00', '18:00:00', '07:30:00', '18:00:00', '09:30:00', '15:00:00', NULL, NULL),
+	('68', '07:30:00', '18:00:00', '07:30:00', '18:00:00', '07:30:00', '18:00:00', '07:30:00', '18:00:00', '07:30:00', '18:00:00', '09:30:00', '15:00:00', NULL, NULL),
+	('69', '09:00:00', '16:00:00', '09:00:00', '16:00:00', '09:00:00', '16:00:00', '09:00:00', '16:00:00', '09:00:00', '16:00:00', NULL, NULL, NULL, NULL),
+	('70', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), /* no hours online*/
 	('71', '09:00:00', '18:00:00', '09:00:00', '18:00:00', '09:00:00', '18:00:00', '09:00:00', '18:00:00', '09:00:00', '18:00:00', '10:00:00', '17:00:00', NULL, NULL),
 	('72', '09:00:00', '17:00:00', '09:00:00', '17:00:00', '09:00:00', '17:00:00', '09:00:00', '17:00:00', '09:00:00', '17:00:00', NULL, NULL, NULL, NULL),
 	('73', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '11:00:00', '16:00:00', NULL, NULL),
 	('74', '09:00:00', '17:00:00', '09:00:00', '17:00:00', '09:00:00', '17:00:00', '09:00:00', '17:00:00', '09:00:00', '17:00:00', NULL, NULL, NULL, NULL),
-	/* need to call to confirm hours: 541-754-9378 ('75', ),*/
+	('75', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), /* no hours online*/
 	('76', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '11:00:00', '17:00:00'),
 	('77', '09:00:00', '17:00:00', '09:00:00', '17:00:00', '09:00:00', '17:00:00', '09:00:00', '17:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
-	/* need to call to confirm hours:(541) 753-0018 ('78', ),*/
-	('79', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('78', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), /* no hours online*/
+	('79', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), /* no hours online*/
 	('80', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', NULL, NULL, NULL, NULL),
 	('81', '08:00:00', '17:00:00', '08:00:00', '17:00:00', '08:00:00', '17:00:00', '08:00:00', '17:00:00', '08:00:00', '17:00:00', '08:30:00', '12:00:00', NULL, NULL),
 	('82', '07:30:00', '18:00:00', '07:30:00', '18:00:00', '07:30:00', '18:00:00', '07:30:00', '18:00:00', '07:30:00', '18:00:00', '08:30:00', '17:30:00', '10:00:00', '16:00:00'),
-	('83', '09:30:00', '18:00:00', '09:30:00', '18:00:00', '09:30:00', '18:00:00', '09:30:00', '18:00:00', '09:30:00', '18:00:00', '09:30:00', '17:00:00', '12:00:00', '16:00:00')
-	/* need to call to confirm hours: 541) 758-4556 ('84', )*/
+	('83', '09:30:00', '18:00:00', '09:30:00', '18:00:00', '09:30:00', '18:00:00', '09:30:00', '18:00:00', '09:30:00', '18:00:00', '09:30:00', '17:00:00', '12:00:00', '16:00:00'),
+	('84', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL) /* no hours online*/
 	;
+
+
+/* add items from categories */
+CALL addHousehold(1);
+CALL addBeddingBath(1);
 
 
 /* ==================================================
