@@ -584,14 +584,34 @@ VALUES
 	Null, Null)
 	;
 	
-/* add OrganizationItems entities */
 CALL addAppliancesLarge(1);
 CALL addAppliancesSmall(1);
 CALL addBeddingBath(1);
 CALL addSportingEquipmentCamping(1);
+CALL addBuildingHomeImprovement(1);
+CALL addWearableItems(1);
+CALL addGarden(1);
+CALL addHousehold(1);
+CALL addMedicalSupplies(1);
+CALL addOfficeEquipment(1);
+CALL addChildrensGoods(1);
+CALL addPackingMaterials(1);
 INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (1, 174);		/* Miscellaneous: Shopping bags */
 INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (1, 178);		/* Miscellaneous: Brown paper */
-CALL addBuildingHomeImprovement(1);
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (1, 88);			/* Useable Electronics: CDs */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (1, 93);			/* Useable Electronics: Game Consoles */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (1, 89);			/* Useable Electronics: Cell Phones */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (1, 176);		/* Miscellaneous: Computer Paper */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (1, 90);			/* Useable Electronics: Computers */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (1, 96);			/* Useable Electronics: Monitors */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (1, 169);		/* Miscellaneous: Egg Cartons */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (1, 171);		/* Miscellaneous: Fabric */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (1, 170);		/* Miscellaneous: Firewood */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (1, 141);		/* Food: Unopened Canned Goods */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (1, 142);		/* Food: Unopened Packaged Food */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (1, 173);		/* Miscellaneous: Pet Supplies */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (1, 175);		/* Miscellaneous: Vehicle Parts */
+
 
 /* 2 - ARC THRIFT STORES (CORVALLIS) */
 INSERT INTO
@@ -621,6 +641,15 @@ VALUES
 	'10:00', '17:30',
 	'10:00', '17:30')
 	;
+	
+CALL addChildrensGoods(2);
+CALL addWearableItems(2);
+CALL addHousehold(2);
+CALL addBeddingBath(2);
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (2, 89);			/* Useable Electronics: Cell Phones */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (2, 90);			/* Useable Electronics: Computers */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (2, 96);			/* Useable Electronics: Monitors */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (2, 171);		/* Miscellaneous: Fabric */
 
 /* 3 - ARC THRIFT STORES (Philomath) */
 INSERT INTO
@@ -651,6 +680,15 @@ VALUES
 	'12:00', '17:30')
 	;
 	
+CALL addChildrensGoods(3);
+CALL addWearableItems(3);
+CALL addHousehold(3);
+CALL addBeddingBath(3);
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (3, 89);			/* Useable Electronics: Cell Phones */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (3, 90);			/* Useable Electronics: Computers */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (3, 96);			/* Useable Electronics: Monitors */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (3, 171);		/* Miscellaneous: Fabric */
+	
 /* 4 - BEEKMAN PLACE ANTIQUE MALL */
 INSERT INTO
 	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
@@ -680,6 +718,8 @@ VALUES
 	'11:00', '17:00')
 	;	
 	
+CALL addHousehold(4);
+	
 /* 5 - BENTON COUNTY EXTENSION - 4H ACTIVITIES */
 INSERT INTO
 	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
@@ -708,6 +748,11 @@ VALUES
 	Null, Null,
 	Null, Null)
 	;
+	
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (5, 171);		/* Miscellaneous: Fabric */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (5, 38);			/* Children's Goods: School Supplies */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (5, 1);			/* Household: Arts & Crafts */
+
 /* 6 - BENTON COUNTY MASTER GARDENS */
 INSERT INTO
 	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
@@ -737,6 +782,9 @@ VALUES
 	Null, Null)
 	;
 	
+CALL addGarden(6);
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (6, 3);			/* Household: Goods: Books */
+
 /* 7 - BOOK BIN */
 INSERT INTO
 	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
@@ -765,6 +813,9 @@ VALUES
 	'08:30', '21:00',
 	'09:00', '19:00')
 	;	
+	
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (7, 3);			/* Household: Books */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (7, 88);			/* Useable Electronics: CDs */
 
 /* 8 - BROWSER'S BOOKSTORE */
 INSERT INTO
@@ -793,7 +844,10 @@ VALUES
 	'09:30', '18:00',
 	'09:30', '18:00',
 	Null, Null)
-	;	
+	;
+	
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (8, 3);			/* Household: Books */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (8, 88);			/* Useable Electronics: CDs */	
 	
 /* 9 - BOYS & GIRLS CLUB/STARS (AFTER SCHOOL PROGRAMS) */
 INSERT INTO
@@ -824,6 +878,18 @@ VALUES
 	Null, Null)
 	;
 	
+CALL addGarden(9);
+CALL addOfficeEquipment(9);
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (9, 171);		/* Miscellaneous: Fabric */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (9, 38);			/* Children's Goods: School Supplies */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (9, 1);			/* Household: Arts & Crafts */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (9, 174);		/* Miscellaneous: Shopping bags */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (9, 178);		/* Miscellaneous: Brown paper */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (9, 88);			/* Useable Electronics: CDs */	
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (9, 176);		/* Miscellaneous: Computer Paper */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (9, 169);		/* Miscellaneous: Egg Cartons */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (9, 15);			/* Household: Toiletries */
+
 /* 10 - BUCKINGHAM PALACE */
 INSERT INTO
 	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
@@ -852,6 +918,15 @@ VALUES
 	Null, Null,
 	Null, Null)
 	;
+	
+CALL addSportingEquipmentCamping(10);
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (10, 1);			/* Household: Arts & Crafts */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (10, 3);			/* Household : Books */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (10, 174);		/* Miscellaneous: Shopping bags */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (10, 178);		/* Miscellaneous: Brown paper */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (10, 88);		/* Useable Electronics: CDs */	
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (10, 171);		/* Miscellaneous: Fabric */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (10, 11);		/* Household: Furniture */
 	
 /* 11 -  CALVARY COMMUNITY OUTREACH */
 INSERT INTO
@@ -911,6 +986,15 @@ VALUES
 	Null, Null)
 	;
 	
+CALL addAppliancesSmall(12);
+CALL addHousehold(12);
+CALL addUseableElectronics(12);
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (12, 3);			/* Household : Books */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (12, 88);		/* Useable Electronics: CDs */	
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (12, 89);		/* Useable Electronics: Cell Phones */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (12, 141);		/* Food: Unopened Canned Goods */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (12, 142);		/* Food: Unopened Packaged Food */
+	
 /* 13 - CAREER CLOSET FOR WOMEN */
 INSERT INTO
 	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
@@ -939,6 +1023,8 @@ VALUES
 	Null, Null,
 	Null, Null)
 	;
+	
+CALL addWearableItems(13);
 	
 /* 14 - CAT'S MEOW HUMANE SOCIETY THRIFT SHOP */	
 INSERT INTO
@@ -969,6 +1055,23 @@ VALUES
 	Null, Null)
 	;	
 	
+CALL addAppliancesSmall(14);
+CALL addHousehold(14);
+CALL addSportingEquipmentCamping(14);
+CALL addChildrensGoods(14);
+CALL addWearableItems(14);
+CALL addGarden(14);
+CALL addUseableElectronics(14);
+CALL addMedicalSupplies(14);
+CALL addOfficeEquipment(14);
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (14, 1);			/* Household: Arts & Crafts */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (14, 174);		/* Miscellaneous: Shopping bags */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (14, 178);		/* Miscellaneous: Brown paper */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (14, 88);		/* Useable Electronics: CDs */	
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (14, 89);		/* Useable Electronics: Cell Phones */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (14, 171);		/* Miscellaneous: Fabric */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (14, 173);		/* Miscellaneous: Pet Supplies */
+	
 /* 15 - CHILDREN'S FARM HOME */	
 INSERT INTO
 	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
@@ -997,6 +1100,19 @@ VALUES
 	Null, Null,
 	Null, Null)
 	;
+	
+CALL addAppliancesSmall(15);
+CALL addSportingEquipmentCamping(15);
+CALL addBuildingHomeImprovement(15);
+CALL addChildrensGoods(15);
+CALL addWearableItems(15);
+CALL addGarden(15);
+CALL addUseableElectronics(15);
+CALL addOfficeEquipment(15);
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (15, 1);			/* Household: Arts & Crafts */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (15, 88);		/* Useable Electronics: CDs */	
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (15, 11);		/* Household: Furniture */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (15, 15);		/* Household: Toiletries */
 	
 /* 16 - CHINTIMINI WILDLIFE REHABILITATION CENTER */
 INSERT INTO
@@ -1027,6 +1143,13 @@ VALUES
 	Null, Null)
 	;
 	
+CALL addBeddingBath(16);
+CALL addBuildingHomeImprovement(16);
+CALL addGarden(16);
+CALL addMedicalSupplies(16);
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (16, 140);		/* Food: Surplus Garden Produce */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (16, 173);		/* Miscellaneous: Pet Supplies */
+	
 /* 17 - COMMUNITY OUTREACH (HOMELESS SHELTER) */
 INSERT INTO
 	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
@@ -1055,6 +1178,12 @@ VALUES
 	Null, Null,
 	Null, Null)
 	;
+	
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (17, 141);		/* Food: Unopened Canned Goods */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (17, 142);		/* Food: Unopened Packaged Food */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (17, 15);		/* Household: Toiletries */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (17, 38);		/* Children's Goods: School Supplies */
+
 	
 /* 18 - CORVALLIS ENVIRONMENTAL CENTER */
 INSERT INTO
