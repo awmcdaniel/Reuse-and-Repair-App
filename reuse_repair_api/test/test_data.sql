@@ -2,26 +2,25 @@ DROP DATABASE IF EXISTS test_api;
 CREATE DATABASE IF NOT EXISTS test_api;
 USE test_api;
 
-
 CREATE TABLE Users (
 	id 			int UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	username	varchar(255) NOT NULL,
-	password	varchar(255) NOT NULL
+	username		varchar(255) NOT NULL,
+	password		varchar(255) NOT NULL
 );
 
 CREATE TABLE OrganizationType (
 	id 			int UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	description	varchar(255)
+	description		varchar(255)
 );
 
 CREATE TABLE Organizations (
 	id 			int UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	org_type	int UNSIGNED,
+	org_type		int UNSIGNED,
 	name 		varchar(255) NOT NULL,
-	street1 	varchar(255) DEFAULT NULL,
-	street2 	varchar(255) DEFAULT NULL,
-	city		varchar(255) DEFAULT NULL,
-	state		varchar(2) DEFAULT NULL,
+	street1 		varchar(255) DEFAULT NULL,
+	street2 		varchar(255) DEFAULT NULL,
+	city			varchar(255) DEFAULT NULL,
+	state			varchar(2) DEFAULT NULL,
 	zip			varchar(10) DEFAULT NULL,
 	webpage		varchar(255) DEFAULT NULL,
 	phone		varchar(255) DEFAULT NULL,
@@ -35,13 +34,13 @@ CREATE TABLE Organizations (
 
 CREATE TABLE ItemCategories (
 	id 			int UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	description	varchar(255)
+	description		varchar(255)
 );
 
 CREATE TABLE Items (
 	id 			int UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	description varchar(255) NOT NULL,
-	category	int UNSIGNED,
+	description 	varchar(255) NOT NULL,
+	category		int UNSIGNED,
 	created_at	datetime,
 	updated_at	datetime,
 	FOREIGN KEY (category) REFERENCES ItemCategories (id)
@@ -63,71 +62,70 @@ CREATE TABLE OrganizationItems (
 
 CREATE TABLE OrganizationHours (
 	org_id 		int UNSIGNED UNIQUE NOT NULL,
-	mon_start	time,
+	mon_start		time,
 	mon_end		time,
-	tue_start	time,
+	tue_start		time,
 	tue_end		time,
-	wed_start	time,
+	wed_start		time,
 	wed_end		time,
-	thu_start	time,
+	thu_start		time,
 	thu_end		time,
-	fri_start	time,
+	fri_start		time,
 	fri_end		time,
-	sat_start	time,
+	sat_start		time,
 	sat_end		time,
-	sun_start	time,
+	sun_start		time,
 	sun_end		time,
 	FOREIGN KEY (org_id) REFERENCES Organizations (id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
 );
 
-
 /* ========================================================================
-	TEST DATA: Users
+	ADD Users ENTITIES
    ======================================================================== */
 INSERT INTO
 	Users (`username`, `password`)
 VALUES
 	("TestUser", "password1"),
 	("TestUser2", "password1");
-
+	
 /* ========================================================================
-	TEST DATA: OrganizationTypes
+	ADD OrganizationType ENTITIES
    ======================================================================== */
 INSERT INTO 
-	OrganizationType (`description`)
+	OrganizationType (`id`, `description`)
 VALUES 
-	("Reuse"),
-	("Repair"),
-	("Reuse and Repair");
+	(1, "Reuse"),
+	(2, "Repair"),
+	(3, "Reuse and Repair");
 
 /* ========================================================================
-	TEST DATA: Reuse and Repair Categories
+	ADD ItemCategories ENTITIES
    ======================================================================== */
 INSERT INTO 
-	ItemCategories(`description`)
+	ItemCategories(`id`, `description`)
 VALUES 
-	("Household"),
-	("Bedding/Bath"),
-	("Children's Goods"),
-	("Appliances - Small"),
-	("Appliances - Large"),
-	("Building / Home Improvement"),
-	("Wearable items"),
-	("Usable Electronics"),
-	("Sporting Equipments / Camping"),
-	("Garden"),
-	("Food"),
-	("Medical Supplies"),
-	("Office Equipments"),
-	("Packing Materials"),
-	("Miscellaneous"),
-	("Repair Items")
+	(1, "Household"),
+	(2, "Bedding/Bath"),
+	(3, "Children's Goods"),
+	(4, "Appliances - Small"),
+	(5, "Appliances - Large"),
+	(6, "Building/Home Improvement"),
+	(7, "Wearable Items"),
+	(8, "Usable Electronics"),
+	(9, "Sporting Equipment/Camping"),
+	(10, "Garden"),
+	(11, "Food"),
+	(12, "Medical Supplies"),
+	(13, "Office Equipment"),
+	(14, "Packing Materials"),
+	(15, "Miscellaneous"),
+	(16, "Repair Items")
 	;
-
+	
 /* ========================================================================
-	TEST DATA: Reuse and Repair Items under categories
+	ADD Items ENTITIES
    ======================================================================== */
 INSERT INTO
 	Items (`id`, `description`, `category`)
@@ -175,7 +173,6 @@ VALUES
 	(39, 'Strollers',3),
 	(40, 'Toys',3),
 	
-	
 	(41, 'Blenders',4),				/* category = Appliances - Small */
 	(42, 'Dehumidifiers',4),
 	(43, 'Fans',4),
@@ -190,7 +187,7 @@ VALUES
 	(51, 'Stoves',5),
 	(52, 'Washers/Dryers',5),
 	
-	(53, 'Bricks',6),				/* category = Building/Home Improvement */
+	(53, 'Bricks',6),					/* category = Building/Home Improvement */
 	(54, 'Carpet padding',6),
 	(55, 'Carpets',6),
 	(56, 'Ceramic tiles',6),
@@ -266,64 +263,65 @@ VALUES
 	(123, 'Tennis rackets',9),
 	(124, 'Tents',9),
 	
-	(126, 'Chain saws',10),			/* category = Garden */
-	(127, 'Fencing',10),
-	(128, 'Garden pots',10),
-	(129, 'Garden tools',10),
-	(130 ,'Hand clippers',10),
-	(131, 'Hoses',10),
-	(132, 'Lawn furniture',10),
-	(133, 'Livestock supplies',10),
-	(134, 'Loppers',10),
-	(135, 'Mowers',10),
-	(136, 'Seeders',10),
-	(137, 'Soil amendment',10),
-	(138, 'Sprinklers',10),
-	(139, 'Wheelbarrows',10),
+	(125, 'Chain saws',10),			/* category = Garden */
+	(126, 'Fencing',10),
+	(127, 'Garden pots',10),
+	(128, 'Garden tools',10),
+	(129 ,'Hand clippers',10),
+	(130, 'Hoses',10),
+	(131, 'Lawn furniture',10),
+	(132, 'Livestock supplies',10),
+	(133, 'Loppers',10),
+	(134, 'Mowers',10),
+	(135, 'Seeders',10),
+	(136, 'Soil amendment',10),
+	(137, 'Sprinklers',10),
+	(138, 'Wheelbarrows',10),
 	
-	(140, 'Beverages',11),			/* category = Food */
-	(141, 'Surplus garden produce',11),
-	(142, 'Unopened canned goods',11),
-	(143, 'Unopened packaged food',11),
+	(139, 'Beverages',11),			/* category = Food */
+	(140, 'Surplus garden produce',11),
+	(141, 'Unopened canned goods',11),
+	(142, 'Unopened packaged food',11),
 	
-	(144, 'Adult diapers',12),			/* category = Medical Supplies */	
-	(145, 'Blood pressure monitors',12),
-	(146, 'Canes',12),
-	(147, 'Crutches',12),
-	(148, 'Eye glasses',12),
-	(149, 'Glucose meters',12),
-	(150, 'Hearing aids',12),
-	(151, 'Hospital beds',12),
-	(152, 'Reach extenders',12),
-	(153, 'Shower chairs',12),
-	(154, 'Walkers',12),
-	(155, 'Wheelchairs',12),
+	(143, 'Adult diapers',12),			/* category = Medical Supplies */	
+	(144, 'Blood pressure monitors',12),
+	(145, 'Canes',12),
+	(146, 'Crutches',12),
+	(147, 'Eye glasses',12),
+	(148, 'Glucose meters',12),
+	(149, 'Hearing aids',12),
+	(150, 'Hospital beds',12),
+	(151, 'Reach extenders',12),
+	(152, 'Shower chairs',12),
+	(153, 'Walkers',12),
+	(154, 'Wheelchairs',12),
 	
-	(156, 'Calculators',13),			/* category = Office Equipment */
-	(157, 'Computers',13),
-	(158, 'Fax machines',13),
-	(159, 'Headsets',13),
-	(160, 'Monitors',13),
-	(161, 'Office furniture',13),
-	(162, 'Paper shredders',13),
-	(163, 'Printer cartridge refilling',13),
-	(164, 'Printers',13),
-	(165, 'Scanners',13),
-	(166, 'Telephones',13),
-	
-	(167, 'Bubble wrap',14),			/* category = Packing Materials */
-	(168, 'Clean foam peanuts',14),
-	(169, 'Foam sheets',14),
-	
-	(170, 'Egg cartons',15),			/* category = Miscellaneous */
-	(171, 'Firewood',15),
-	(172, 'Fabric',15),
-	(173, 'Paper bags',15),
-	(174, 'Pet supplies',15),
-	(175, 'Shopping bags',15),
-	(176, 'Vehicles/Parts',15),
-	(177, 'Computer paper',15),
-	(178, 'Reusable metal items',15),
+	(155, 'Calculators',13),			/* category = Office Equipment */
+	(156, 'Computers',13),
+	(157, 'Fax machines',13),
+	(158, 'Headsets',13),
+	(159, 'Monitors',13),
+	(160, 'Office furniture',13),
+	(161, 'Paper shredders',13),
+	(162, 'Printer cartridge refilling',13),
+	(163, 'Printers',13),
+	(164, 'Scanners',13),
+	(165, 'Telephones',13),
+
+	(166, 'Bubble wrap',14),			/* category = Packing Materials */
+	(167, 'Clean foam peanuts',14),
+	(168, 'Foam sheets',14),
+
+	(169, 'Egg cartons',15),			/* category = Miscellaneous */
+	(170, 'Firewood',15),
+	(171, 'Fabric',15),
+	(172, 'Paper bags',15),
+	(173, 'Pet supplies',15),
+	(174, 'Shopping bags',15),
+	(175, 'Vehicles/Parts',15),
+	(176, 'Computer paper',15),
+	(177, 'Reusable metal items',15),
+	(178, 'Brown paper', 15),
 	
 	(179, 'Cell phones',16),			/* category = Repair Items */
 	(180, 'Small appliances',16),
@@ -340,14 +338,13 @@ VALUES
 	(191, 'Upholstery, furniture',16)
 	;
 
-
 /* ========================================================================
 	PROCEDURES FOR CREATING OrganizationItems ENTITIES
    ======================================================================== */	
 DELIMITER $$  
 CREATE PROCEDURE addHousehold(IN orgID INT(255))
 	BEGIN
-      		DECLARE num INT(255) Default 1 ;
+      		DECLARE num INT(255) Default 1;
     	simple_loop: LOOP
     		INSERT INTO OrganizationItems (`org_id`, `item_id`)
     		VALUES (orgID, num);
@@ -362,7 +359,7 @@ DELIMITER ;
 DELIMITER $$  
 CREATE PROCEDURE addBeddingBath(IN orgID INT(255))
 	BEGIN
-      		DECLARE num INT(255) Default 17 ;
+      		DECLARE num INT(255) Default 17;
     	simple_loop: LOOP
     		INSERT INTO OrganizationItems (`org_id`, `item_id`)
     		VALUES (orgID, num);
@@ -373,219 +370,2609 @@ CREATE PROCEDURE addBeddingBath(IN orgID INT(255))
    	END LOOP simple_loop;
 END $$
 DELIMITER ;
+
+DELIMITER $$  
+CREATE PROCEDURE addChildrensGoods(IN orgID INT(255))
+	BEGIN
+      		DECLARE num INT(255) Default 23;
+    	simple_loop: LOOP
+    		INSERT INTO OrganizationItems (`org_id`, `item_id`)
+    		VALUES (orgID, num);
+    		SET num = num + 1;
+         	IF num > 40 THEN
+        		LEAVE simple_loop;
+        	END IF; 	
+   	END LOOP simple_loop;
+END $$
+DELIMITER ;
+
+DELIMITER $$  
+CREATE PROCEDURE addAppliancesSmall(IN orgID INT(255))
+	BEGIN
+      		DECLARE num INT(255) Default 41;
+    	simple_loop: LOOP
+    		INSERT INTO OrganizationItems (`org_id`, `item_id`)
+    		VALUES (orgID, num);
+    		SET num = num + 1;
+         	IF num > 47 THEN
+        		LEAVE simple_loop;
+        	END IF; 	
+   	END LOOP simple_loop;
+END $$
+DELIMITER ;
+
+DELIMITER $$  
+CREATE PROCEDURE addAppliancesLarge(IN orgID INT(255))
+	BEGIN
+      		DECLARE num INT(255) Default 48;
+    	simple_loop: LOOP
+    		INSERT INTO OrganizationItems (`org_id`, `item_id`)
+    		VALUES (orgID, num);
+    		SET num = num + 1;
+         	IF num > 52 THEN
+        		LEAVE simple_loop;
+        	END IF; 	
+   	END LOOP simple_loop;
+END $$
+DELIMITER ;
+
+DELIMITER $$  
+CREATE PROCEDURE addBuildingHomeImprovement(IN orgID INT(255))
+	BEGIN
+      		DECLARE num INT(255) Default 53;
+    	simple_loop: LOOP
+    		INSERT INTO OrganizationItems (`org_id`, `item_id`)
+    		VALUES (orgID, num);
+    		SET num = num + 1;
+         	IF num > 75 THEN
+        		LEAVE simple_loop;
+        	END IF; 	
+   	END LOOP simple_loop;
+END $$
+DELIMITER ;
+
+DELIMITER $$  
+CREATE PROCEDURE addWearableItems(IN orgID INT(255))
+	BEGIN
+      		DECLARE num INT(255) Default 76;
+    	simple_loop: LOOP
+    		INSERT INTO OrganizationItems (`org_id`, `item_id`)
+    		VALUES (orgID, num);
+    		SET num = num + 1;
+         	IF num > 83 THEN
+        		LEAVE simple_loop;
+        	END IF; 	
+   	END LOOP simple_loop;
+END $$
+DELIMITER ;
+
+DELIMITER $$  
+CREATE PROCEDURE addUseableElectronics(IN orgID INT(255))
+	BEGIN
+      		DECLARE num INT(255) Default 84;
+    	simple_loop: LOOP
+    		INSERT INTO OrganizationItems (`org_id`, `item_id`)
+    		VALUES (orgID, num);
+    		SET num = num + 1;
+         	IF num > 105 THEN
+        		LEAVE simple_loop;
+        	END IF; 	
+   	END LOOP simple_loop;
+END $$
+DELIMITER ;
+
+DELIMITER $$  
+CREATE PROCEDURE addSportingEquipmentCamping(IN orgID INT(255))
+	BEGIN
+      		DECLARE num INT(255) Default 106;
+    	simple_loop: LOOP
+    		INSERT INTO OrganizationItems (`org_id`, `item_id`)
+    		VALUES (orgID, num);
+    		SET num = num + 1;
+         	IF num > 124 THEN
+        		LEAVE simple_loop;
+        	END IF; 	
+   	END LOOP simple_loop;
+END $$
+DELIMITER ;
+
+DELIMITER $$  
+CREATE PROCEDURE addGarden(IN orgID INT(255))
+	BEGIN
+      		DECLARE num INT(255) Default 125;
+    	simple_loop: LOOP
+    		INSERT INTO OrganizationItems (`org_id`, `item_id`)
+    		VALUES (orgID, num);
+    		SET num = num + 1;
+         	IF num > 138 THEN
+        		LEAVE simple_loop;
+        	END IF; 	
+   	END LOOP simple_loop;
+END $$
+DELIMITER ;
+
+DELIMITER $$  
+CREATE PROCEDURE addFood(IN orgID INT(255))
+	BEGIN
+      		DECLARE num INT(255) Default 139;
+    	simple_loop: LOOP
+    		INSERT INTO OrganizationItems (`org_id`, `item_id`)
+    		VALUES (orgID, num);
+    		SET num = num + 1;
+         	IF num > 142 THEN
+        		LEAVE simple_loop;
+        	END IF; 	
+   	END LOOP simple_loop;
+END $$
+DELIMITER ;
+
+DELIMITER $$  
+CREATE PROCEDURE addMedicalSupplies(IN orgID INT(255))
+	BEGIN
+      		DECLARE num INT(255) Default 143;
+    	simple_loop: LOOP
+    		INSERT INTO OrganizationItems (`org_id`, `item_id`)
+    		VALUES (orgID, num);
+    		SET num = num + 1;
+         	IF num > 154 THEN
+        		LEAVE simple_loop;
+        	END IF; 	
+   	END LOOP simple_loop;
+END $$
+DELIMITER ;
+
+DELIMITER $$  
+CREATE PROCEDURE addOfficeEquipment(IN orgID INT(255))
+	BEGIN
+      		DECLARE num INT(255) Default 155;
+    	simple_loop: LOOP
+    		INSERT INTO OrganizationItems (`org_id`, `item_id`)
+    		VALUES (orgID, num);
+    		SET num = num + 1;
+         	IF num > 165 THEN
+        		LEAVE simple_loop;
+        	END IF; 	
+   	END LOOP simple_loop;
+END $$
+DELIMITER ;
+
+DELIMITER $$  
+CREATE PROCEDURE addPackingMaterials(IN orgID INT(255))
+	BEGIN
+      		DECLARE num INT(255) Default 166;
+    	simple_loop: LOOP
+    		INSERT INTO OrganizationItems (`org_id`, `item_id`)
+    		VALUES (orgID, num);
+    		SET num = num + 1;
+         	IF num > 168 THEN
+        		LEAVE simple_loop;
+        	END IF; 	
+   	END LOOP simple_loop;
+END $$
+DELIMITER ;
+	
+/* ========================================================================
+	ADD REUSE Organizations ENTITIES WITH CORRESPONDING Hours AND OrganizationItems ENTITIES
+   ======================================================================== */
+
+/* 1 - ALBANY-CORVALLIS REUSEIT */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(1, 1, 'Albany-Corvallis ReUseIt', 
+	Null, 
+	Null, 
+	Null, 
+	Null, 
+	Null, 
+	'https://groups.yahoo.com/neo/groups/albanycorvallisReUseIt/info', 
+	Null, 
+	'Yahoo Groups Website')
+	;
+	
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(1,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null)
+	;
+	
+/* add OrganizationItems entities */
+CALL addAppliancesLarge(1);
+CALL addAppliancesSmall(1);
+CALL addBeddingBath(1);
+CALL addSportingEquipmentCamping(1);
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (1, 174);		/* Miscellaneous: Shopping bags */
+INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (1, 178);		/* Miscellaneous: Brown paper */
+CALL addBuildingHomeImprovement(1);
+
+/* 2 - ARC THRIFT STORES (CORVALLIS) */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(2, 1, 'Arc Thrift Stores (Corvallis)',
+	'928 NW Beca Ave.',
+	Null,
+	'Corvallis',
+	'OR',
+	'97330', 
+	'http://www.arcbenton.org/',
+	'(541)754-9011',
+	Null)
+	;
+	
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(2,
+	'10:00', '17:30',
+	'10:00', '17:30',
+	'10:00', '17:30',
+	'10:00', '17:30',
+	'10:00', '17:30',
+	'10:00', '17:30',
+	'10:00', '17:30')
+	;
+
+/* 3 - ARC THRIFT STORES (Philomath) */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(3, 1, 'Arc Thrift Stores (Philomath)',
+	'936 Main St.',
+	Null,
+	'Philomath',
+	'OR',
+	'97370', 
+	'http://www.arcbenton.org/',
+	'(541)929-3946',
+	Null)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(3,
+	'10:00', '17:30',
+	'10:00', '17:30',
+	'10:00', '17:30',
+	'10:00', '17:30',
+	'10:00', '17:30',
+	'10:00', '17:30',
+	'12:00', '17:30')
+	;
+	
+/* 4 - BEEKMAN PLACE ANTIQUE MALL */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(4, 1, 'Beekman Place Antique Mall',
+	'601 SW Western Blvd.',
+	Null,
+	'Corvallis',
+	'OR',
+	'97333', 
+	'https://www.antiquemalls.com/or/corvallis/97333/16882',
+	'(541)753-8250',
+	Null)
+	;
+	
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(4,
+	Null, Null,
+	'11:00', '17:00',
+	'11:00', '17:00',
+	'11:00', '17:00',
+	'11:00', '17:00',
+	'11:00', '17:00',
+	'11:00', '17:00')
+	;	
+	
+/* 5 - BENTON COUNTY EXTENSION - 4H ACTIVITIES */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(5, 1, 'Benton County Extension - 4H Activities',
+	'1849 NW 9th St.',
+	Null,
+	'Corvallis',
+	'OR',
+	'97330', 
+	'http://extension.oregonstate.edu/benton/',
+	'(541)766-6750',
+	Null)
+	;
+	
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(5,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null)
+	;
+/* 6 - BENTON COUNTY MASTER GARDENS */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(6, 1, 'Benton County Master Gardens',
+	'1849 NW 9th St.',
+	Null,
+	'Corvallis',
+	'OR',
+	'97330', 
+	'http://extension.oregonstate.edu/benton/horticulture/mg',
+	'(541)766-6750',
+	Null)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(6,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null)
+	;
+	
+/* 7 - BOOK BIN */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(7, 1, 'Book Bin',
+	'215 SW 4th St.',
+	Null,
+	'Corvallis',
+	'OR',
+	'97333', 
+	'http://bookbin.com/',
+	'(541)752-0040',
+	Null)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(7,
+	'08:30', '21:00',
+	'08:30', '21:00',
+	'08:30', '21:00',
+	'08:30', '21:00',
+	'08:30', '21:00',
+	'08:30', '21:00',
+	'09:00', '19:00')
+	;	
+
+/* 8 - BROWSER'S BOOKSTORE */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(8, 1, 'Browser\'s Bookstore',
+	'121 NW 4th St.',
+	Null,
+	'Corvallis',
+	'OR',
+	'97330', 
+	'http://www.browsersbookstore.com/',
+	'(888)758-1121',
+	Null)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(8,
+	'09:30', '18:00',
+	'09:30', '18:00',
+	'09:30', '18:00',
+	'09:30', '18:00',
+	'09:30', '18:00',
+	'09:30', '18:00',
+	Null, Null)
+	;	
+	
+/* 9 - BOYS & GIRLS CLUB/STARS (AFTER SCHOOL PROGRAMS) */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(9, 1, 'Boy & Girls Club/STARS (after school programs)',
+	'1112 NW Circle Blvd.',
+	Null,
+	'Corvallis',
+	'OR',
+	'97330', 
+	'http://www.bgccorvallis.org/',
+	'(541)757-1909',
+	Null)
+	;
+	
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(9,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null)
+	;
+	
+/* 10 - BUCKINGHAM PALACE */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(10, 1, 'Buckingham Palace',
+	'600 SW 3rd St.',
+	Null,
+	'Corvallis',
+	'OR',
+	'97333', 
+	null,
+	'(541)752-7980',
+	'Friday to Sunday only')
+	;
+	
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(10,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null)
+	;
+	
+/* 11 -  CALVARY COMMUNITY OUTREACH */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(11, 1, 'Calvary Community Outreach',
+	'2125 NW Lester Ave.',
+	Null,
+	'Corvallis',
+	'OR',
+	'97330', 
+	'http://www.communityoutreachinc.org/',
+	'(541)760-5941',
+	Null)
+	;
+	
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(11,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null)
+	;
+	
+/* 12 - CARDV (Center Against Rape/Domestic Violence) */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(12, 1, 'CARDV (Center Against Rape/Domestic Violence)',
+	'4786 SW Philomath Blvd.',
+	Null,
+	'Corvallis',
+	'OR',
+	'97333', 
+	'http://cardv.org/',
+	'(541)758-0219',
+	Null)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(12,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null)
+	;
+	
+/* 13 - CAREER CLOSET FOR WOMEN */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(13, 1, 'Career Closet for Women',
+	'942 NW 9th St.',
+	'Suite A',
+	'Corvallis',
+	'OR',
+	'97330', 
+	'https//sicorvallis.wordpress.com/',
+	'(541)754-6979',
+	'Drop off')
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(13,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null)
+	;
+	
+/* 14 - CAT'S MEOW HUMANE SOCIETY THRIFT SHOP */	
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(14, 1, 'Cat\'s Meow Humane Society Thrift Shop',
+	'411 SW 3rd St.',
+	Null,
+	'Corvallis',
+	'OR',
+	'97333', 
+	'http://www.heartlandhumane.org/',
+	'(541)757-0673',
+	Null)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(14,
+	'10:00', '17:00',
+	'10:00', '17:00',
+	'10:00', '17:00',
+	'10:00', '17:00',
+	'10:00', '17:00',
+	'10:00', '17:00',
+	Null, Null)
+	;	
+	
+/* 15 - CHILDREN'S FARM HOME */	
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(15, 1, 'Children\'s Farm Home',
+	'4455 NE Hwy. 20',
+	Null,
+	'Corvallis',
+	'OR',
+	'97330', 
+	'http://www.trilliumfamily.org/',
+	'(541)757-1852',
+	Null)
+	;
+	
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(15,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null)
+	;
+	
+/* 16 - CHINTIMINI WILDLIFE REHABILITATION CENTER */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(16, 1, 'Chintimini Wildlife Rehabilitation Center',
+	'311 Lewisburg Rd.',
+	Null,
+	'Corvallis',
+	'OR',
+	'97330', 
+	'http://www.chintiminiwildlife.org/',
+	'(541)745-5324',
+	Null)
+	;
+	
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(16,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null)
+	;
+	
+/* 17 - COMMUNITY OUTREACH (HOMELESS SHELTER) */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(17, 1, 'Community Outreach (Homeless Shelter)',
+	'865 NW Reiman Ave.',
+	Null,
+	'Corvallis',
+	'OR',
+	'97330', 
+	'http://www.communityoutreachinc.org/services/emergency-shelter-program/family-shelter/',
+	'(541)758-3000',
+	Null)
+	;
+	
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(17,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null)
+	;
+	
+/* 18 - CORVALLIS ENVIRONMENTAL CENTER */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(18, 1, 'Corvallis Environmental Center',
+	'214 SW Monroe Ave.',
+	Null,
+	'Corvallis',
+	'OR',
+	'97333', 
+	'http://www.corvallisenvironmentalcenter.org/',
+	'(541)753-9211',
+	Null)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(18,
+	'09:00', '17:00',
+	'09:00', '17:00',
+	'09:00', '17:00',
+	'09:00', '17:00',
+	Null, Null,
+	Null, Null,
+	Null, Null)
+	;	
+	
+/* 19 - CORVALLIS BICYCLE COLLECTIVE */	
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(19, 1, 'Corvallis Bicycle Collective',
+	'33900 SE Roche Ln./Hwy. 34',
+	Null,
+	'Corvallis',
+	'OR',
+	'97333', 
+	'http://corvallisbikes.org/',
+	'(541)224-6885',
+	Null)
+	;
+	
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(19,
+	Null, Null,
+	'12:00', '16:00',
+	'12:00', '16:00',
+	'12:00', '16:00',
+	'12:00', '16:00',
+	'12:00', '16:00',
+	'12:00', '16:00')
+	;	
+	
+/* 20 - CORVALLIS FURNITURE */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(20, 1, 'Corvallis Furniture',
+	'720 NE Granger Ave.',
+	'Building J',
+	'Corvallis',
+	'OR',
+	'97333', 
+	'http://corvallisfurniture.com/',
+	'(541)231-8103',
+	Null)
+	;
+	
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(20,
+	'10:00', '15:00',
+	'10:00', '18:00',
+	'10:00', '18:00',
+	'10:00', '18:00',
+	'10:00', '18:00',
+	'10:00', '15:00',
+	'10:00', '15:00')
+	;		
+	
+/* 21 - CORVALLIS-UZHHOROD SISTER CITIES/THE TOUCH PROJECT */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(21, 1, 'Corvallis-Uzhhorod Sister Cities/The TOUCH Project',
+	Null,
+	Null,
+	'Corvallis',
+	'OR',
+	Null, 
+	'http://www.sistercities.corvallis.or.us/uzhhorod',
+	'(541)753-5170',
+	Null)
+	;
+	
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(21,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null)
+	;
+	
+/* 22 - COSMIC CHAMELEON */	
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(22, 1, 'Cosmic Chameleon',
+	'138 SW 2nd St.',
+	Null,
+	'Corvallis',
+	'OR',
+	'97333', 
+	Null,
+	'(541)752-9001',
+	Null)
+	;
+	
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(22,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null)
+	;
+		
+/* 23 - CRAIGSLIST (CORVALLIS.CRAIGSLIST.ORG) AND FREECYCLE.ORG */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(23, 1, 'Cosmic Chameleon',
+	Null,
+	Null,
+	Null,
+	Null,
+	Null,
+	'https://corvallis.craigslist.org/',
+	Null,
+	Null)
+	;
+	
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(23,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null)
+	;
+	
+/* 24 - FIRST ALTERNATIVE CO-OP RECYCLING CENTER  (SOUTH STORE)*/
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(24, 1, 'First Alternative Co-op Recycling Center (South Store)',
+	'1007 SE 3rd St.',
+	Null,
+	'Corvallis',
+	'OR',
+	'97333', 
+	'http://firstalt.coop/',
+	'(541)753-3115',
+	Null)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(24,
+	'07:00', '22:00',
+	'07:00', '22:00',
+	'07:00', '22:00',
+	'07:00', '22:00',
+	'07:00', '22:00',
+	'07:00', '22:00',
+	'07:00', '22:00')
+	;
+
+/* 25 - FIRST ALTERNATIVE CO-OP RECYCLING CENTER  (NORTH STORE)*/
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(25, 1, 'First Alternative Co-op Recycling Center (North Store)',
+	'2885 NW Grant St.',
+	Null,
+	'Corvallis',
+	'OR',
+	'97333', 
+	'http://firstalt.coop/',
+	'(541)452-3115',
+	Null)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(25,
+	'07:00', '22:00',
+	'07:00', '22:00',
+	'07:00', '22:00',
+	'07:00', '22:00',
+	'07:00', '22:00',
+	'07:00', '22:00',
+	'07:00', '22:00')
+	;
+
+/* 26 - FURNITURE EXCHANGE */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(26, 1, 'Furniture Exchange',
+	'210 NW 2nd St.',
+	Null,
+	'Corvallis',
+	'OR',
+	'97330', 
+	'http://www.furnitureexchange-usa.com/',
+	'(541)833-0183',
+	Null)
+	;
+	
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(26,
+	Null, Null,
+	'10:00', '17:30',
+	'10:00', '17:30',
+	'10:00', '17:30',
+	'10:00', '17:30',
+	'10:00', '17:30',
+	Null, Null)
+	;	
+	
+/* 27 - FURNITURE SHARE (FORMERLY BENTON FS) */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(27, 1, 'Furniture Share (Formerly Benton FS)',
+	'155 SE Lily Ave.',
+	Null,
+	'Corvallis',
+	'OR',
+	'97333', 
+	'http://furnitureshare.org/',
+	'(541)754-9511',
+	Null)
+	;	
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(27,
+	Null, Null,
+	'09:00', '16:00',
+	'09:00', '16:00',
+	'09:00', '16:00',
+	'09:00', '16:00',
+	Null, Null,
+	Null, Null)
+	;		
+	
+/* 28 - HOME GROWN GARDENS */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(28, 1, 'Home Grown Gardens',
+	'4845 SE 3rd St.',
+	Null,
+	'Corvallis',
+	'OR',
+	'97333', 
+	'http://homegrowngardens77.vpweb.com/',
+	'(541)758-2137',
+	Null)
+	;	
+	
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(28,
+	'10:00', '17:00',
+	'10:00', '17:00',
+	'10:00', '17:00',
+	'10:00', '17:00',
+	'10:00', '17:00',
+	'10:00', '17:00',
+	'12:00', '17:00')
+	;	
+	
+/* 29 - GARLAND NURSERY */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(29, 1, 'Garland Nursey',
+	'5470 NE Hwy. 20',
+	Null,
+	'Corvallis',
+	'OR',
+	'97330', 
+	'http://garlandnursery.com/',
+	'(541)753-6601',
+	Null)
+	;	
+	
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(29,
+	'09:00', '17:00',
+	'09:00', '17:00',
+	'09:00', '17:00',
+	'09:00', '17:00',
+	'09:00', '17:00',
+	'09:00', '17:00',
+	'10:00', '17:00')
+	;	
+	
+/* 30 - GOODWILL INDUSTRIES */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(30, 1, 'Goodwill Industries',
+	'1325 NW 9th St.',
+	Null,
+	'Corvallis',
+	'OR',
+	'97330', 
+	'http://www.goodwill.org/locator/',
+	'(541)752-8278',
+	Null)
+	;	
+	
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(30,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null)
+	;
+	
+/* 31- HABITAT FOR HUMANITY RESTORE */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(31, 1, 'Habitat for Humanity ReStore',
+	'4840 SW Philomath Blvd.',
+	Null,
+	'Corvallis',
+	'OR',
+	'97333', 
+	'http://bentonhabitat.org/',
+	'(541)752-6637',
+	Null)
+	;	
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(31,
+	'09:00', '18:00',
+	'09:00', '18:00',
+	'09:00', '18:00',
+	'09:00', '18:00',
+	'09:00', '18:00',
+	'09:00', '18:00',
+	Null, Null)
+	;		
+
+/* 32 - HAPPY TRAILS RECORDS, TAPES, & CDS */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(32, 1, 'Happy Trails Records, Tapes, & CDs',
+	'100 SW 3rd St.',
+	Null,
+	'Corvallis',
+	'OR',
+	'97333', 
+	'http://www.corvallisbusiness.com/happytrails.html',
+	'(541)752-9032',
+	Null)
+	;	
+	
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(32,
+	'10:30', '19:00',
+	'10:30', '19:00',
+	'10:30', '19:00',
+	'10:30', '19:00',
+	'10:30', '21:00',
+	'10:30', '21:00',
+	'12:00', '18:00')
+	;		
+
+/* 33 - HEARTLAND HUMANE SOCIETY */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(33, 1, 'Heartland Humane Society',
+	'398 SW Twin Oaks Cir.',
+	Null,
+	'Corvallis',
+	'OR',
+	'97333', 
+	'http://heartlandhumane.org/',
+	'(541)757-9000',
+	Null)
+	;	
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(33,
+	Null, Null,
+	'12:00', '18:00',
+	'12:00', '18:00',
+	Null, Null,
+	'12:00', '18:00',
+	'12:00', '17:00',
+	'12:00', '17:00')
+	;	
+	
+/* 34 - HOME LIFE INC (FOR DEVELOP. DISABLED) */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(34, 1, 'Home Life Inc. (for develop. disabled)',
+	'2068 NW Fillmore Ave.',
+	Null,
+	'Corvallis',
+	'OR',
+	'97330', 
+	'http://homelifeinc.org/',
+	'(541)753-9015',
+	'For developmentally disabled')
+	;	
+	
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(34,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null)
+	;
+	
+/* 35 - JACKSON STREET YOUTH SHELTER */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(35, 1, 'Jackson Street Youth Shelter',
+	'555 NW Jackson St.',
+	Null,
+	'Corvallis',
+	'OR',
+	'97330', 
+	'http://www.jsysi.org/',
+	'(541)754-2404',
+	Null)
+	;	
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(35,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null)
+	;
+	
+/* 36 - LINN BENTON FOOD SHARE (LARGE FOOD DONATIONS) */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(36, 1, 'Linn Benton Food Share',
+	'545 SW 2nd St.',
+	Null,
+	'Corvallis',
+	'OR',
+	'97333', 
+	'http://communityservices.us/nutrition/detail/category/linn-benton-food-share/',
+	'(541)752-1010',
+	'Large food donations')
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(36,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null)
+	;
+	
+/* 37 - LIONS CLUB (BOX INSIDE ELKS LODGE) */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(37, 1, 'Lions Club',
+	'1400 NW 9th St.',
+	Null,
+	'Corvallis',
+	'OR',
+	'97330', 
+	'http://www.e-clubhouse.org/sites/midvalley/',
+	'(541)758-0222',
+	'Box inside Elks Lodge')
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(37,
+	'10:00', '18:00',
+	'10:00', '18:00',
+	'10:00', '18:00',
+	'10:00', '18:00',
+	'10:00', '18:00',
+	'10:00', '18:00',
+	'12:00', '17:00')
+	;	
+
+/* 38 - LOVE INC (FOR LOW INCOME CITIZENS) */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(38, 1, 'Love INC',
+	'2330 NW Professional Dr.',
+	'#102',
+	'Corvallis',
+	'OR',
+	'97330', 
+	'http://www.yourloveinc.org/',
+	'(541)757-8111',
+	'For low income citizens')
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(38,
+	'09:30', '15:30',
+	'09:30', '15:30',
+	'09:30', '15:30',
+	'09:30', '15:30',
+	Null, Null,
+	Null, Null,
+	Null, Null)
+	;	
+
+/* 39 - MANO PASTEGA HOUSE (GOOD SAM PATIENT FAMILY HOUSING) */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(39, 1, 'Mano Pastega House',
+	'3505 NW Samaritan Dr.',
+	Null,
+	'Corvallis',
+	'OR',
+	'97330', 
+	'http://samhealth.org/locations/mariopasegahouse/Pages/default.aspx',
+	'(541)768-4650',
+	'Good Sam patient family housing')
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(39,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null)
+	;
+	
+/* 40 - MARY'S RIVER GLEANERS (FOR LOW INCOME CITIZENS) */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(40, 1, 'Mary\'s River Gleaners',
+	'PO Box 2309',
+	Null,
+	'Corvallis',
+	'OR',
+	'97399', 
+	Null,
+	'(541)752-1010',
+	'For low income citizens')
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(40,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null)
+	;
+	
+/* 41 - MIDWAY FARMS */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(41, 1, 'Midway Farms',
+	'6980 US Hwy. 20',
+	'Hwy. 20 between Corvallis and Albany',
+	'Albany',
+	'OR',
+	'97321', 
+	'http://www.midwayfarmsorego.com/',
+	'(541)740-6141',
+	Null)
+	;
+	
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(41,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null)
+	;
+	
+/* 42 - NEIGHBOR TO NEIGHBOR */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(42, 1, 'Neighbor to Neighbor',
+	'1123 Main St.',
+	Null,
+	'Philomath',
+	'OR',
+	'97370', 
+	Null,
+	'(541)929-6614',
+	'Food pantry')
+	;	
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(42,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null)
+	;
+	
+/* 43 - OSBORN AQUATIC CENTER */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES
+	(43, 1, 'Osborn Aquatic Center',
+	'1940 NW Highland Dr.',
+	Null,
+	'',
+	'OR',
+	'07730', 
+	'http://www.corvallisoregon.gov/index.aspx?page=57',
+	'(541)766-7946',
+	Null)
+	;
+	
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(43,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null,
+	Null, Null)
+	;
+
+/* 44 - OSU EMERGENCY FOOD PANTRY */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES		
+	(44, 1, 'OSU Emergency Food Pantry', 
+	NULL,
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(44, 
+	'17:00:00', '20:00:00', 
+	NULL, NULL, 
+	'17:00:00', '20:00:00', 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL)
+	;
+
+/* 45 - OSU FOLK CLUB THRIFT SHOP */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES		
+	(45, 1, 'OSU Folk Club Thrift Shop', 
+	NULL, 
+	NULL,
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(45, 
+	NULL, NULL, 
+	'09:30:00', '14:00:00', 
+	'09:30:00', '14:00:00', 
+	'09:30:00', '14:00:00', 
+	'09:30:00', '12:30:00', 
+	NULL, NULL, 
+	NULL, NULL)
+	;
+	
+/* 46 - OSU ORGANIC GROWERS CLUB (CROP & SOIL SCIENCE DEPT.) */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES		
+	(46, 1, 'OSU Organic Growers Club (Crop & Soil Science Dept)', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
+	;
+	
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(46, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL,
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL,
+	NULL, NULL)
+	;
+	 
+/* 47 - PAK MAIL (TIMBERHILL SHOPPING CTR.) */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(47, 1, 
+	'Pak Mail (Timberhill Shopping Ctr)', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL,
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(47, 
+	'09:00:00', '17:30:00', 
+	'09:00:00', '17:30:00', 
+	'09:00:00', '17:30:00', 
+	'09:00:00', '17:30:00', 
+	'09:00:00', '17:30:00', 
+	'09:00:00', '16:00:00', 
+	NULL, NULL)
+	;
+	
+/* 48 - PARENT ENHANCEMENT PROGRAM  */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(48, 1, 
+	'Parent Enhancement Program', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(48,
+	'09:00:00', '17:30:00', 
+	'09:00:00', '17:30:00', 
+	'09:00:00', '17:30:00', 
+	'09:00:00', '17:30:00', 
+	'09:00:00', '17:30:00',
+	 '09:00:00', '16:00:00', 
+	 NULL, NULL)
+	 ;
+	 
+/* 49 - PASTORS FOR PEACE-CARAVAN TO CUBA */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(49, 1, 'Pastors for Peace-Caravan to Cuba', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	'Contact Mike Beilstein')
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(49,
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL)
+	;
+	
+/* 50 - PHILOMATH COMMUNITY GARDEN */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(50, 1, 
+	'Philomath Community Garden', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	'Contact Chris Shonnard')
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(50, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL)
+	;
+	
+/* 51 - PHILOMATH COMMUNITY SERVICES */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(51, 1, 'Philomath Community Services', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(51, 
+	NULL, NULL, 
+	'17:00:00', '20:00:00', 
+	NULL, NULL, 
+	'09:00:00', '12:00:00', 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL)
+	;
+	
+/* 52 - PLAY IT AGAIN SPORTS */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(52, 1, 'Play It Again Sports', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(52, 
+	'09:00:00', '19:00:00', 
+	'09:00:00', '19:00:00', 
+	'09:00:00', '19:00:00', 
+	'09:00:00', '19:00:00', 
+	'09:00:00', '19:00:00', 
+	'09:00:00', '18:00:00', 
+	'10:00:00', '17:00:00')
+	;
 	
 
-
-/* ========================================================================
-	TEST DATA: Adding Reuse Businesses
-   ======================================================================== */
+/* 53 - PRESBYTERIAN PIECEMAKERS */
 INSERT INTO
-	Organizations (id, org_type, name, street1, street2, city, state, zip, webpage, phone, notes)
-VALUES
-	(1, 1, 'Albany-Corvallis ReUseIt', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(2, 1, 'Arc Thrift Stores  (Corvallis)', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(3, 1, 'Arc Thrift Stores (Philomath)', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(4, 1, 'Beekman Place Antique Mall', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(5, 1, 'Benton County Extension / 4-H  Activities', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(6, 1, 'Benton County Master Gardeners', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(7, 1, 'Book Bin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(8, 1, 'Browser\'s Bookstore', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(9, 1, 'Boys & Girls Club \/ STARS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(10, 1, 'Buckingham Palace', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(11, 1, 'Calvary Community Outreach', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(12, 1, 'CARDV (Center Against Rape/Domestic Violence)', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(13, 1, 'Career Closet for Women', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(14, 1, 'Cat\'s Meow Humane Society Thrift Shop', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(15, 1, 'Children\'s Farm Home', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(16, 1, 'Chintimini Wildlife Rehabilitation Ctr', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(17, 1, 'Community Outreach', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(18, 1, 'Corvallis Environmental Center', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(19, 1, 'Corvallis Bicycle Collective', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(20, 1, 'Corvallis Furniture', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(21, 1, 'Corvallis-Uzhhorod Sister Cities/The TOUCH Project', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(22, 1, 'Cosmic Chameleon', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(23, 1, 'Craigslist and Freecycle.org', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(24, 1, 'First Alternative Co-op Recycling Center', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(25, 1, 'First Alternative Co-op Store (South store)', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(26, 1, 'First Alternative Co-op Store (North store)', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(27, 1, 'Furniture Exchange', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(28, 1, 'Furniture Share (formerly Benton FS)', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(29, 1, 'Home Grown Gardens', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(30, 1, 'Garland Nursery', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(31, 1, 'Goodwill Industries', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(32, 1, 'Habitat for Humanity ReStore', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(33, 1, 'Happy Trails Records, Tapes & CDs', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(34, 1, 'Heartland Humane Society', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(35, 1, 'Home Life Inc.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(36, 1, 'Jackson Street Youth Shelter', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(37, 1, 'Linn Benton Food Share', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(38, 1, 'Lions Club (box inside Elks Lodge)', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(39, 1, 'Love INC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(40, 1, 'Mario Pastega House', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(41, 1, 'Mary\'s River Gleaners', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(42, 1, 'Midway Farms', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(43, 1, 'Neighbor to Neighbor', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(44, 1, 'Osborn Aquatic Center', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(45, 1, 'OSU Emergency Food Pantry', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(46, 1, 'OSU Folk Club Thrift Shop', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(47, 1, 'OSU Organic Growers Club (Crop & Soil Science Dept)', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(48, 1, 'Pak Mail (Timberhill Shopping Ctr)', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(49, 1, 'Parent Enhancement Program', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(50, 1, 'Pastors for Peace-Caravan to Cuba (Mike Beilstein)', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(51, 1, 'Philomath Community Garden (Chris Shonnard)', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(52, 1, 'Philomath Community Services', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(53, 1, 'Play It Again Sports', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(54, 1, 'Presbyterian Piecemakers', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(55, 1, 'Public Library Corvallis, Friends of', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(56, 1, 'Quilts From Caring Hands', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(57, 1, 'Rapid Refill Ink', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(58, 1, 're·volve', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(59, 1, 'Schools--Public Private Charter', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(60, 1, 'Second Glance', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(61, 1, 'The Annex', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(62, 1, 'The Alley', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(63, 1, 'Senior Center of Corvallis', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(64, 1, 'South Corvallis Food Bank', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(65, 1, 'St. Vincent de Paul Food Bank', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(66, 1, 'Stone Soup  (St Mary\'s Church)', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(67, 1, 'UPS Store (Philomath)', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(68, 1, 'UPS Stores (Corvallis)', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(69, 1, 'Vina Moses', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(70, 1, 'Spaeth Heritage House', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(53, 1, 'Presbyterian Piecemakers', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
 	;
 
-
-/* ========================================================================
-	TEST DATA: Adding Repair Businesses
-   ======================================================================== */
 INSERT INTO
-	Organizations (id, org_type, name, street1, street2, city, state, zip, webpage, phone, notes)
-VALUES
-	(71, 2, 'Bellevue Computers', '1865 NW 9th St', '', 'Corvallis', 'OR', '', 'http://www.bellevuepc.com/', '541-757-3487', 'repair computers and laptops'),
-	(72, 2, 'Book Binding', '108 SW 3rd St', '', 'Corvallis', 'OR', '97333', 'http://www.cornerstoneassociates.com/bj-bookbinding-about-us.html', '541-5757-9861', 'Rebind and Restore books'),
-	(73, 2, 'Cell Phone Sick Bay', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(74, 2, 'Covallis Technical', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(75, 2, 'Foam Man', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(76, 2, 'Footwise', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(77, 2, 'Furniture Restoration Center', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(78, 2, 'Geeks \'N\' Nerds', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(79, 2, 'OSU Repair Fair', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(80, 2, 'P.K Furniture Repair & Refinishing', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(81, 2, 'Corvalis Power Equipment', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(82, 2, 'Robnett\'s', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(83, 2, 'Sedlack', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(84, 2, 'Specialty Sewing By Leslie', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(53, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL)
 	;
-
-
-/* ========================================================================
-	TEST DATA: Associating Items to businesses
-   ======================================================================== */
+	
+/* 54 - PUBLIC LIBRARY CORVALLIS, FRIENDS OF */
 INSERT INTO
-	OrganizationItems (org_id, item_id)
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(54, 1, 'Public Library Corvallis, Friends of', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(54, 
+	'10:00:00', '20:00:00', 
+	'10:00:00', '20:00:00', 
+	'10:00:00', '20:00:00', 
+	'10:00:00', '20:00:00', 
+	'10:00:00', '18:00:00', 
+	'10:00:00', '18:00:00', 
+	'13:00:00', '17:00:00')
+	;
+	
+/* 55 - QUILTS FROM CARING HANDS */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(55, 1, 'Quilts From Caring Hands', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
-	(71, 184), /* (Bellevue Computers, Computers) */
-	(72, 181)
+	(55, 
+	NULL, NULL, 
+	NULL, NULL, 
+	'09:30:00', '14:00:00', 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL)
+	;
+	
+/* 56 - RAPID REFILL INK */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(56, 1, 'Rapid Refill Ink', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
 	;
 
-
-/* ========================================================================
-	TEST DATA: Hours
-   ======================================================================== */
-INSERT INTO 
-	OrganizationHours (`org_id`, `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, `thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`) 
-VALUES 
-	('1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('5', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('6', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('7', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('8', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('9', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('10', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('11', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('12', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('13', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('14', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('15', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('16', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('18', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('19', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('20', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('21', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('22', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('23', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('24', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('25', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('26', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('27', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('28', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('29', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('30', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('31', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('33', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('34', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('35', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('36', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('37', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('38', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('39', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('40', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), /* no hours online*/ 
-	('41', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), /* no hours online*/
-	('42', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), /* no hours online*/
-	('43', NULL, NULL, '09:30:00', '13:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('44', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), /* no hours online*/
-	('45', '17:00:00', '20:00:00', NULL, NULL, '17:00:00', '20:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('46', NULL, NULL, '09:30:00', '14:00:00', '09:30:00', '14:00:00', '09:30:00', '14:00:00', '09:30:00', '12:30:00', NULL, NULL, NULL, NULL),
-	('47', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), /* no hours online*/
-	('48', '09:00:00', '17:30:00', '09:00:00', '17:30:00', '09:00:00', '17:30:00', '09:00:00', '17:30:00', '09:00:00', '17:30:00', '09:00:00', '16:00:00', NULL, NULL),
-	('49', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), /* no hours online*/
-	('50', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), /* no hours online*/
-	('51', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), /* no hours online*/
-	('52', NULL, NULL, '17:00:00', '20:00:00', NULL, NULL, '09:00:00', '12:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
-	('53', '09:00:00', '19:00:00', '09:00:00', '19:00:00', '09:00:00', '19:00:00', '09:00:00', '19:00:00', '09:00:00', '19:00:00', '09:00:00', '18:00:00', '10:00:00', '17:00:00'),
-	('54', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), /* no hours online*/
-	('55', '10:00:00', '20:00:00', '10:00:00', '20:00:00', '10:00:00', '20:00:00', '10:00:00', '20:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '13:00:00', '17:00:00'),
-	('56', NULL, NULL, NULL, NULL, '09:30:00', '14:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('57', '09:00:00', '17:30:00', '09:00:00', '17:30:00', '09:00:00', '17:30:00', '09:00:00', '17:30:00', '09:00:00', '17:30:00', '10:00:00', '15:00:00', NULL, NULL),
-	('58', NULL, NULL, '11:00:00', '18:00:00', NULL, NULL, '11:00:00', '18:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
-	('59', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), /*no hours online*/
-	('60', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '12:00:00', '17:00:00'),
-	('61', '11:00:00', '18:00:00', '11:00:00', '18:00:00', '11:00:00', '18:00:00', '11:00:00', '18:00:00', '11:00:00', '18:00:00', '11:00:00', '18:00:00', '12:00:00', '17:00:00'),
-	('62', '11:00:00', '18:00:00', '11:00:00', '18:00:00', '11:00:00', '18:00:00', '11:00:00', '18:00:00', '11:00:00', '18:00:00', '11:00:00', '18:00:00', '12:00:00', '17:00:00'),
-	('63', '08:00:00', '16:00:00', '08:00:00', '16:00:00', '08:00:00', '16:00:00', '08:00:00', '16:00:00', '08:00:00', '16:00:00', NULL, NULL, NULL, NULL),
-	('64', '13:00:00', '15:00:00', NULL, NULL, '13:00:00', '15:00:00', '17:00:00', '19:00:00', NULL, NULL, '10:00:00', '12:00:00', NULL, NULL),
-	('65', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), /* no hours online */
-	('66', '17:30:00', '18:30:00', NULL, NULL, '11:30:00', '12:30:00', '17:30:00', '18:30:00', '11:30:00', '12:30:00', NULL, NULL, NULL, NULL),
-	('67', '07:30:00', '18:00:00', '07:30:00', '18:00:00', '07:30:00', '18:00:00', '07:30:00', '18:00:00', '07:30:00', '18:00:00', '09:30:00', '15:00:00', NULL, NULL),
-	('68', '07:30:00', '18:00:00', '07:30:00', '18:00:00', '07:30:00', '18:00:00', '07:30:00', '18:00:00', '07:30:00', '18:00:00', '09:30:00', '15:00:00', NULL, NULL),
-	('69', '09:00:00', '16:00:00', '09:00:00', '16:00:00', '09:00:00', '16:00:00', '09:00:00', '16:00:00', '09:00:00', '16:00:00', NULL, NULL, NULL, NULL),
-	('70', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), /* no hours online*/
-	('71', '09:00:00', '18:00:00', '09:00:00', '18:00:00', '09:00:00', '18:00:00', '09:00:00', '18:00:00', '09:00:00', '18:00:00', '10:00:00', '17:00:00', NULL, NULL),
-	('72', '09:00:00', '17:00:00', '09:00:00', '17:00:00', '09:00:00', '17:00:00', '09:00:00', '17:00:00', '09:00:00', '17:00:00', NULL, NULL, NULL, NULL),
-	('73', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '11:00:00', '16:00:00', NULL, NULL),
-	('74', '09:00:00', '17:00:00', '09:00:00', '17:00:00', '09:00:00', '17:00:00', '09:00:00', '17:00:00', '09:00:00', '17:00:00', NULL, NULL, NULL, NULL),
-	('75', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), /* no hours online*/
-	('76', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '11:00:00', '17:00:00'),
-	('77', '09:00:00', '17:00:00', '09:00:00', '17:00:00', '09:00:00', '17:00:00', '09:00:00', '17:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
-	('78', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), /* no hours online*/
-	('79', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), /* no hours online*/
-	('80', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', '10:00:00', '18:00:00', NULL, NULL, NULL, NULL),
-	('81', '08:00:00', '17:00:00', '08:00:00', '17:00:00', '08:00:00', '17:00:00', '08:00:00', '17:00:00', '08:00:00', '17:00:00', '08:30:00', '12:00:00', NULL, NULL),
-	('82', '07:30:00', '18:00:00', '07:30:00', '18:00:00', '07:30:00', '18:00:00', '07:30:00', '18:00:00', '07:30:00', '18:00:00', '08:30:00', '17:30:00', '10:00:00', '16:00:00'),
-	('83', '09:30:00', '18:00:00', '09:30:00', '18:00:00', '09:30:00', '18:00:00', '09:30:00', '18:00:00', '09:30:00', '18:00:00', '09:30:00', '17:00:00', '12:00:00', '16:00:00'),
-	('84', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL) /* no hours online*/
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(56, 
+	'09:00:00', '17:30:00', 
+	'09:00:00', '17:30:00',
+	'09:00:00', '17:30:00',
+	'09:00:00', '17:30:00', 
+	'09:00:00', '17:30:00', 
+	'10:00:00', '15:00:00', 
+	NULL, NULL)
+	;
+	
+/* 57 - RE-VOLVE*/
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(57, 1, 're-volve', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
 	;
 
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(57, 
+	NULL, NULL, 
+	'11:00:00', '18:00:00', 
+	NULL, NULL, 
+	'11:00:00', '18:00:00', 
+	NULL, NULL,
+	 NULL, NULL, 
+	 NULL, NULL)
+	 ;
+	 
+/* 58 - SCHOOLS - PUBLIC, PRIVATE, CHARTER */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(58, 1, 'Schools - Public, Private, Charter', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
+	;
 
-/* add items from categories */
-CALL addHousehold(1);
-CALL addBeddingBath(1);
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(58, 
+	NULL, NULL,
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL)
+	;
 
+/* 59 - SECOND GLANCE */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(59, 1, 'Second Glance', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(59, 
+	'10:00:00', '18:00:00', 
+	'10:00:00', '18:00:00', 
+	'10:00:00', '18:00:00', 
+	'10:00:00', '18:00:00', 
+	'10:00:00', '18:00:00', 
+	'10:00:00', '18:00:00', 
+	'12:00:00', '17:00:00')
+	;
+	
+/* 60 - THE ANNEX */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(60, 1, 'The Annex', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(60, 
+	'11:00:00', '18:00:00', 
+	'11:00:00', '18:00:00', 
+	'11:00:00', '18:00:00', 
+	'11:00:00', '18:00:00', 
+	'11:00:00', '18:00:00', 
+	'11:00:00', '18:00:00', 
+	'12:00:00', '17:00:00')
+	;
+	
+/* 61 - THE ALLEY */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(61, 1, 'The Alley', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(61, 
+	'11:00:00', '18:00:00', 
+	'11:00:00', '18:00:00', 
+	'11:00:00', '18:00:00', 
+	'11:00:00', '18:00:00', 
+	'11:00:00', '18:00:00', 
+	'11:00:00', '18:00:00', 
+	'12:00:00', '17:00:00')
+	;
+	
+/* 62 - SENIOR CENTER OF CORVALLIS */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(62, 1, 'Senior Center of Corvallis', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(62, 
+	'08:00:00', '16:00:00', 
+	'08:00:00', '16:00:00', 
+	'08:00:00', '16:00:00', 
+	'08:00:00', '16:00:00', 
+	'08:00:00', '16:00:00', 
+	NULL, NULL, 
+	NULL, NULL)
+	;
+	
+/* 63 -SOUTH CORVALLIS FOOD BANK */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(63, 1, 'South Corvallis Food Bank', 
+	NULL,
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(63, 
+	'13:00:00', '15:00:00', 
+	NULL, NULL, 
+	'13:00:00', '15:00:00', 
+	'17:00:00', '19:00:00', 
+	NULL, NULL, 
+	'10:00:00', '12:00:00', 
+	NULL, NULL)
+	;
+	
+/* 64 - ST. VINCENT DE PAUL FOOD BANK */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(64, 1, 'St. Vincent de Paul Food Bank', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(64, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL,
+	 NULL, NULL, 
+	 NULL, NULL)
+	 ;
+	
+/* 65 - STONE SOUP (ST. MARY'S CHURCH */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(65, 1, 'Stone Soup  (St Mary\'s Church)', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(65, 
+	'17:30:00', '18:30:00', 
+	NULL, NULL, 
+	'11:30:00', '12:30:00', 
+	'17:30:00', '18:30:00', 
+	'11:30:00', '12:30:00', 
+	NULL, NULL, 
+	NULL, NULL)
+	;
+	
+/* 66 - UPS STORE (PHILOMATH) */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(66, 1, 'UPS Store (Philomath)', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL,
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES		
+	(66, 
+	'07:30:00', '18:00:00', 
+	'07:30:00', '18:00:00', 
+	'07:30:00', '18:00:00', 
+	'07:30:00', '18:00:00', 
+	'07:30:00', '18:00:00', 
+	'09:30:00', '15:00:00', 
+	NULL, NULL)
+	;
+	
+/* 67 - UPS STORE (CORVALLIS) */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(67, 1, 'UPS Stores (Corvallis)', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL,
+	NULL, 
+	NULL)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(67, 
+	'07:30:00', '18:00:00', 
+	'07:30:00', '18:00:00', 
+	'07:30:00', '18:00:00', 
+	'07:30:00', '18:00:00', 
+	'07:30:00', '18:00:00', 
+	'09:30:00', '15:00:00', 
+	NULL, NULL)
+	;
+	
+/* 68 - VINA MOSES */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(68, 1, 'Vina Moses', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(68, 
+	'09:00:00', '16:00:00', 
+	'09:00:00', '16:00:00', 
+	'09:00:00', '16:00:00', 
+	'09:00:00', '16:00:00', 
+	'09:00:00', '16:00:00', 
+	NULL, NULL, 
+	NULL, NULL)
+	;
+	
+/* 69 - SPAETH HERITAGE HOUSE */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(69, 1, 'Spaeth Heritage House', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(69, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL)
+	;
+
+/* 70 - BELLVUE COMPUTERS */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(70, 2, 'Bellevue Computers', 
+	'1865 NW 9th St.', 
+	NULL, 
+	'Corvallis', 
+	'OR', 
+	NULL, 
+	'http://www.bellevuepc.com/', 
+	'(541)757-3487', 
+	'Repair computers and laptops')
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(70, 
+	'09:00:00', '18:00:00', 
+	'09:00:00', '18:00:00', 
+	'09:00:00', '18:00:00', 
+	'09:00:00', '18:00:00', 
+	'09:00:00', '18:00:00', 
+	'10:00:00', '17:00:00', 
+	NULL, NULL)
+	;
+	
+/* 71 - BOOK BINDING */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(71, 2, 'Book Binding', 
+	'108 SW 3rd St.', 
+	NULL, 
+	'Corvallis', 
+	'OR', 
+	'97333', 
+	'http://www.cornerstoneassociates.com/bj-bookbinding-about-us.html', 
+	'(541)5757-9861', 
+	'Rebind and Restore books')
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(71, 
+	'09:00:00', '17:00:00', 
+	'09:00:00', '17:00:00', 
+	'09:00:00', '17:00:00', 
+	'09:00:00', '17:00:00', 
+	'09:00:00', '17:00:00', 
+	NULL, NULL, 
+	NULL, NULL)
+	;
+	
+/* 72 - CELL PHONE SICK BAY */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(72, 2, 'Cell Phone Sick Bay', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(72, 
+	'10:00:00', '18:00:00', 
+	'10:00:00', '18:00:00', 
+	'10:00:00', '18:00:00', 
+	'10:00:00', '18:00:00', 
+	'10:00:00', '18:00:00', 
+	'11:00:00', '16:00:00', 
+	NULL, NULL)
+	;
+	
+/* 73 - CORVALLIS TECHNICAL*/
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(73, 2, 'Covallis Technical',
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(73, 
+	'09:00:00', '17:00:00', 
+	'09:00:00', '17:00:00',
+	'09:00:00', '17:00:00', 
+	'09:00:00', '17:00:00', 
+	'09:00:00', '17:00:00', 
+	NULL, NULL, 
+	NULL, NULL)
+	;
+	
+/* 74 - FOAM MAN */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(74, 2, 'Foam Man', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(74, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL)
+	;
+	
+/* 75 - FOOTWISE */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(75, 2, 'Footwise', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(75, 
+	'10:00:00', '18:00:00', 
+	'10:00:00', '18:00:00', 
+	'10:00:00', '18:00:00', 
+	'10:00:00', '18:00:00', 
+	'10:00:00', '18:00:00', 
+	'10:00:00', '18:00:00', 
+	'11:00:00', '17:00:00')
+	;
+	
+/* 76 - FURNITURE RESTORATION CENTER */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(76, 2, 'Furniture Restoration Center', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(76, 
+	'09:00:00', '17:00:00',
+	'09:00:00', '17:00:00',
+	'09:00:00', '17:00:00', 
+	'09:00:00', '17:00:00', 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL)
+	;
+	
+/* 77 - GEEKS 'N' NERDS */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(77, 2, 'Geeks \'N\' Nerds', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES
+	(77, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL)
+	;
+	
+/* 78 - OSU REPAIR FAIR */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(78, 2, 'OSU Repair Fair', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(78, 
+	NULL, NULL,
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL)
+	;
+	
+/* 79 - P.K. FURNITURE REPAIR & REFINISHING */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(79, 2, 'P.K Furniture Repair & Refinishing', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(79, 
+	'10:00:00', '18:00:00', 
+	'10:00:00', '18:00:00',
+	'10:00:00', '18:00:00', 
+	'10:00:00', '18:00:00', 
+	'10:00:00', '18:00:00', 
+	NULL, NULL, 
+	NULL, NULL)
+	;
+	
+/* 80 - CORVALLIS POWER EQUIPMENT */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(80, 2, 'Corvallis Power Equipment', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(80, 
+	'08:00:00', '17:00:00', 
+	'08:00:00', '17:00:00', 
+	'08:00:00', '17:00:00', 
+	'08:00:00', '17:00:00', 
+	'08:00:00', '17:00:00', 
+	'08:30:00', '12:00:00', 
+	NULL, NULL)
+	;
+	
+/* 81 - ROBNETT'S */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(81, 2, 'Robnett\'s', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(81, 
+	'07:30:00', '18:00:00', 
+	'07:30:00', '18:00:00', 
+	'07:30:00', '18:00:00', 
+	'07:30:00', '18:00:00', 
+	'07:30:00', '18:00:00', 
+	'08:30:00', '17:30:00', 
+	'10:00:00', '16:00:00')
+	;
+	
+/* 82 - SEDLACK */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(82, 2, 'Sedlack', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(82, 
+	'09:30:00', '18:00:00', 
+	'09:30:00', '18:00:00', 
+	'09:30:00', '18:00:00', 
+	'09:30:00', '18:00:00', 
+	'09:30:00', '18:00:00', 
+	'09:30:00', '17:00:00', 
+	'12:00:00', '16:00:00')
+	;
+	
+/* 83 - SPECIALTY SEWING BY LESLIE */
+INSERT INTO
+	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+VALUES	
+	(83, 2, 'Specialty Sewing By Leslie', 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL, 
+	NULL)
+	;
+
+INSERT INTO
+	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
+VALUES	
+	(83, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL, 
+	NULL, NULL)
+	;
 
 /* ==================================================
 	Automatically add an entry for Organization in OrganizationHours.
@@ -596,6 +2983,17 @@ CREATE TRIGGER new_org_added
 AFTER INSERT ON Organizations
 FOR EACH ROW
 	INSERT INTO OrganizationHours (org_id)
-	VALUES (NEW.id);
+	VALUES (NEW.id);	
 
 /* END OF FILE: DO NOT MAKE ENTRIES BELOW */
+
+
+
+
+
+
+
+
+
+
+
