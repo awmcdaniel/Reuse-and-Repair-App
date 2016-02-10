@@ -3,24 +3,24 @@ CREATE DATABASE IF NOT EXISTS test_api;
 USE test_api;
 
 CREATE TABLE Users (
-	id 			int UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	id 				int UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	username		varchar(255) NOT NULL,
 	password		varchar(255) NOT NULL
 );
 
 CREATE TABLE OrganizationType (
-	id 			int UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	id 				int UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	description		varchar(255)
 );
 
 CREATE TABLE Organizations (
 	id 			int UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	org_type		int UNSIGNED,
+	org_type	int UNSIGNED,
 	name 		varchar(255) NOT NULL,
-	street1 		varchar(255) DEFAULT NULL,
-	street2 		varchar(255) DEFAULT NULL,
-	city			varchar(255) DEFAULT NULL,
-	state			varchar(2) DEFAULT NULL,
+	street1 	varchar(255) DEFAULT NULL,
+	street2 	varchar(255) DEFAULT NULL,
+	city		varchar(255) DEFAULT NULL,
+	state		varchar(2) DEFAULT NULL,
 	zip			varchar(10) DEFAULT NULL,
 	webpage		varchar(255) DEFAULT NULL,
 	phone		varchar(255) DEFAULT NULL,
@@ -33,16 +33,16 @@ CREATE TABLE Organizations (
 );
 
 CREATE TABLE ItemCategories (
-	id 			int UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	id 				int UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	description		varchar(255)
 );
 
 CREATE TABLE Items (
-	id 			int UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	id 				int UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	description 	varchar(255) NOT NULL,
 	category		int UNSIGNED,
-	created_at	datetime,
-	updated_at	datetime,
+	created_at		datetime,
+	updated_at		datetime,
 	FOREIGN KEY (category) REFERENCES ItemCategories (id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
@@ -62,19 +62,19 @@ CREATE TABLE OrganizationItems (
 
 CREATE TABLE OrganizationHours (
 	org_id 		int UNSIGNED UNIQUE NOT NULL,
-	mon_start		time,
+	mon_start	time,
 	mon_end		time,
-	tue_start		time,
+	tue_start	time,
 	tue_end		time,
-	wed_start		time,
+	wed_start	time,
 	wed_end		time,
-	thu_start		time,
+	thu_start	time,
 	thu_end		time,
-	fri_start		time,
+	fri_start	time,
 	fri_end		time,
-	sat_start		time,
+	sat_start	time,
 	sat_end		time,
-	sun_start		time,
+	sun_start	time,
 	sun_end		time,
 	FOREIGN KEY (org_id) REFERENCES Organizations (id)
 		ON DELETE CASCADE
@@ -106,7 +106,7 @@ VALUES
 INSERT INTO 
 	ItemCategories(`id`, `description`)
 VALUES 
-	(1, "Household"),
+	(1, "Repair Items"),
 	(2, "Bedding/Bath"),
 	(3, "Children's Goods"),
 	(4, "Appliances - Small"),
@@ -121,7 +121,7 @@ VALUES
 	(13, "Office Equipment"),
 	(14, "Packing Materials"),
 	(15, "Miscellaneous"),
-	(16, "Repair Items")
+	(16, "Household")
 	;
 	
 /* ========================================================================
@@ -130,22 +130,22 @@ VALUES
 INSERT INTO
 	Items (`id`, `description`, `category`)
 VALUES
-	(1, 'Arts and crafts',1),			/* category = Household */
-	(2, 'Barbeque grills',1),
-	(3, 'Books',1),
-	(4, 'Canning jars',1),
-	(5, 'Cleaning supplies',1),
-	(6, 'Clothes hangers',1),
-	(7, 'Cookware',1),
-	(8, 'Dishes',1),
-	(9, 'Fabric',1),
-	(10, 'Food storage containers',1),
-	(11, 'Furniture',1),
-	(12, 'Luggage',1),
-	(13, 'Mattresses',1),
-	(14, 'Ornaments',1),
-	(15, 'Toiletries',1),
-	(16, 'Utensils',1),
+	(1, 'Arts and crafts',16),			/* category = Household */
+	(2, 'Barbeque grills',16),
+	(3, 'Books',16),
+	(4, 'Canning jars',16),
+	(5, 'Cleaning supplies',16),
+	(6, 'Clothes hangers',16),
+	(7, 'Cookware',16),
+	(8, 'Dishes',16),
+	(9, 'Fabric',16),
+	(10, 'Food storage containers',16),
+	(11, 'Furniture',16),
+	(12, 'Luggage',16),
+	(13, 'Mattresses',16),
+	(14, 'Ornaments',16),
+	(15, 'Toiletries',16),
+	(16, 'Utensils',16),
 	
 	(17, 'Blankets',2),				/* category = Bedding/Bath */
 	(18, 'Comforters',2),
@@ -323,19 +323,19 @@ VALUES
 	(177, 'Reusable metal items',15),
 	(178, 'Brown paper', 15),
 	
-	(179, 'Cell phones',16),			/* category = Repair Items */
-	(180, 'Small appliances',16),
-	(181, 'Books',16),
-	(182, 'Clothes',16),
-	(183, 'Computers',16),
-	(184, 'Furniture',16),
-	(185, 'Lamps',16),
-	(186, 'Lawn power equipment',16),
-	(187, 'Outdoor gear',16),
-	(188, 'Sandals',16),
-	(189, 'Shoes/Boots',16),
-	(190, 'Upholstery, car',16),
-	(191, 'Upholstery, furniture',16)
+	(179, 'Cell phones',1),			/* category = Repair Items */
+	(180, 'Small appliances',1),
+	(181, 'Books',1),
+	(182, 'Clothes',1),
+	(183, 'Computers',1),
+	(184, 'Furniture',1),
+	(185, 'Lamps',1),
+	(186, 'Lawn power equipment',1),
+	(187, 'Outdoor gear',1),
+	(188, 'Sandals',1),
+	(189, 'Shoes/Boots',1),
+	(190, 'Upholstery, car',1),
+	(191, 'Upholstery, furniture',1)
 	;
 
 /* ========================================================================
@@ -3103,7 +3103,7 @@ VALUES
 	NULL, NULL)
 	;
 
-/* ==================================================
+/* =================================================
 	Automatically add an entry for Organization in OrganizationHours.
 	NOTE: place this at the very end of the file!
 ====================================================*/
@@ -3115,14 +3115,3 @@ FOR EACH ROW
 	VALUES (NEW.id);	
 
 /* END OF FILE: DO NOT MAKE ENTRIES BELOW */
-
-
-
-
-
-
-
-
-
-
-
