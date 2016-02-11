@@ -10,7 +10,7 @@ angular.module('app.routes', [])
     
       
         
-    .state('navigation.reuse+Repair', {
+    .state('navigation.home', {
       url: '/home_base',
       views: {
         'side-menu22': {
