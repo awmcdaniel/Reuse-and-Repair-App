@@ -1,0 +1,11 @@
+<ion-view title="{{page_title}}" ng-controller="reuseItemOrganizationsCtrl">
+    <ion-content overflow-scroll="true" padding="true" scroll="false" class="has-header">
+
+          <ion-list>
+              <ion-item ng-if="organizations" ng-repeat="org in organizations" >
+                <h3>{{org.name}}</h3> <h6>{{org.zip}}</h6>
+              </ion-item>
+          </ion-list>
+
+    </ion-content>
+</ion-view>

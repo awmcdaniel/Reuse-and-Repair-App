@@ -1,9 +1,11 @@
 <ion-view title="Reuse Categories">
     <ion-content overflow-scroll="true" padding="false" scroll="false" class="has-header">
-        <ion-list>
-            <ion-item ui-sref="reuse_category_01">Item 1</ion-item>
-            <ion-item ui-sref="reuse_category_01">Item 2</ion-item>
-            <ion-item ui-sref="reuse_category_01">Item 3</ion-item>
-        </ion-list>
+	    <ion-scroll direction="y" style="height: 100%">
+	        <ion-list>
+	            <ion-item  ng-if="categories" ng-repeat="cat in categories" ng-click="btn_categoryDetail({{cat}})">
+	            	{{cat.description}}
+	            </ion-item>
+	        </ion-list>
+	    </ion-scroll>
     </ion-content>
 </ion-view>

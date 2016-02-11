@@ -14,8 +14,8 @@ angular.module('app.routes', [])
       url: '/home_base',
       views: {
         'side-menu22': {
-          templateUrl: 'templates/reuse+Repair.html',
-          controller: 'reuse+RepairCtrl'
+          templateUrl: 'templates/home.html',
+          controller: 'homeCtrl'
         }
       }
     })
@@ -60,23 +60,32 @@ angular.module('app.routes', [])
     
       
         
-    .state('reuse_category_01', {
-      url: '/reuse_category_01',
-      templateUrl: 'templates/reuse_category_01.html',
-      controller: 'reuse_category_01Ctrl'
+    .state('reuseCategoryItems', {
+      cache: false,
+      url: '/reuse_category_items',
+      templateUrl: 'templates/reuseCategoryItems.html',
+      controller: 'reuseCategoryItemsCtrl'
     })
         
       
+    .state('repairCategoryItems', {
+      cache: false,
+      url: '/repair_category_items',
+      templateUrl: 'templates/repairCategoryItems.html',
+      controller: 'repairCategoryItemsCtrl'
+    })
+        
     
-      
-        
-    .state('repair_category_01', {
-      url: '/repair_category_01',
-      templateUrl: 'templates/repair_category_01.html',
-      controller: 'repair_category_01Ctrl'
+    .state('reuseItemOrganizations', {
+      cache: false,
+      url: '/reuse_item_organizations',
+      templateUrl: 'templates/reuseItemOrganizations.html',
+      controller: 'reuseItemOrganizationsCtrl'
     })
-        
-      
+
+
+
+
     ;
 
   // if none of the above states are matched, use this as the fallback
