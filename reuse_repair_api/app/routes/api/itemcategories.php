@@ -7,11 +7,15 @@ LIST ALL
 $app->get('/api/itemcategories', function () use ($app, $db) {
     $results = array();
 
-    foreach ($db->itemcategories() as $row) {
+    foreach ($db->itemcategories()->order('description') as $row) {
 
         //get the items associated with this category
         $item_list = array();
-        $items     = $db->items->select('id', 'description')->where('category', $row['id']);
+        $items     = $db->items()
+            ->select('id, description')
+            ->where('category = ?', $row['id'])
+            ->order('description');
+
         foreach ($items as $key => $value) {
             $item_list[] = $value;
         }
@@ -34,12 +38,12 @@ LIST ONE
 $app->get('/api/itemcategory/:id', function ($id) use ($app, $db) {
     $app->response()->header("Content-Type", "application/json");
 
-    $query = $db->itemcategories()->where('id', $id);
+    $query = $db->itemcategories()->where('id', $id)->order('description');
     if ($row = $query->fetch()) {
 
         //get the items associated with this category
         $item_list = array();
-        $items     = $db->items->select('id', 'description')->where('category', $row['id']);
+        $items     = $db->items->select('id', 'description')->where('category', $row['id'])->order('description');
         foreach ($items as $key => $value) {
             $item_list[] = $value;
         }

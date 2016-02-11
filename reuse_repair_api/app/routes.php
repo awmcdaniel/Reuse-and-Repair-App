@@ -7,7 +7,7 @@ $routes_api = array(
     'itemcategories.php',
     'items.php',
     'organizationtypes.php',
-    'organizationitems.php',
+    'itemorganizations.php',
     'organizationhours.php',
     'organizations.php',
 );

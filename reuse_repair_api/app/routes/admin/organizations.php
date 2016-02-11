@@ -5,7 +5,7 @@ LIST ALL
 =========================================================================== */
 $app->get('/admin/organizations', function () use ($app, $db) {
     $results = array();
-    foreach ($db->organizations() as $row) {
+    foreach ($db->organizations()->order('name') as $row) {
 
         $org_type = null;
         $query    = $db->organizationtype->where('id', intval($row['org_type']));
@@ -16,7 +16,7 @@ $app->get('/admin/organizations', function () use ($app, $db) {
         $service_items = $db->organizationitems->select('item_id')->where('org_id', intval($row['id']));
         $items         = array();
         foreach ($service_items as $key => $value) {
-            $items[] = $db->items->select('description')->where('id', $value['item_id'])->fetch()['description'];
+            $items[] = $db->items->select('description')->where('id', $value['item_id'])->order('description')->fetch()['description'];
         }
 
         $results[] = array(
