@@ -11,10 +11,17 @@ angular.module('app.controllers', [])
     }
 })
 
+
+/* ---------------------------------------------------
+	HOME
+   --------------------------------------------------- */    
 .controller('homeCtrl', function($scope) {
 
 })
-      
+
+/* ---------------------------------------------------
+	REPAIR
+   --------------------------------------------------- */      
 .controller('repairCategoriesCtrl', function($scope, RepairCategories, ActiveCategory, $state, $ionicHistory) {
 
     $scope.goBackHistory = function() {
@@ -37,7 +44,16 @@ angular.module('app.controllers', [])
 	};
 
 })
-   
+
+.controller('repairCategoryItemsCtrl', function($scope, ActiveCategory) {
+	var active = ActiveCategory;
+	$scope.items = active.items();
+})
+ 
+
+/* ---------------------------------------------------
+	REUSE
+   --------------------------------------------------- */    
 .controller('reuseCategoriesCtrl', function($scope, ReuseCategories, ActiveCategory, $state, $ionicHistory, ItemOrganizations) {
 
 	var active = ActiveCategory;
@@ -90,8 +106,3 @@ angular.module('app.controllers', [])
 	$scope.organizations = item.organizations();
 }) 
 
-.controller('repairCategoryItemsCtrl', function($scope, ActiveCategory) {
-	var active = ActiveCategory;
-	$scope.items = active.items();
-})
- 
