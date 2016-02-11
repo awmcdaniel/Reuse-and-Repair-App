@@ -2,8 +2,8 @@
     <ion-content overflow-scroll="true" padding="false" scroll="false" class="has-header">
 	    <ion-scroll direction="y" style="height: 100%">
 	        <ion-list>
-	            <ion-item  ng-if="categories" ng-repeat="cat in categories" id="{{cat.id}}" ng-click="btn_categoryDetail({{cat}})">
-	            	{{cat.description}}
+	            <ion-item  ng-if="items" ng-repeat="item in items" id="{{item.id}}" ng-click="btn_getOrgnanizations({{item.id}})">
+	            	{{item.description}}
 	            </ion-item>
 	        </ion-list>
 	    </ion-scroll>

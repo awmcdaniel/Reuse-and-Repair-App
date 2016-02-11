@@ -68,11 +68,11 @@ angular.module('app.routes', [])
     })
         
       
-    .state('repairCategoryItems', {
+    .state('repairItemOrganizations', {
       cache: false,
-      url: '/repair_category_items',
-      templateUrl: 'templates/repairCategoryItems.html',
-      controller: 'repairCategoryItemsCtrl'
+      url: '/repair_item_organizations',
+      templateUrl: 'templates/repairItemOrganizations.html',
+      controller: 'repairItemOrganizationsCtrl'
     })
         
     

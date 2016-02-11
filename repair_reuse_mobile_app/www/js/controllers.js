@@ -22,11 +22,7 @@ angular.module('app.controllers', [])
 /* ---------------------------------------------------
 	REPAIR
    --------------------------------------------------- */      
-.controller('repairCategoriesCtrl', function($scope, RepairCategories, ActiveCategory, $state, $ionicHistory) {
-
-    $scope.goBackHistory = function() {
-        $ionicHistory.goBack();
-    };
+.controller('repairCategoriesCtrl', function($scope, RepairCategories, ActiveCategory, $state, $ionicHistory, ItemOrganizations) {
 
 	var active = ActiveCategory;
 	$scope.$on('$ionicView.beforeEnter', function() {
@@ -34,20 +30,28 @@ angular.module('app.controllers', [])
 	});
 
 	RepairCategories.getAll().then(function(response) {
-		$scope.categories = response;
+		$scope.items = response;
 	});
 
-	$scope.btn_categoryDetail = function(category_object) {
-		active.set(category_object);
-		console.log(active.description());
-		$state.go('repairCategoryItems');
+	$scope.btn_getOrgnanizations = function(item_id) {
+		var item = ItemOrganizations;
+		item.query(item_id).then(function(response) {
+			$state.go('repairItemOrganizations');
+		});
 	};
 
 })
 
-.controller('repairCategoryItemsCtrl', function($scope, ActiveCategory) {
-	var active = ActiveCategory;
-	$scope.items = active.items();
+.controller('repairItemOrganizationsCtrl', function($scope, RepairCategories, ActiveCategory, $state, $ionicHistory, ItemOrganizations) {
+	var item = ItemOrganizations;
+
+	$scope.page_title = item.item_desc();
+	$scope.organizations = item.organizations();
+
+
+    $scope.goBackHistory = function() {
+        $ionicHistory.goBack();
+    };
 })
  
 
@@ -75,8 +79,6 @@ angular.module('app.controllers', [])
 		active.set(category_object);
 		$state.go('reuseCategoryItems');
 	};
-
-
 })
    
 .controller('reuseCategoryItemsCtrl', function($scope, $state, ActiveCategory, ItemOrganizations, $ionicHistory) {
@@ -96,7 +98,6 @@ angular.module('app.controllers', [])
 			$state.go('reuseItemOrganizations');
 		});
 	};
-
 })
    
 .controller('reuseItemOrganizationsCtrl', function($scope, ItemOrganizations) {
