@@ -1,4 +1,6 @@
-{% include 'admin/header.php' %}
+{% extends "admin/master.php" %}
+
+{% block body_content %}
 
 {% include 'admin/modals_organizations.php' %}
 
@@ -36,7 +38,7 @@
     </thead>
     <tbody>
     {% for item in results %}
-      <tr class="row_{{item.org_type}}">
+      <tr class="row_{{item.org_type}}" id="record_{{item.id}}">
         <td id="org_id_{{item.id}}" class="row_org_id hidden-xs">{{ item.id }}</td>
         <td id="org_type_{{item.id}}" class="row_org_type hidden-xs">{{ item.org_type }}</td>
         <td>
@@ -87,21 +89,19 @@
         </td>
         <td>
           <div class="btn-group btn-group-xs" role="group" aria-label="...">
-            <button type="button" class="btn btn-primary edit-org-entry" data-toggle="modal" href='#modal-edit-organization'>
+            <button type="button" class="btn btn-primary edit-org-entry org_edit" data-toggle="modal" href='#modal-edit-organization'>
               <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>
               <span class="hidden org_id">{{ item.id }}</span>
             </button>
-            <button type="button" class="btn btn-success add-orgitem-entry" data-toggle="modal" href='#modal-insert-organizationitem'>
+            <a class="btn btn-success org_edit" href="organizations/{{item.id}}">
               <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
-              <span class="hidden org_id">{{ item.id }}</span>
-              <span class="hidden org_name">{{ item.name }}</span>
-            </button>
-            <button type="button" class="btn btn-warning add-orghours-entry" data-toggle="modal" href='#modal-insert-organizationhours'>
+            </a>
+            <button type="button" class="btn btn-warning add-orghours-entry org_edit" data-toggle="modal" href='#modal-insert-organizationhours'>
               <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
               <span class="hidden org_id">{{ item.id }}</span>
               <span class="hidden org_name">{{ item.name }}</span>
             </button>
-            <button type="button" class="btn btn-danger delete-org-entry" data-toggle="modal" href='#modal-delete-organization'>
+            <button type="button" class="btn btn-danger delete-org-entry org_edit" data-toggle="modal" href='#modal-delete-organization'>
               <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
               <span class="hidden org_id">{{ item.id }}</span>
               <span class="hidden org_name">{{ item.name }}</span>
@@ -119,4 +119,4 @@
 
 </div>
 
-{% include 'admin/footer.php' %}
+{% endblock %}

@@ -10,6 +10,7 @@ $routes_api = array(
     'itemorganizations.php',
     'organizationhours.php',
     'organizations.php',
+    'organizationitems.php',
 );
 
 define("ROUTES_API", "routes/api/");

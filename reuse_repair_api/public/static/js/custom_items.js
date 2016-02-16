@@ -96,14 +96,14 @@ $("#form_delete_items").submit(function(){
 	event.preventDefault();
 
 	//get all the input data
-	item_id = $(this).find("input[name=id]").val();
+	var item_id = $(this).find("input[name=id]").val();
 
 	$.ajax({
 			url: base_url + '/api/item/' + item_id,
 			type: 'delete',
 			dataType: "json", 
 			success: function (data) {
-				console.log(data);
+				$("#record_"+item_id).remove();
 			}
 		})
 	.done(function(data) {

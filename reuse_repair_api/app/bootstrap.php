@@ -39,6 +39,13 @@ $view->parserExtensions = [
     new \Slim\Views\TwigExtension(),
 ];
 
+$app->hook('slim.before', function () use ($app) {
+    $app->view()->appendData(array(
+        'AssetsURL'    => 'http://localhost:4000/static',
+        'baseAdminURL' => 'http://localhost:4000/admin',
+    ));
+});
+
 /* ============================================
 ROUTES
 ===============================================*/

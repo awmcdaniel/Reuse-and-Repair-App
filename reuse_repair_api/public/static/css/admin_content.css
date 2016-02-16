@@ -131,7 +131,31 @@ span.ui-helper-hidden-accessible{
 	border-radius: 0px;
 } 
 
+.org_edit {
+	width: 24px;
+	height: 20px;
+	padding: 0px;
+	margin: 0px;
+	border: 0px;
+}
 
+.bg-blue {
+	background-color: #DAEDFB;
+	border: 0px;
+	margin: 5px 0px 5px 0px;
+	padding: 10px;
+}
+
+.bg-green {
+	background-color: #E9FFE1;
+	border: 0px;
+	margin: 5px 0px 5px 0px;
+	padding: 10px;
+}
+
+.new_record {
+	background-color: #E9FFE1;
+}
 
 @media screen and (max-width: 480px) {
 

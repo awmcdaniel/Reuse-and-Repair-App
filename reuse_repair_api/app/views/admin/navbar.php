@@ -17,9 +17,9 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Add/Edit <span class="caret"></span></a>
               <ul class="dropdown-menu">
                <li class="dropdown-header">Do it in order!</li>
-                <li><a href="itemcategories">Item Categories</a></li>
-                <li><a href="items">Items</a></li>
-                <li><a href="organizations">Organizations</a></li>
+                <li><a href="{{baseAdminURL}}/itemcategories">Item Categories</a></li>
+                <li><a href="{{baseAdminURL}}/items">Items</a></li>
+                <li><a href="{{baseAdminURL}}/organizations">Organizations</a></li>
               </ul>
             </li>
           </ul>

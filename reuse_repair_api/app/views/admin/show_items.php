@@ -1,4 +1,8 @@
-{% include 'admin/header.php' %}
+{% extends "admin/master.php" %}
+
+{% block body_content %}
+
+
 {% include 'admin/modals_items.php' %}
 <!-- MAIN CONTAINER
 ================================================================= -->
@@ -25,7 +29,7 @@
     </thead>
     <tbody>
     {% for item in results %}
-      <tr class="row_entry_{{ item.category }}">
+      <tr class="row_entry_{{ item.category }}" id="record_{{item.id}}">
         <td id="item_id_{{item.id}}" >{{ item.id }}</td>
         <td id="item_category_{{item.id}}" >{{ item.category }}</td>
         <td id="item_desc_{{item.id}}" >{{ item.description }}</td>
@@ -54,4 +58,4 @@
 </div>
 
 
-{% include 'admin/footer.php' %}
+{% endblock %}

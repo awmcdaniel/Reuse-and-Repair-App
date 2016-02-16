@@ -41,6 +41,52 @@ $app->get('/admin/organizations', function () use ($app, $db) {
 
 })->name('organizations.showall');
 
+$app->get('/admin/organizations/:org_id', function ($org_id) use ($app, $db) {
+    $results  = array();
+    $filters  = array();
+    $org_name = $db->organizations()->where('id=?', $org_id)->fetch()['name'];
+
+    foreach ($db->organizationitems()->where('org_id=?', $org_id) as $row) {
+
+        $item = $db->items()
+            ->where('id=?', $row['item_id'])
+            ->fetch();
+
+        $category = $db->itemcategories()
+            ->where('id=?', $item['category'])
+            ->fetch()['description'];
+
+        if (!array_key_exists($item['category'], $filters)) {
+            $filters[$item['category']] = array(
+                'description' => $category,
+                'count'       => 1,
+            );
+        } else {
+            $count                               = $filters[$item['category']]['count'];
+            $filters[$item['category']]['count'] = intval($count + 1);
+        }
+
+        $results[] = array(
+            'record_id'   => $row['id'], //the id in organizationitems table (for easy deletion)
+            'item_id'     => $item['id'], //the item_id
+            'description' => $item['description'],
+            'category_id' => $item['category'],
+            'category'    => $category,
+            'created_at'  => $item['created_at'],
+            'updated_at'  => $item['updated_at'],
+        );
+    }
+
+    $app->render('admin/show_edit_items.php', [
+        'results'      => $results,
+        'filters'      => $filters,
+        'organization' => $org_name,
+        'org_id'       => $org_id,
+
+    ]);
+
+})->name('organizations.showitems');
+
 /* ===========================================================================
 Add/Update multiple items to organization entity
 =========================================================================== */

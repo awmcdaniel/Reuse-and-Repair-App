@@ -129,9 +129,7 @@ $("#form_insert_organization").submit(function(event) {
 		// Add items to organization
 		setTimeout(function() { /* This timeout is to prevent a bug in bootstrap from adding padding to body */
 			if(method.toLowerCase() == "post") {
-				$("#modal-insert-organizationitem").modal('show');
-				$("#org_add_item").html(data['data']['name']);
-				$("#modal-insert-organizationitem input[name=id]").val(data['data']['id']);
+				//do something
 			}
 		}
 		, 350);
@@ -168,13 +166,12 @@ $("#form_delete_organization").submit(function(){
 			type: 'delete',
 			dataType: "json", 
 			success: function (data) {
-				console.log(data);
+				$("#modal-delete-organization").modal('hide');
+				$("#record_"+id).remove();
 			}
 		})
 	.done(function(data) {
-
-		//close the modal
-		$("#modal-delete-organization").modal('hide');
+		
 	});
 
 });
@@ -183,78 +180,23 @@ $("#form_delete_organization").submit(function(){
 /*==========================================================
 	Adding Items to Organizations
   ========================================================== */
-$(".add-orgitem-entry").click(function(event){
 
-	//get the id to be deleted
-	var id = $(this).find(".org_id").html();
-	$("#modal-insert-organizationitem input[name=id]").val(id);
+$(".delete_item").click(function() {
+	var id = $(this).attr('data-record-id');
 
-
-	$.ajax({
-			url: base_url + '/api/organizations/' + id,
-			type: 'GET',
-			dataType: "json", 
-			success: function (response) {
-				var items_arr = response['data']['items'];
-				console.log(items_arr);
-
-				var org_items = [];
-				console.log(org_items);
-				$.each(items_arr, function(index, obj) {
-					var val = obj['item_id'];
-					var desc = obj['description'];
-					$("#input_org_items").tokenfield('createToken', { value:  val, label: desc});
-				});
-			}
-		})
-	.done(function(data) {
-
-	});
-
-	var name = $(this).find(".org_name").html();
-	$("#modal-insert-organizationitem #org_add_item").html(name);
-
-});
-
-
-$("#form_insert_organizationitem").submit(function(){
-
-	//stop default event
 	event.preventDefault();
-
-	//get all the input data
-	var org_id = parseInt($(this).find("input[name=id]").val());
-	$("#input_org_items").tokenfield('beautify', false);
-	var tokens = $("#input_org_items").tokenfield('getTokensList', '%%').split('%%');
-
-	//create the post data
-	var postData = [];
-
-	var id = {name: "id", value: org_id};
-	postData.push(id);
-
-	$.each(tokens, function(index, value) {
-		var n = "items["+index+"]";
-		var items = {name: n, value: parseInt(value.trim())}
-		postData.push(items);
-	});
-
-	// send the data
 	$.ajax({
-			url: base_url + '/admin/organizations/items',
-			type: 'POST',
+			url: base_url + '/api/organizationitems/' + id,
+			type: 'delete',
 			dataType: "json", 
-			data: postData,
 			success: function (data) {
 				console.log(data);
+				$("#record_"+id).remove();
 			}
 		})
 	.done(function(data) {
-
-		//close the modal
-		$("#modal-insert-organizationitem").modal('hide');
+		console.log('done');
 	});
-
 });
 
 

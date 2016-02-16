@@ -1,13 +1,14 @@
+var static_url_folder = '../../static/js/';
 
 $(document).ready(function() {
 
 	$.when(
-		$.getScript('../static/js/jquery-ui.min.js'),
-		$.getScript('../static/js/bootstrap-tokenfield.min.js'),
-		$.getScript('../static/js/custom_functions.js'), //keep this at the top
-		$.getScript('../static/js/custom_organizations.js'),
-		$.getScript('../static/js/custom_items.js'),
-		$.getScript('../static/js/custom_categories.js'),
+		$.getScript( static_url_folder+'jquery-ui.min.js' ),
+		$.getScript( static_url_folder+'bootstrap-tokenfield.min.js' ),
+		$.getScript( static_url_folder+'custom_functions.js' ), //keep this at the top
+		$.getScript( static_url_folder+'custom_organizations.js' ),
+		$.getScript( static_url_folder+'custom_items.js' ),
+		$.getScript( static_url_folder+'custom_categories.js' ),
 	    $.Deferred(function( deferred ){
 	        $( deferred.resolve );
 	    })

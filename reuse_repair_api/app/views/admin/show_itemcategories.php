@@ -1,4 +1,8 @@
-{% include 'admin/header.php' %}
+{% extends "admin/master.php" %}
+
+{% block body_content %}
+
+
 {% include 'admin/modals_itemcategories.php' %}
 
 <!-- MAIN CONTAINER
@@ -16,29 +20,25 @@
 
   <div class="panel panel-default">
     <div class="panel-body">
-  <table class="table table-hover">
+  <table class="table table-hover" id="table-itemcategories">
     <thead>
       <tr>
-        <th>id</th>
         <th>Description</th>
         <th>Action</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody id="tbody-itemcategories">
     {% for item in results %}
-      <tr >
-        <td id="itemcat_id_{{item.id}}" class="row_itemcat_id ">{{ item.id }}</td>
-        <td id="itemcat_desc_{{item.id}}" class="row_itemcat_desc ">{{ item.description }}</td>
-        <td>
+      <tr id="record_{{item.id}}">
+        <td id="itemcat_desc_{{item.id}}">{{ item.description }}</td>
+        <td id="itemcat_action_{{item.id}}">
       <div class="btn-group btn-group-xs" role="group" aria-label="...">
-        <button type="button" class="btn btn-warning edit-itemcat-entry" data-toggle="modal" href='#modal-insert-itemcategories'>
+        <button class="btn btn-warning edit-itemcat-entry" data-toggle="modal" href='#modal-insert-itemcategories' data-record-id="{{item.id}}">
           <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>
-          <span class="hidden itemcat_id">{{ item.id }}</span>
         </button>
-        <button type="button" class="btn btn-danger delete-itemcat-entry" data-toggle="modal" href='#modal-delete-itemcategories'>
+
+        <button class="btn btn-danger delete-itemcat-entry" data-toggle="modal" href='#modal-delete-itemcategories' data-record-id="{{item.id}}" data-record-desc="{{ item.description }}">
           <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-          <span class="hidden itemcat_id">{{ item.id }}</span>
-          <span class="hidden itemcat_desc">{{ item.description }}</span>
         </button>
       </div>
         </td>
@@ -53,4 +53,4 @@
 
 </div>
 
-{% include 'admin/footer.php' %}
+{% endblock %}

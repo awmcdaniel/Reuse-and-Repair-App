@@ -148,40 +148,6 @@
 </div>
 
 
-<!-- Add Item to Org
-================================================================= -->
-<div class="modal fade" id="modal-insert-organizationitem">
-  <div class="modal-dialog">
-    <form method="POST" id="form_insert_organizationitem">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">ADD ITEM: </h4>
-      </div>
-      <div class="modal-body">
-        <input type="text" id="input_org_id" name="id" class="hidden">
-
-        <span class="label label-default" id="org_add_item"></span> <br/>
-        <div class="tab-pane" id="org_items">
-          <div class="alert alert-warning" role="alert">
-           <strong>INFO! </strong>
-            Item must already exist in the database to associate with a business. If you need to add a new item to the DB,
-            select 'Items' in the Add/Edit dropdown above.
-          </div>
-
-          <div id="container_org_items">
-            <input type="text" class="form-control"  id="input_org_items" name="items[]" Placeholder="Service Items">
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-danger">Save</button>
-      </div>
-    </div>
-    </form>
-  </div>
-</div>
 
 
 <!-- BUSINESS HOURS MODAL
