@@ -2,7 +2,7 @@
 ITEM CATEGORY
 =======================================================================*/
 
-$(".edit-itemcat-entry").click(function () {
+$(document).on('click', '.edit-itemcat-entry', function () {
 	var itemcat_id = $(this).attr('data-record-id');
 
 	/* GET THE DATA*/
@@ -123,7 +123,7 @@ $("#form_insert_itemcategories").submit(function(event) {
 });
 
 
-$(".delete-itemcat-entry").click(function(event){
+$(document).on('click', '.delete-itemcat-entry', function(event){
 
 	//get the id to be deleted
 	var itemcat_id = $(this).attr('data-record-id');

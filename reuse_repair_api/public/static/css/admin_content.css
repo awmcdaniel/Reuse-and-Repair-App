@@ -1,6 +1,28 @@
+/* =======================================
+	GENERAL / GLOBAL
+   ======================================== */
+
 @font-face {
   font-family: BebasNeue;
   src: url('../fonts/BebasNeue.otf');
+}
+
+.bg-gray {
+	background-color: whitesmoke;
+}
+
+.bg-blue {
+	background-color: #6ABCF7;
+}
+
+.bg-green {
+	background-color: #BDF2A1;
+}
+
+.new_record {
+	background-color: #E9E9E9;
+	color: #424242;
+	font-weight: bold;
 }
 
 
@@ -31,14 +53,6 @@ nav.navbar {
 
 #modal-edit-organization .modal-body {
 	min-height: 630px;
-}
-
-.nav-pills>li>a {
-    border-radius: 0px;
-}
-
-.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
-	background-color: #525860;
 }
 
 button.btn {
@@ -88,30 +102,6 @@ span.label {
 	font-size: .8em;
 }
 
-
-.ui-autocomplete{
-	z-index: 99999;
-	border: 1px solid gray;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border-radius: 2px;
-	background-color: white;
-	overflow-y: auto;
-	overflow-x: hidden;
-	max-height: 200px;
-}
-
-span.ui-helper-hidden-accessible{
-	display: none;
-}
-
-.token {
-	max-width: 100%;
-}
-.token > span {
-	max-width: 100% !important;
-}
-
 #table_organizations.table thead tr th,
 #table_organizations.table tbody tr td {
 	max-width: 250px;
@@ -139,23 +129,67 @@ span.ui-helper-hidden-accessible{
 	border: 0px;
 }
 
-.bg-blue {
-	background-color: #DAEDFB;
-	border: 0px;
-	margin: 5px 0px 5px 0px;
-	padding: 10px;
+
+/* =========================================== 
+	Bootstrap Tokenfield
+   =========================================== */
+.ui-autocomplete{
+	border: 1px solid gray;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	background-color: white;
+	overflow-y: auto;
+	overflow-x: hidden;
+	max-height: 100px;
 }
 
-.bg-green {
-	background-color: #E9FFE1;
-	border: 0px;
-	margin: 5px 0px 5px 0px;
-	padding: 10px;
+span.ui-helper-hidden-accessible{
+	display: none;
 }
 
-.new_record {
-	background-color: #E9FFE1;
+.token {
+	max-width: 100%;
 }
+.token > span {
+	max-width: 100% !important;
+}
+
+
+/* =========================================== 
+	show_edit_items.php content
+   =========================================== */
+
+#body-edit-items #container_form_orgitems {
+	padding: 20px 30px 20px 30px;
+	min-height: 130px;
+	position: relative;
+}
+
+#body-edit-items #btn_org_add_item{
+	position: absolute;
+	height: 39px;
+	margin-top: 10px;
+	right: 0;
+}
+
+#container_org_items {
+	position: relative;
+	max-width: 70%;
+	margin: 0 auto;
+}
+
+
+
+/* =========================================== 
+	show_organizations.php content
+   =========================================== */
+#body-organizations #action_buttons {
+	max-width: 55px;
+}
+
+
+
 
 @media screen and (max-width: 480px) {
 

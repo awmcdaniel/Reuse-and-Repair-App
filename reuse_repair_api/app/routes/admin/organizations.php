@@ -113,26 +113,38 @@ $app->post('/admin/organizations/items', function () use ($app, $db) {
     $already_exist = array();
     $new_items     = array();
     $not_processed = array();
-    $deleted_items = array();
+    $temp          = array();
+/*    $deleted_items = array(); */
 
-    //delete all items in the database that are not in the request
-    $all_items = $db->organizationitems()->where('org_id=?', intval($org_id));
-    foreach ($all_items as $row) {
-        if (!in_array($row['item_id'], $items_arr)) {
-            $deleted_items[] = $row['item_id'];
-            $row->delete();
-        }
-    }
-
+/*
+//delete all items in the database that are not in the request
+$all_items = $db->organizationitems()->where('org_id=?', intval($org_id));
+foreach ($all_items as $row) {
+if (!in_array($row['item_id'], $items_arr)) {
+$deleted_items[] = $row['item_id'];
+$row->delete();
+}
+}
+ */
     //add all items remaining
     foreach ($items_arr as $item_id) {
-        $query = $db->organizationitems()->where('item_id=? AND org_id=?', intval($item_id), intval($org_id));
+        $temp[] = $item_id;
+        $query  = $db->organizationitems()->where('item_id=? AND org_id=?', intval($item_id), intval($org_id));
         if ($data = $query->fetch()) {
             $already_exist[] = $item_id;
         } else {
-            $insert_id = $db->organizationitems()->insert(array("org_id" => $org_id, "item_id" => $item_id));
-            if ($insert_id) {
-                $new_items[] = $item_id;
+            $insert_obj = $db->organizationitems()->insert(array("org_id" => $org_id, "item_id" => $item_id));
+            if ($insert_obj) {
+                $temp_item = $db->items()->select('id, description, category')->where('id=?', $item_id)->fetch();
+                $category  = $db->itemcategories()->where('id=?', $temp_item['category'])->fetch()['description'];
+
+                $new_items[] = array(
+                    'record_id'     => $insert_obj['id'], // organizationitems id
+                    'item_id'       => $temp_item['id'], // items id
+                    'item_desc'     => $temp_item['description'],
+                    'category_id'   => $temp_item['category'], // the category which this item falls under
+                    'category_desc' => $category,
+                );
             } else {
                 $not_processed[] = $item_id;
             }
@@ -142,11 +154,12 @@ $app->post('/admin/organizations/items', function () use ($app, $db) {
     }
 
     echo json_encode(array(
-        "status"       => 200,
-        "added"        => $new_items,
-        "untouched"    => $already_exist,
-        "error_adding" => $not_processed,
-        "deleted"      => $deleted_items,
+        "status"        => 200,
+        "added"         => $new_items,
+        "already_exist" => $already_exist,
+        "error_adding"  => $not_processed,
+        "orig"          => $temp,
+        // "deleted"      => $deleted_items,
     ));
 
 });

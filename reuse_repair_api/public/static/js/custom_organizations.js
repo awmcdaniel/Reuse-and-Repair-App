@@ -181,7 +181,7 @@ $("#form_delete_organization").submit(function(){
 	Adding Items to Organizations
   ========================================================== */
 
-$(".delete_item").click(function() {
+$(document).on('click', '.delete_item', function() {
 	var id = $(this).attr('data-record-id');
 
 	event.preventDefault();
@@ -199,6 +199,82 @@ $(".delete_item").click(function() {
 	});
 });
 
+
+$("#btn_org_add_item").click(function() {
+	console.log("button");
+});
+
+
+$("#form_insert_organizationitem").submit(function() {
+	event.preventDefault();
+	
+	var postData = [];
+	var org_id = $(this).find("input[name=id]").val();
+
+	$("#input_org_items").tokenfield('beautify', false);
+	var tokens = $("#input_org_items").tokenfield('getTokensList', '%%').split('%%');
+
+	var id = {name: 'id', value: org_id};
+	postData.push(id);
+
+	$.each(tokens, function(index, value) {
+		var n = "items["+index+"]";
+		var items = {name: n, value: parseInt(value.trim())}
+		postData.push(items);
+	});
+
+	// send the data
+	$.ajax({
+			url: base_url + '/admin/organizations/items',
+			type: 'POST',
+			dataType: "json", 
+			data: postData,
+			success: function (response) {
+				console.log(response);
+				$('#input_org_items').tokenfield('setTokens', []);
+
+				var frag = document.createDocumentFragment();
+
+				$.each(response['added'], function( index, object ) {
+					
+					var tr = document.createElement('tr');
+					tr.setAttribute('id', 'record_'+object['record_id']);
+					tr.setAttribute('class', 'new_record');
+
+					var td_category = document.createElement('td');
+					td_category.innerHTML = object['category_desc'];
+
+					var td_item = document.createElement('td');
+					td_item.innerHTML = object['item_desc'];
+
+					var td_action = document.createElement('td');
+
+					var btn_delete = document.createElement('button');
+					btn_delete.setAttribute('class', 'btn btn-danger org_edit delete_item');
+					btn_delete.setAttribute('data-record-id', object['record_id']);
+
+					var span_icon = document.createElement('span');
+					span_icon.setAttribute('class', 'glyphicon glyphicon-remove');
+					span_icon.setAttribute('aria-hidden', 'true');
+
+					btn_delete.appendChild(span_icon);
+					td_action.appendChild(btn_delete);
+
+					tr.appendChild(td_category);
+					tr.appendChild(td_item);
+					tr.appendChild(td_action);
+					frag.appendChild(tr);
+				});
+
+				var node = document.getElementById('tbody-org-items');
+				node.insertBefore(frag, node.childNodes[0]);
+			}
+		})
+	.done(function(response) {
+
+	});
+
+});
 
 /*==========================================================
 	Business Hours
@@ -268,3 +344,7 @@ $("#form_insert_organizationhours").submit(function(){
 	});
 
 });
+
+$(function () {
+  $('[data-tooltip="tooltip"]').tooltip();
+})

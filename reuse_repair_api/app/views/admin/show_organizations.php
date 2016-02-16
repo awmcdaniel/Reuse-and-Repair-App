@@ -6,21 +6,13 @@
 
 <!-- MAIN CONTAINER
 ================================================================= -->
-<div class="container">
-
-<div>
-  <strong>FILTER: </strong>
-  <label class="checkbox-inline"><input type="checkbox" id="filter_reuse" value="" checked>Reuse</label>
-  <label class="checkbox-inline"><input type="checkbox" id="filter_repair" value="" checked>Repair</label>
-</div>
-
+<div class="container" id="body-organizations">
 
 <div class="page-header">
   <h1>Organizations
     <small>List All</small>
-    <button type="button" class="btn btn btn-primary btn-lg pull-right"
-            data-toggle="modal" href='#modal-edit-organization' id="btn_add_organizations">ADD Organization</button>
   </h1>
+  <button class="btn btn btn-primary" data-toggle="modal" href='#modal-edit-organization' id="btn_add_organizations">ADD Organization</button>
 </div>
 
   <div class="panel panel-default">
@@ -28,7 +20,6 @@
   <table class="table table-hover" id="table_organizations">
     <thead>
       <tr>
-        <th class="hidden-xs">ID</th>
         <th class="hidden-xs">TYPE</th>
         <th>BUSINESS</th>
         <th class="hidden-xs">ITEMS</th>
@@ -39,9 +30,8 @@
     <tbody>
     {% for item in results %}
       <tr class="row_{{item.org_type}}" id="record_{{item.id}}">
-        <td id="org_id_{{item.id}}" class="row_org_id hidden-xs">{{ item.id }}</td>
-        <td id="org_type_{{item.id}}" class="row_org_type hidden-xs">{{ item.org_type }}</td>
-        <td>
+        <td id="org_type_{{item.id}}" class="row_org_type col-md-1 hidden-xs">{{ item.org_type }}</td>
+        <td class="col-md-3">
           <strong><span id="org_name_{{item.id}}" class="row_org_name">{{ item.name }} </span> </strong><br/>
           {% if (item.street1 is defined) and (item.street1 is not null) %}
             <span id="org_addr1_{{item.id}}" class="row_org_addr1">{{ item.street1 }} </span><br/>
@@ -77,31 +67,31 @@
           {% endif %}
 
         </td>
-        <td>
+        <td class="col-md-4">
 
           {% for service in item.service_items %}
             <span class="label label-custom1">{{ service }}</span>
           {% endfor %}
 
         </td>
-        <td class="hidden-xs">
+        <td class="col-md-3 hidden-xs">
           <span id="org_notes_{{item.id}}" class="row_org_note hidden-xs">{{ item.notes }}</span><br/>
         </td>
-        <td>
-          <div class="btn-group btn-group-xs" role="group" aria-label="...">
-            <button type="button" class="btn btn-primary edit-org-entry org_edit" data-toggle="modal" href='#modal-edit-organization'>
-              <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>
+        <td class="col-md-1">
+          <div class="btn-group btn-group-xs" role="group" aria-label="..." id="action_buttons">
+            <button type="button" class="btn btn-primary edit-org-entry org_edit" data-toggle="modal" href='#modal-edit-organization' data-tooltip="tooltip" title="Edit Info">
+              <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
               <span class="hidden org_id">{{ item.id }}</span>
             </button>
-            <a class="btn btn-success org_edit" href="organizations/{{item.id}}">
+            <a class="btn btn-success org_edit" href="organizations/{{item.id}}" data-tooltip="tooltip" title="Edit Items">
               <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
             </a>
-            <button type="button" class="btn btn-warning add-orghours-entry org_edit" data-toggle="modal" href='#modal-insert-organizationhours'>
+            <button type="button" class="btn btn-warning add-orghours-entry org_edit" data-toggle="modal" href='#modal-insert-organizationhours' data-tooltip="tooltip" title="Edit Hours">
               <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
               <span class="hidden org_id">{{ item.id }}</span>
               <span class="hidden org_name">{{ item.name }}</span>
             </button>
-            <button type="button" class="btn btn-danger delete-org-entry org_edit" data-toggle="modal" href='#modal-delete-organization'>
+            <button type="button" class="btn btn-danger delete-org-entry org_edit" data-toggle="modal" href='#modal-delete-organization' data-tooltip="tooltip" title="Delete">
               <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
               <span class="hidden org_id">{{ item.id }}</span>
               <span class="hidden org_name">{{ item.name }}</span>

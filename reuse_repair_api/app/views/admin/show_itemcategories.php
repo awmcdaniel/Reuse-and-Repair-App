@@ -33,7 +33,7 @@
         <td id="itemcat_desc_{{item.id}}">{{ item.description }}</td>
         <td id="itemcat_action_{{item.id}}">
       <div class="btn-group btn-group-xs" role="group" aria-label="...">
-        <button class="btn btn-warning edit-itemcat-entry" data-toggle="modal" href='#modal-insert-itemcategories' data-record-id="{{item.id}}">
+        <button class="btn btn-primary edit-itemcat-entry" data-toggle="modal" href='#modal-insert-itemcategories' data-record-id="{{item.id}}">
           <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>
         </button>
 
