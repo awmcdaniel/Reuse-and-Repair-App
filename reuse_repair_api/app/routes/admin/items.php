@@ -5,19 +5,21 @@ $app->get('/admin/items', function () use ($app, $db) {
     $results = array();
     foreach ($db->items() as $row) {
 
-        $item_category = null;
+        $cat_desc = null;
+        $cat_id   = null;
 
         //get the category the item is under
-        $query = $db->itemcategories->where('id', intval($row['category']));
+        $query = $db->itemcategories()->where('id', intval($row['category']));
         if ($data = $query->fetch()) {
-            //$item_category = ['cat_id' => $data['id'], 'cat_desc' => $data['description']];
-            $item_category = $data['description'];
+            $cat_desc = $data['description'];
+            $cat_id   = $data['id'];
         }
 
         $results[] = array(
             'id'          => $row['id'],
             'description' => $row['description'],
-            'category'    => $item_category,
+            'category'    => $cat_desc,
+            'category_id' => $cat_id,
             'created_at'  => $row['created_at'],
             'updated_at'  => $row['updated_at'],
         );

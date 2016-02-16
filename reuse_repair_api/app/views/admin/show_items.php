@@ -11,9 +11,10 @@
 <div class="page-header">
   <h1>Items
     <small>List All</small>
-    <button type="button" class="btn btn btn-primary btn-lg pull-right add-org-entry"
-            data-toggle="modal" href='#modal-insert-items' id="btn_add_item">ADD Item</button>
   </h1>
+    <button type="button" class="btn btn btn-primary add-org-entry"
+            data-toggle="modal" href='#modal-insert-items' id="btn_add_item">
+            <i class="fa fa-plus-circle"></i> New Record</button>
 </div>
 
   <div class="panel panel-default">
@@ -26,23 +27,20 @@
         <th>Action</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody id="tbody-items">
     {% for item in results %}
-      <tr class="row_entry_{{ item.category }}" id="record_{{item.id}}">
+      <tr class="filter_{{item.category_id}}" id="record_{{item.id}}">
         <td id="item_category_{{item.id}}" >{{ item.category }}</td>
         <td id="item_desc_{{item.id}}" >{{ item.description }}</td>
-        <td>
-      <div class="btn-group btn-group-xs" role="group" aria-label="...">
-        <button type="button" class="btn btn-primary edit-item-entry" data-toggle="modal" href='#modal-insert-items'>
-          <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>
-          <span class="hidden item_id">{{ item.id }}</span>
-        </button>
-        <button type="button" class="btn btn-danger delete-item-entry" data-toggle="modal" href='#modal-delete-items'>
-          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-          <span class="hidden item_id">{{ item.id }}</span>
-          <span class="hidden item_desc">{{ item.description }}</span>
-        </button>
-      </div>
+        <td id="item_action_{{item.id}}">
+          <div class="btn-group btn-group-xs" role="group" aria-label="...">
+            <button class="btn btn-primary edit-item-entry" data-toggle="modal" href='#modal-insert-items' data-record-id="{{item.id}}" data-record-desc="{{item.description}}">
+              <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>
+            </button>
+            <button class="btn btn-danger delete-item-entry" data-toggle="modal" href='#modal-delete-items' data-record-id="{{item.id}}" data-record-desc="{{item.description}}">
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            </button>
+          </div>
         </td>
 
       </tr>

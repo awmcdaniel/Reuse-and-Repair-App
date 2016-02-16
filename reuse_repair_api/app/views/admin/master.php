@@ -10,11 +10,13 @@
 		<link rel="stylesheet" type="text/css" href="{{ AssetsURL }}/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="{{ AssetsURL }}/css/admin_content.css">
 		<link rel="stylesheet" type="text/css" href="{{ AssetsURL }}/css/bootstrap-tokenfield.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="{{ AssetsURL }}/css/animate.css">
 		{% block other_css %}{% endblock %}
 
 	</head>
 	<body>
-		{% include 'admin/navbar.php' %}	
+		{% include 'admin/navbar.php' %}
 
 		{% block body_content %}{% endblock %}
 

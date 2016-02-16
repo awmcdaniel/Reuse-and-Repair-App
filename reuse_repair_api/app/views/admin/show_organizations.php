@@ -12,7 +12,8 @@
   <h1>Organizations
     <small>List All</small>
   </h1>
-  <button class="btn btn btn-primary" data-toggle="modal" href='#modal-edit-organization' id="btn_add_organizations">ADD Organization</button>
+  <button class="btn btn btn-primary" data-toggle="modal" href='#modal-edit-organization' id="btn_add_organizations">
+  <i class="fa fa-plus-circle"></i> New Record</button>
 </div>
 
   <div class="panel panel-default">

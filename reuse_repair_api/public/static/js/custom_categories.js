@@ -58,7 +58,7 @@ $("#form_insert_itemcategories").submit(function(event) {
 				if (method === "POST") {
 					var tr = document.createElement('tr');
 					tr.setAttribute('id', 'record_'+new_id);
-					tr.setAttribute('class', 'new_record');
+					tr.setAttribute('class', 'new_record animated lightSpeedIn');
 
 					var td_desc = document.createElement('td');
 					td_desc.setAttribute('id', 'itemcat_desc_'+new_id);
@@ -131,7 +131,6 @@ $(document).on('click', '.delete-itemcat-entry', function(event){
 	
 	var item_desc = $(this).attr('data-record-desc');
 	$("#modal-delete-itemcategories #itemcat_del_item").html(item_desc);
-	console.log(item_desc);
 
 });
 
@@ -148,16 +147,18 @@ $("#form_delete_itemcategories").submit(function(){
 			type: 'delete',
 			dataType: "json", 
 			success: function (data) {
-				$("#record_"+itemcat_id).remove();
+				setTimeout(function() {
+					$("#record_"+itemcat_id).remove();
+				}, 600);
+				$("#record_"+itemcat_id).attr('class', 'animated infinite bounceOut');
 			}
 		})
 	.done(function(data) {
 
 		//clean up
 		$("#input_description").val("");
-
-		//close the modal
 		$("#modal-delete-itemcategories").modal('hide');
+		
 	});
 
 });

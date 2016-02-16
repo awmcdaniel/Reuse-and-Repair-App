@@ -166,12 +166,14 @@ $("#form_delete_organization").submit(function(){
 			type: 'delete',
 			dataType: "json", 
 			success: function (data) {
-				$("#modal-delete-organization").modal('hide');
-				$("#record_"+id).remove();
+				setTimeout(function() {
+					$("#record_"+id).remove();
+				}, 700);
+				$("#record_"+id).attr('class', 'animated infinite bounceOut');
 			}
 		})
 	.done(function(data) {
-		
+		$("#modal-delete-organization").modal('hide');
 	});
 
 });
@@ -190,8 +192,10 @@ $(document).on('click', '.delete_item', function() {
 			type: 'delete',
 			dataType: "json", 
 			success: function (data) {
-				console.log(data);
-				$("#record_"+id).remove();
+				setTimeout(function() {
+					$("#record_"+id).remove();
+				}, 600);
+				$("#record_"+id).attr('class', 'animated infinite bounceOut');
 			}
 		})
 	.done(function(data) {
@@ -239,7 +243,7 @@ $("#form_insert_organizationitem").submit(function() {
 					
 					var tr = document.createElement('tr');
 					tr.setAttribute('id', 'record_'+object['record_id']);
-					tr.setAttribute('class', 'new_record');
+					tr.setAttribute('class', 'animated lightSpeedIn new_record');
 
 					var td_category = document.createElement('td');
 					td_category.innerHTML = object['category_desc'];
