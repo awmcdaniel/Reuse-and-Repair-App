@@ -9,7 +9,7 @@
 <div class="container">
 
 <div class="page-header">
-  <h1>Items
+  <h1>ITEMS
     <button type="button" class="btn btn btn-primary add-org-entry"
             data-toggle="modal" href='#modal-insert-items' id="btn_add_item">
             <i class="fa fa-plus-circle"></i> New Record</button>

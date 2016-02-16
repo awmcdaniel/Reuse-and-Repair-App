@@ -6,9 +6,14 @@
 <div class="page-header">
   <h1>{{organization}}
     <small>Items</small>
+	<button class="btn btn-primary" data-toggle="collapse" data-target="#filter_container">
+		<i class="fa fa-filter"></i> Filters
+	</button>
+	<button class="btn btn-success" data-toggle="collapse" data-target="#container_form_orgitems">
+		<i class="fa fa-plus-circle"></i> New Record
+	</button>
   </h1>
-<button class="btn btn-primary" data-toggle="collapse" data-target="#filter_container">Filters</button>
-<button class="btn btn-success" data-toggle="collapse" data-target="#container_form_orgitems">Add New Item</button>
+
 </div>
 
 <div id="container_form_orgitems" class="panel panel-default collapse bg-gray">
@@ -16,14 +21,14 @@
 		<form method="POST" id="form_insert_organizationitem">
 		<input type="text" id="input_org_id" name="id" class="hidden" value="{{org_id}}">
      	<input type="text" class="form-control"  id="input_org_items" name="items[]" Placeholder="Service Items">
-      	<button type="submit" class="btn" id="btn_org_add_item">Add Item(s)</button>
+      	<button type="submit" class="btn bg-green" id="btn_org_add_item">Add Item(s)</button>
 		</form>
 	</div>
 </div>
 
 
 
-<div class="panel panel-default collapse bg-blue" id="filter_container">
+<div class="panel panel-default collapse bg-gray" id="filter_container">
 {% if filters is defined %}
   <div class="panel-body">
   {% for key, value in filters %}

@@ -9,7 +9,7 @@
 <div class="container" id="body-organizations">
 
 <div class="page-header">
-  <h1>Organizations
+  <h1>ORGANIZATIONS
     <button class="btn btn btn-primary" data-toggle="modal" href='#modal-edit-organization' id="btn_add_organizations">
         <i class="fa fa-plus-circle"></i> New Record
       </button>

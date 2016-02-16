@@ -10,7 +10,7 @@
 <div class="container">
 
 <div class="page-header">
-  <h1>Item Category
+  <h1>ITEM CATEGORY
 
     <button type="button" class="btn btn-primary add-org-entry" data-toggle="modal" href='#modal-insert-itemcategories' id="btn_add_category">
             <i class="fa fa-plus-circle"></i> New Record
