@@ -10,21 +10,21 @@
 
 <div class="page-header">
   <h1>Organizations
-    <small>List All</small>
+    <button class="btn btn btn-primary" data-toggle="modal" href='#modal-edit-organization' id="btn_add_organizations">
+        <i class="fa fa-plus-circle"></i> New Record
+      </button>
   </h1>
-  <button class="btn btn btn-primary" data-toggle="modal" href='#modal-edit-organization' id="btn_add_organizations">
-  <i class="fa fa-plus-circle"></i> New Record</button>
+
 </div>
 
-  <div class="panel panel-default">
-    <div class="panel-body">
+
+
   <table class="table table-hover" id="table_organizations">
     <thead>
       <tr>
         <th class="hidden-xs">TYPE</th>
         <th>BUSINESS</th>
         <th class="hidden-xs">ITEMS</th>
-        <th class="hidden-xs">NOTES</th>
         <th class="hidden-xs"></th>
       </tr>
     </thead>
@@ -32,7 +32,7 @@
     {% for item in results %}
       <tr class="row_{{item.org_type}}" id="record_{{item.id}}">
         <td id="org_type_{{item.id}}" class="row_org_type col-md-1 hidden-xs">{{ item.org_type }}</td>
-        <td class="col-md-3">
+        <td class="col-md-2">
           <strong><span id="org_name_{{item.id}}" class="row_org_name">{{ item.name }} </span> </strong><br/>
           {% if (item.street1 is defined) and (item.street1 is not null) %}
             <span id="org_addr1_{{item.id}}" class="row_org_addr1">{{ item.street1 }} </span><br/>
@@ -67,16 +67,23 @@
           <span id="org_zip_{{item.id}}" class="row_org_zip">{{ item.zip_code }}
           {% endif %}
 
+
+          {% if (item.notes is defined) and (item.notes is not null) %}
+          <br /><br />
+            Info:
+            <em><span id="org_notes_{{item.id}}" class="row_org_note hidden-xs">
+                {{ item.notes }}
+            </span></em>
+          {% endif %}
+
+
         </td>
-        <td class="col-md-4">
+        <td class="col-md-6">
 
           {% for service in item.service_items %}
             <span class="label label-custom1">{{ service }}</span>
           {% endfor %}
 
-        </td>
-        <td class="col-md-3 hidden-xs">
-          <span id="org_notes_{{item.id}}" class="row_org_note hidden-xs">{{ item.notes }}</span><br/>
         </td>
         <td class="col-md-1">
           <div class="btn-group btn-group-xs" role="group" aria-label="..." id="action_buttons">
@@ -103,10 +110,7 @@
       </tr>
     {% endfor %}
     </tbody>
-
     </table>
-    </div>
-  </div>
 
 </div>
 

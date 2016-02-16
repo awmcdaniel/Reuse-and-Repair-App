@@ -11,15 +11,16 @@
 
 <div class="page-header">
   <h1>Item Category
-    <small>List All</small>
-    <button type="button" class="btn btn btn-primary btn-lg pull-right add-org-entry"
-            data-toggle="modal" href='#modal-insert-itemcategories' id="btn_add_category">ADD Category</button>
+
+    <button type="button" class="btn btn-primary add-org-entry" data-toggle="modal" href='#modal-insert-itemcategories' id="btn_add_category">
+            <i class="fa fa-plus-circle"></i> New Record
+    </button>
+
   </h1>
+
 </div>
 
 
-  <div class="panel panel-default">
-    <div class="panel-body">
   <table class="table table-hover" id="table-itemcategories">
     <thead>
       <tr>
@@ -48,8 +49,7 @@
     </tbody>
 
     </table>
-    </div>
-  </div>
+
 
 </div>
 
