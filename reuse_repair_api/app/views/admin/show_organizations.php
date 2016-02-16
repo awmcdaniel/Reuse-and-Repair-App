@@ -6,7 +6,7 @@
 
 <!-- MAIN CONTAINER
 ================================================================= -->
-<div class="container" id="body-organizations">
+<div class="container" id="body-organizations" onload="check()">
 
 <div class="page-header">
   <h1>ORGANIZATIONS
@@ -105,5 +105,10 @@
     </table>
 
 </div>
+
+{% endblock %}
+
+
+{% block other_js %}
 
 {% endblock %}

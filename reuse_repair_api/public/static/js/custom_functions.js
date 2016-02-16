@@ -98,7 +98,6 @@ function get_item_source() {
     });
 };
 
-
 get_db_itemcategories();
 get_db_orgcategories();
 get_item_source();
