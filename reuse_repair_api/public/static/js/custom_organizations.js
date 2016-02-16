@@ -1,3 +1,221 @@
+function create_org_entry(response) {
+
+	var data = response['data'];
+
+	var org_type = data['org_type'];
+	var new_id = data['id'];
+	var name = data['name'];
+	var webpage = data['webpage'];
+	var phone = data['phone'];
+	var street1 = data['street_1'];
+	var street2 = data['street_2'];
+	var city = data['city'];
+	var state = data['state'];
+	var zip_code = data['zip_code'];
+	var notes = data['notes'];
+
+	var tr = document.createElement('tr');
+	tr.setAttribute('id', 'record_'+new_id);
+	tr.setAttribute('class', 'animated lightSpeedIn new_record filter_'+org_type);
+
+	var td_orgtype = document.createElement('td');
+	td_orgtype.setAttribute('id', 'org_type_'+new_id);
+	td_orgtype.setAttribute('class', 'col-md-1 hidden-xs');
+	td_orgtype.innerHTML = org_type;
+
+	/* Business Column */
+	var td_business = document.createElement('td');
+	td_business.setAttribute('id', 'org_type_'+new_id);
+	td_business.setAttribute('class', 'col-md-3');
+
+	// name
+	var b_strong = document.createElement('strong');
+	var b_span_name = document.createElement('span');
+	b_span_name.setAttribute('id', 'org_name_'+new_id);
+	b_span_name.setAttribute('class', 'row_org_name');
+	b_span_name.innerHTML = name;
+
+	b_strong.appendChild(b_span_name);
+	td_business.appendChild(b_strong);
+	td_business.appendChild(document.createElement('br'));
+
+
+	//website
+	if (webpage) {
+		var b_a_webpage = document.createElement('a');
+		b_a_webpage.setAttribute('href', webpage);
+		b_a_webpage.setAttribute('id', 'org_url_'+new_id);
+		b_a_webpage.setAttribute('class', 'row_org_url');
+		b_a_webpage.setAttribute('target', '_blank');
+		b_a_webpage.innerHTML = "WWW";
+
+		td_business.appendChild(b_a_webpage);
+	}
+
+	//phone
+	if (phone) {
+		var b_span_phone = document.createElement('span');
+		b_span_phone.setAttribute('id', 'org_phone_'+new_id);
+		b_span_phone.setAttribute('class', 'row_org_phone');
+		b_span_phone.innerHTML = phone;
+		td_business.appendChild(b_span_phone);
+		td_business.appendChild(document.createElement('br'));
+	}
+
+
+	//street 1
+	if (street1) {
+		var b_span_addr1 = document.createElement('span');
+		b_span_addr1.setAttribute('id', 'org_addr1_'+new_id);
+		b_span_addr1.setAttribute('class', 'row_org_addr1');
+		b_span_addr1.innerHTML = street1;
+
+		td_business.appendChild(b_span_addr1);
+		td_business.appendChild(document.createElement('br'));
+	}
+
+
+	//street 2
+	if (street2) {
+		var b_span_addr2 = document.createElement('span');
+		b_span_addr2.setAttribute('id', 'org_addr2_'+new_id);
+		b_span_addr2.setAttribute('class', 'row_org_addr2');
+		b_span_addr2.innerHTML = street2;
+
+		td_business.appendChild(b_span_addr2);
+		td_business.appendChild(document.createElement('br'));
+	}
+
+
+	//city
+	if (city) {
+		var b_span_city = document.createElement('span');
+		b_span_city.setAttribute('id', 'org_city_'+new_id);
+		b_span_city.setAttribute('class', 'row_org_city');
+		b_span_city.innerHTML = city;
+
+		td_business.appendChild(b_span_city);
+	}
+
+	//state
+	if (state) {
+		var b_span_state = document.createElement('span');
+		b_span_state.setAttribute('id', 'org_state_'+new_id);
+		b_span_state.setAttribute('class', 'row_org_state');
+		b_span_state.innerHTML = state;
+
+		td_business.appendChild(b_span_state);
+	}
+
+	//zipcode
+	if (zip_code) {
+		var b_span_zipcode = document.createElement('span');
+		b_span_zipcode.setAttribute('id', 'org_zip_'+new_id);
+		b_span_zipcode.setAttribute('class', 'row_org_zip');
+		b_span_zipcode.innerHTML = zip_code;
+
+		td_business.appendChild(b_span_zipcode);
+	}
+
+	//notes
+	if (notes) {
+
+		var b_span_notes_container = document.createElement('span');
+		b_span_notes_container.innerHTML = "Info: ";
+
+		var b_em = document.createElement('em');
+		var b_span_notes = document.createElement('span');
+		b_span_notes.setAttribute('id', 'org_notes_'+new_id);
+		b_span_notes.setAttribute('class', 'row_org_note');
+		b_span_notes.innerHTML = notes;
+
+		b_em.appendChild(b_span_notes);
+		td_business.appendChild(document.createElement('br'));
+		td_business.appendChild(document.createElement('br'));
+		td_business.appendChild(b_span_notes_container);
+		td_business.appendChild(b_em);
+	}
+
+
+	/* Item Column */
+	var td_items = document.createElement('td');
+	td_items.setAttribute('class', 'col-md-7');
+
+	/* Action Column */
+	var td_action = document.createElement('td');
+	td_action.setAttribute('class', 'col-md-1');
+
+	//button container
+	var div_action = document.createElement('div');
+	div_action.setAttribute('class', 'btn-group btn-group-xs');
+	div_action.setAttribute('role', 'group');
+	div_action.setAttribute('aria-label', '...');
+
+	//edit info
+	var act_btn_info = document.createElement('button');
+	act_btn_info.setAttribute('class', 'btn edit-org-entry org_edit btn-gray-dark1');
+	act_btn_info.setAttribute('data-toggle', 'modal');
+	act_btn_info.setAttribute('href', '#modal-edit-organization');
+	act_btn_info.setAttribute('data-record-id', new_id);
+
+	var act_btn_info_icon = document.createElement('span');
+	act_btn_info_icon.setAttribute('class', 'glyphicon glyphicon-pencil');
+	act_btn_info_icon.setAttribute('aria-hidden', 'true');
+
+	//edit items
+	var act_a_items = document.createElement('a');
+	act_a_items.setAttribute('class', 'btn org_edit btn-gray-dark2');
+	act_a_items.setAttribute('href', 'organizations/'+new_id);
+	var act_a_items_icon = document.createElement('span');
+	act_a_items_icon.setAttribute('class', 'glyphicon glyphicon-briefcase');
+	act_a_items_icon.setAttribute('aria-hidden', 'true');
+
+	//edit hours
+	var act_btn_hours = document.createElement('button');
+	act_btn_hours.setAttribute('class', 'btn add-orghours-entry org_edit btn-gray-dark2');
+	act_btn_hours.setAttribute('data-toggle', 'modal');
+	act_btn_hours.setAttribute('href', '#modal-insert-organizationhours');
+	act_btn_hours.setAttribute('data-record-id', new_id);
+	act_btn_hours.setAttribute('data-record-name', name);
+
+	var act_btn_hours_icon = document.createElement('span');
+	act_btn_hours_icon.setAttribute('class', 'glyphicon glyphicon-time');
+	act_btn_hours_icon.setAttribute('aria-hidden', 'true');
+
+	//delete organization
+	var act_btn_delete = document.createElement('button');
+	act_btn_delete.setAttribute('class', 'btn delete-org-entry org_edit btn-gray-dark1');
+	act_btn_delete.setAttribute('data-toggle', 'modal');
+	act_btn_delete.setAttribute('href', '#modal-delete-organization');
+	act_btn_delete.setAttribute('data-record-id', new_id);
+	act_btn_delete.setAttribute('data-record-name', name);
+
+	var act_btn_delete_icon = document.createElement('span');
+	act_btn_delete_icon.setAttribute('class', 'glyphicon glyphicon-remove');
+	act_btn_delete_icon.setAttribute('aria-hidden', 'true');
+
+
+	act_btn_info.appendChild(act_btn_info_icon);
+	act_a_items.appendChild(act_a_items_icon);
+	act_btn_hours.appendChild(act_btn_hours_icon);
+	act_btn_delete.appendChild(act_btn_delete_icon);
+
+	div_action.appendChild(act_btn_info);
+	div_action.appendChild(act_a_items);
+	div_action.appendChild(act_btn_hours);
+	div_action.appendChild(act_btn_delete);
+
+	td_action.appendChild(div_action);
+
+	tr.appendChild(td_orgtype);
+	tr.appendChild(td_business);
+	tr.appendChild(td_items);
+	tr.appendChild(td_action);
+
+	return tr;
+};
+
+
 /*=====================================================================
 ORGANIZATION
 =======================================================================*/
@@ -35,25 +253,25 @@ $("#btn_add_organizations").click(function () {
 });
 
 
-$(".edit-org-entry").click(function () {
+$(document).on('click', ".edit-org-entry", function () {
 
-	org_id = $(this).find(".org_id").html();
+	var org_id = $(this).attr('data-record-id');
 	
 	$("#modal-edit-organization input[name=org_id]").val(org_id).prop("disabled", false);
 
 	$("#modal-edit-organization .modal-title").html("EDITING");
 	/* GET THE DATA*/
-	org_type = $("#org_type_"+org_id).html();
-	org_name = $("#org_name_"+org_id).html();
-	org_url = $("#org_url_"+org_id).attr('href');
-	org_phone = $("#org_phone_"+org_id).html();
-	org_notes = $("#org_notes_"+org_id).html();
+	var org_type = $("#org_type_"+org_id).html();
+	var org_name = $("#org_name_"+org_id).html();
+	var org_url = $("#org_url_"+org_id).attr('href');
+	var org_phone = $("#org_phone_"+org_id).html();
+	var org_notes = $("#org_notes_"+org_id).html();
 
-	org_addr1 = $("#org_addr1_"+org_id);
-	org_addr2 = $("#org_addr2_"+org_id);
-	org_city = $("#org_city_"+org_id);
-	org_state = $("#org_state_"+org_id);
-	org_zip = $("#org_zip_"+org_id);
+	var org_addr1 = $("#org_addr1_"+org_id);
+	var org_addr2 = $("#org_addr2_"+org_id);
+	var org_city = $("#org_city_"+org_id);
+	var org_state = $("#org_state_"+org_id);
+	var org_zip = $("#org_zip_"+org_id);
 
 	org_addr1 = (org_addr1 == null) ? "" : org_addr1.html();
 	org_addr2 = (org_addr2 == null) ? "" : org_addr2.html();
@@ -109,45 +327,44 @@ $("#form_insert_organization").submit(function(event) {
 	var postData = $("#form_insert_organization :input[value!='']").serializeArray();
 	var postData_filtered = [];
 	$.each(postData, function(index, object) {
-		if(object['value'] !== "") {
-			postData_filtered.push(object);
+		if(object['value'] == "") {
+			object['value'] = null;
 		}
+		postData_filtered.push(object);
 	});
 
+	console.log(postData_filtered);
 	$.ajax({
 			url: action,
 			type: method,
 			data: postData_filtered,
 			dataType: "json", 
-			success: function (data) {
+			success: function (response) {
 
+				if (method === "POST") {
+					var tr = create_org_entry(response);
+					var node = document.getElementById('tbody-organizations');
+					node.insertBefore(tr, node.childNodes[0]);
+				} else {
+					var new_node = create_org_entry(response);
+					var parent_node = document.getElementById('tbody-organizations');
+					var old_node = document.getElementById('record_'+response['data']['id']);
+					parent_node.replaceChild(new_node, old_node);
+				}
 			}
 		})
-	.done(function(data) {
+	.done(function(response) {
 		$("#modal-edit-organization").modal('hide');
-
-		// Add items to organization
-		setTimeout(function() { /* This timeout is to prevent a bug in bootstrap from adding padding to body */
-			if(method.toLowerCase() == "post") {
-				//do something
-			}
-		}
-		, 350);
-
-		// Add business hours
-
-
 	});
 });
 
-$(".delete-org-entry").click(function(event){
-
+$(document).on('click', '.delete-org-entry', function(event){
 
 	//get the id to be deleted
-	var id = $(this).find(".org_id").html();
+	var id = $(this).attr('data-record-id');
 	$("#modal-delete-organization input[name=id]").val(id);
 	
-	var name = $(this).find(".org_name").html();
+	var name = $(this).attr('data-record-name');
 	$("#modal-delete-organization #org_del_item").html(name);
 
 });
@@ -284,13 +501,13 @@ $("#form_insert_organizationitem").submit(function() {
 	Business Hours
   ========================================================== */
 
-$(".add-orghours-entry").click(function() {
+$(document).on('click', ".add-orghours-entry", function() {
 
   	//clear
   	$("#modal-insert-organizationhours input").val("");
 
 	//get the id to be updated
-	var id = $(this).find(".org_id").html();
+	var id = $(this).attr('data-record-id');
 	$("#modal-insert-organizationhours input[name=id]").val(id);
 
   	//request
@@ -348,7 +565,3 @@ $("#form_insert_organizationhours").submit(function(){
 	});
 
 });
-
-$(function () {
-  $('[data-tooltip="tooltip"]').tooltip();
-})

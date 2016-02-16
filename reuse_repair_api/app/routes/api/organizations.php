@@ -53,7 +53,7 @@ $app->get('/api/organizations/:id', function ($id) use ($app, $db) {
 
         //get the type as text instead of id
         $org_type   = null;
-        $type_query = $db->itemtype->where('id', intval($row['org_type']));
+        $type_query = $db->organizationtype()->where('id', intval($row['org_type']));
         if ($data = $type_query->fetch()) {
             $org_type = $data['description'];
         }
@@ -124,7 +124,7 @@ $app->post('/api/organization', function () use ($app, $db) {
 
             //get the type as text instead of id
             $org_type   = null;
-            $type_query = $db->itemtype->where('id', intval($row['org_type']));
+            $type_query = $db->organizationtype()->where('id', intval($row['org_type']));
             if ($data = $type_query->fetch()) {
                 $org_type = $data['description'];
             }
@@ -169,12 +169,12 @@ $app->put('/api/organization/:id', function ($id) use ($app, $db) {
     if ($row = $query->fetch()) {
 
         $post_data = $app->request()->put();
-        $result    = $query->update($post_data); //result = true/false
+        $result    = $query->update($post_data);
 
         //get the type as text instead of id
         $row        = $db->organizations()->where("id", intval($id))->fetch();
         $org_type   = null;
-        $type_query = $db->itemtype->where('id', intval($row['org_type']));
+        $type_query = $db->organizationtype()->where('id', intval($row['org_type']));
         if ($data = $type_query->fetch()) {
             $org_type = $data['description'];
         }
@@ -193,7 +193,10 @@ $app->put('/api/organization/:id', function ($id) use ($app, $db) {
             'notes'    => $row['notes'],
         );
 
-        echo json_encode(["message" => "Successfull insertion to DB.", "data" => $results]);
+        echo json_encode(array(
+            "message" => "Successfull insertion to DB.",
+            "data"    => $results,
+        ));
 
     } else {
 

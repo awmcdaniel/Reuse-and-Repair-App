@@ -23,7 +23,7 @@
       <tr>
         <th>Category</th>
         <th>Description</th>
-        <th>Action</th>
+        <th></th>
       </tr>
     </thead>
     <tbody id="tbody-items">
@@ -33,10 +33,10 @@
         <td class="col-md-7" id="item_desc_{{item.id}}" >{{ item.description }}</td>
         <td class="col-md-1" id="item_action_{{item.id}}">
           <div class="btn-group btn-group-xs" role="group" aria-label="...">
-            <button class="btn btn-primary edit-item-entry" data-toggle="modal" href='#modal-insert-items' data-record-id="{{item.id}}" data-record-desc="{{item.description}}">
+            <button class="btn btn-primary edit-item-entry bg-gray-dark1" data-toggle="modal" href='#modal-insert-items' data-record-id="{{item.id}}" data-record-desc="{{item.description}}">
               <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>
             </button>
-            <button class="btn btn-danger delete-item-entry" data-toggle="modal" href='#modal-delete-items' data-record-id="{{item.id}}" data-record-desc="{{item.description}}">
+            <button class="btn btn-danger delete-item-entry bg-gray-dark2" data-toggle="modal" href='#modal-delete-items' data-record-id="{{item.id}}" data-record-desc="{{item.description}}">
               <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
             </button>
           </div>

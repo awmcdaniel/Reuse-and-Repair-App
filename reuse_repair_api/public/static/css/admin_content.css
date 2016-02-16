@@ -7,30 +7,53 @@
   src: url('../fonts/BebasNeue.otf');
 }
 
+/* ------- Bootstrap override --------*/
+.btn {
+	border: 0px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+}
+
+.btn.btn-default {
+	background-color: #EEE8E8;
+}
+
+
+
+/* ------- Custom globals --------*/
 .bg-gray {
 	background-color: whitesmoke;
 	border: 0px;
 }
 
-.bg-blue {
-	background-color: #6ABCF7;
+.btn-gray-dark1 {
+	background-color: #838383;
 	border: 0px;
+	color: white;
 }
 
-.bg-green {
-	background-color: #BDF2A1;
+.btn-gray-dark2 {
+	background-color: #4F4F4F;
 	border: 0px;
+	color: white;
 }
 
 .new_record {
 	background-color: #E9E9E9;
 	color: #424242;
-	font-weight: bold;
 }
 
 
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #F6F6F6;
+}
+
 nav.navbar {
-	border-radius: 0px;
+    background-color: #2F2F2F;
+    border: 0px;
+    color: white;
+    border-radius: 0px;
 }
 
 #nav_tabContent {
@@ -58,16 +81,7 @@ nav.navbar {
 	min-height: 630px;
 }
 
-button.btn {
-	border: 0px;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border-radius: 2px;
-}
 
-button.btn.btn-default {
-	background-color: #EEE8E8;
-}
 
 .modal-content .form-control {
 	-webkit-border-radius: 2px;
@@ -97,17 +111,13 @@ span.label {
 
 }
 
-.label-custom1 {
-	background-color: #DEDEDE;
+.label-custom-item {
+	background-color: #E9E9E9;
 	border: 0px;
-	color: #595959;
-	line-height: 2em;
-	font-size: .8em;
-}
-
-#table_organizations.table thead tr th,
-#table_organizations.table tbody tr td {
-	max-width: 250px;
+	color: #424242;
+	line-height: 2.3;
+	font-weight: 500;
+	font-size: .9em;
 }
 
 #table_organizations.table thead tr th {
@@ -132,11 +142,14 @@ span.label {
 	border: 0px;
 }
 
+.bg-dark-gray {
+	background-color: #566963;
+	color: white;
+}
 
 /* =========================================== 
 	Bootstrap Tokenfield
    =========================================== */
-
 
 span.ui-helper-hidden-accessible{
 	display: none;
@@ -148,6 +161,8 @@ span.ui-helper-hidden-accessible{
 .token > span {
 	max-width: 100% !important;
 }
+
+
 
 
 /* =========================================== 
@@ -189,6 +204,8 @@ span.ui-helper-hidden-accessible{
 	max-height: 100px;
     padding: 0;
     list-style-type: none;
+
+
 }
 
 #body-edit-items .ui-menu-item {
@@ -201,16 +218,27 @@ span.ui-helper-hidden-accessible{
 	cursor: pointer;
 }
 
-/* =========================================== 
-	show_organizations.php content
-   =========================================== */
-#body-organizations #action_buttons {
-	max-width: 55px;
+#body-edit-items .badge {
+	min-width: 17px;
+	font-size: 10.5px;
+	line-height: 0.5;
+	background-color: #222222;
+	padding: 5px 0px;
+	border-radius: 10px;
 }
 
 
+/* =========================================== 
+	show_organizations.php content
+   =========================================== */
+#body-organizations .btn-group {
+	max-width: 50px;
+}
 
 
+/* =========================================== 
+	Smaller Screen Sizes
+   =========================================== */
 @media screen and (max-width: 480px) {
 
 	#table_organizations.table thead tr th,

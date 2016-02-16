@@ -17,8 +17,6 @@
 
 </div>
 
-
-
   <table class="table table-hover" id="table_organizations">
     <thead>
       <tr>
@@ -28,81 +26,75 @@
         <th class="hidden-xs"></th>
       </tr>
     </thead>
-    <tbody>
+    <tbody id="tbody-organizations">
     {% for item in results %}
-      <tr class="row_{{item.org_type}}" id="record_{{item.id}}">
-        <td id="org_type_{{item.id}}" class="row_org_type col-md-1 hidden-xs">{{ item.org_type }}</td>
-        <td class="col-md-2">
-          <strong><span id="org_name_{{item.id}}" class="row_org_name">{{ item.name }} </span> </strong><br/>
-          {% if (item.street1 is defined) and (item.street1 is not null) %}
-            <span id="org_addr1_{{item.id}}" class="row_org_addr1">{{ item.street1 }} </span><br/>
-          {% endif %}
-
+      <tr class="filter_{{item.org_type}}" id="record_{{item.id}}">
+        <td id="org_type_{{item.id}}" class="col-md-1 hidden-xs">{{ item.org_type }}</td>
+        <td class="col-md-3">
+          <strong><span id="org_name_{{item.id}}" class="row_org_name">{{ item.name }}</span></strong><br/>
           {% if item.webpage is defined %}
-            {% if (item.webpage is not empty) and (item.webpage is not null) %}
-            <a href="{{ item.webpage }}" id="org_url_{{item.id}}" class="row_org_url" target="_blank">Website</a> |
-
+            {% if (item.webpage|length) and (item.webpage is not null) %}
+            <a href="{{ item.webpage }}" id="org_url_{{item.id}}" class="row_org_url" target="_blank">WWW</a>
             {% endif %}
           {% endif %}
 
           {% if item.phone is defined %}
-            {% if (item.phone is not empty) and (item.phone is not null) %}
-            <span id="org_phone_{{item.id}}" class="row_org_phone ">{{ item.phone }}</span><br/>
+            {% if (item.phone|length) and (item.phone is not null) %}
+            <span id="org_phone_{{item.id}}" class="row_org_phone">{{ item.phone }}</span><br/>
             {% endif %}
           {% endif %}
 
-          {% if (item.street2 is defined) and (item.street2 is not null) %}
-            <span id="org_addr2_{{item.id}}" class="row_org_addr2">{{ item.street2 }} </span><br/>
+          {% if (item.street_1 is not null) and (item.street_1|length) %}
+            <span id="org_addr1_{{item.id}}" class="row_org_addr1">{{ item.street_1 }}</span><br/>
           {% endif %}
 
-          {% if (item.city is defined) and (item.city is not null) %}
+          {% if (item.street_2|length) and (item.street_2 is not null) %}
+            <span id="org_addr2_{{item.id}}" class="row_org_addr2">{{ item.street_2 }}</span><br/>
+          {% endif %}
+
+          {% if (item.city|length) and (item.city is not null) %}
           <span id="org_city_{{item.id}}" class="row_org_city">{{ item.city }}</span>
           {% endif %}
 
-          {% if (item.state is defined) and (item.state is not null) %}
-          <span id="org_state_{{item.id}}" class="row_org_state">{{ item.state }}</span>,
+          {% if (item.state|length) and (item.state is not null) %}
+          <span id="org_state_{{item.id}}" class="row_org_state">{{ item.state }}</span>
           {% endif %}
 
-          {% if (item.zip_code is defined) and (item.zip_code is not null) %}
-          <span id="org_zip_{{item.id}}" class="row_org_zip">{{ item.zip_code }}
+          {% if (item.zip_code|length) and (item.zip_code is not null) %}
+          <span id="org_zip_{{item.id}}" class="row_org_zip">{{ item.zip_code }}</span>
           {% endif %}
 
 
-          {% if (item.notes is defined) and (item.notes is not null) %}
+          {% if (item.notes|length) and (item.notes is not null) %}
           <br /><br />
-            Info:
-            <em><span id="org_notes_{{item.id}}" class="row_org_note hidden-xs">
-                {{ item.notes }}
-            </span></em>
+            <span>Info:</span>
+            <em>
+              <span id="org_notes_{{item.id}}" class="row_org_note">{{ item.notes }}</span>
+            </em>
           {% endif %}
 
 
         </td>
-        <td class="col-md-6">
+        <td class="col-md-7">
 
           {% for service in item.service_items %}
-            <span class="label label-custom1">{{ service }}</span>
+            <span class="label label-custom-item">{{ service }}</span>
           {% endfor %}
 
         </td>
         <td class="col-md-1">
-          <div class="btn-group btn-group-xs" role="group" aria-label="..." id="action_buttons">
-            <button type="button" class="btn btn-primary edit-org-entry org_edit" data-toggle="modal" href='#modal-edit-organization' data-tooltip="tooltip" title="Edit Info">
+          <div class="btn-group btn-group-xs" role="group" aria-label="...">
+            <button class="btn edit-org-entry org_edit btn-gray-dark1" data-toggle="modal" href='#modal-edit-organization' data-record-id="{{item.id}}">
               <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-              <span class="hidden org_id">{{ item.id }}</span>
             </button>
-            <a class="btn btn-success org_edit" href="organizations/{{item.id}}" data-tooltip="tooltip" title="Edit Items">
+            <a class="btn org_edit btn-gray-dark2" href="organizations/{{item.id}}">
               <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
             </a>
-            <button type="button" class="btn btn-warning add-orghours-entry org_edit" data-toggle="modal" href='#modal-insert-organizationhours' data-tooltip="tooltip" title="Edit Hours">
+            <button class="btn add-orghours-entry org_edit btn-gray-dark2" data-toggle="modal" href='#modal-insert-organizationhours' data-record-id="{{item.id}}" data-record-name="{{item.name}}">
               <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-              <span class="hidden org_id">{{ item.id }}</span>
-              <span class="hidden org_name">{{ item.name }}</span>
             </button>
-            <button type="button" class="btn btn-danger delete-org-entry org_edit" data-toggle="modal" href='#modal-delete-organization' data-tooltip="tooltip" title="Delete">
+            <button class="btn delete-org-entry org_edit btn-gray-dark1" data-toggle="modal" href='#modal-delete-organization' data-record-id="{{item.id}}" data-record-name="{{item.name}}">
               <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-              <span class="hidden org_id">{{ item.id }}</span>
-              <span class="hidden org_name">{{ item.name }}</span>
             </button>
           </div>
         </td>
