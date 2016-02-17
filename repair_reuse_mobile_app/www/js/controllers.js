@@ -42,7 +42,7 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('repairItemOrganizationsCtrl', function($scope, RepairCategories, ActiveCategory, $state, $ionicHistory, ItemOrganizations) {
+.controller('repairItemOrganizationsCtrl', function(ActiveOrganization, $scope, RepairCategories, ActiveCategory, $state, $ionicHistory, ItemOrganizations) {
 	var item = ItemOrganizations;
 
 	$scope.page_title = item.item_desc();
@@ -51,6 +51,12 @@ angular.module('app.controllers', [])
 
     $scope.goBackHistory = function() {
         $ionicHistory.goBack();
+    };
+
+    $scope.btn_getOrganizationDetail = function(org) {
+    	var active_organization = ActiveOrganization;
+    	active_organization.set(org);
+    	$state.go('organizationDetail');
     };
 })
  
@@ -98,12 +104,33 @@ angular.module('app.controllers', [])
 			$state.go('reuseItemOrganizations');
 		});
 	};
+
 })
    
-.controller('reuseItemOrganizationsCtrl', function($scope, ItemOrganizations) {
+.controller('reuseItemOrganizationsCtrl', function($scope, ItemOrganizations, ActiveOrganization, $state) {
 	var item = ItemOrganizations;
 
 	$scope.page_title = item.item_desc();
 	$scope.organizations = item.organizations();
+
+    $scope.btn_getOrganizationDetail = function(org) {
+    	var active_organization = ActiveOrganization;
+    	active_organization.set(org);
+    	$state.go('organizationDetail');
+    };
 }) 
 
+/* ---------------------------------------------------
+	SHARED VIEW
+   --------------------------------------------------- */ 
+
+.controller('organizationDetailCtrl', function(ActiveOrganization, $scope, $state, $ionicHistory) {
+
+	var active_organization = ActiveOrganization;
+	$scope.organization = active_organization.get();
+
+    $scope.goBackHistory = function() {
+        $ionicHistory.goBack();
+    };
+
+})

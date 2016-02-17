@@ -46,7 +46,16 @@ $app->get('/api/itemorganizations/:id', function ($id) use ($app, $db) {
 
         $org_results = array();
         foreach ($organizations as $org_row) {
-            $org_name      = $db->organizations()->select('name, id as org_id, zip')->where('id', intval($org_row['org_id']))->fetch();
+            $org_name = $db->organizations()
+                ->where('id', intval($org_row['org_id']))
+                ->fetch();
+
+            //get the hours
+            $hours = $db->organizationhours()
+                ->where('org_id=?', intval($org_row['org_id']))
+                ->fetch();
+            $org_name['hours'] = $hours;
+
             $org_results[] = $org_name;
         }
 

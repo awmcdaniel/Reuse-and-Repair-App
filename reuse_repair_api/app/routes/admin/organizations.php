@@ -114,18 +114,7 @@ $app->post('/admin/organizations/items', function () use ($app, $db) {
     $new_items     = array();
     $not_processed = array();
     $temp          = array();
-/*    $deleted_items = array(); */
 
-/*
-//delete all items in the database that are not in the request
-$all_items = $db->organizationitems()->where('org_id=?', intval($org_id));
-foreach ($all_items as $row) {
-if (!in_array($row['item_id'], $items_arr)) {
-$deleted_items[] = $row['item_id'];
-$row->delete();
-}
-}
- */
     //add all items remaining
     foreach ($items_arr as $item_id) {
         $temp[] = $item_id;
@@ -159,7 +148,6 @@ $row->delete();
         "already_exist" => $already_exist,
         "error_adding"  => $not_processed,
         "orig"          => $temp,
-        // "deleted"      => $deleted_items,
     ));
 
 });

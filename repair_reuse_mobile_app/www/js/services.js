@@ -100,6 +100,35 @@ angular.module('app.services', [])
 	}
 })
 
+.factory('ActiveOrganization', function() {
+	var active = {};
+	return {
+		set: function(organization_object) {
+			active = organization_object;
+			return active;
+		},
+		get: function() {
+			return active;
+		},
+		clear: function() {
+			active = {};
+			return active;
+		},
+		isset: function() {
+			return (Object.keys(active).length > 0) ? true : false;
+		},
+		name: function() {
+			return active.name;
+		},
+		id: function() {
+			return active.id;
+		},
+		hours: function() {
+			return active.hours;
+		}
+	}
+})
+
 .factory('ItemOrganizations', function($http) {
 	var API_PATH =  'http://localhost:4000/api/itemorganizations/';
 	var item_org = {};

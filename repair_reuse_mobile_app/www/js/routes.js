@@ -83,7 +83,12 @@ angular.module('app.routes', [])
       controller: 'reuseItemOrganizationsCtrl'
     })
 
-
+    .state('organizationDetail', {
+      cache: false,
+      url: '/organization_detail',
+      templateUrl: 'templates/organizationDetail.html',
+      controller: 'organizationDetailCtrl'
+    })
 
 
     ;
