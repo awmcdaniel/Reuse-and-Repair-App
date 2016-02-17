@@ -1,7 +1,7 @@
 var item_categories = {};
 var org_categories = {};
 var items_in_categories = [];
-var base_url = 'http://localhost:4000';
+
 
 function addslashes( str ) {
     return (str + '').replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
@@ -36,7 +36,6 @@ function get_db_itemcategories () {
 					$.each(get_data['data'], function(index, obj) {
 						item_categories[obj['id']] = obj['description'];
 					});
-
 				}
 			});
 	} else {
@@ -89,16 +88,39 @@ function get_key(get_value, dictionary) {
 };
 
 
-function get_item_source() {
+function get_item_source(callback) {
 
     $.get(base_url + "/admin/itemcategories/items", {
 
     }, function (data) {
        	items_in_categories = JSON.parse(data);
+       	callback();
     });
 };
 
+
+
+var initialize_tokenfield = function() {
+		$('#input_org_items')
+		//prevent duplicates
+		.on('tokenfield:createtoken', function (event) {
+			var existingTokens = $(this).tokenfield('getTokens');
+			$.each(existingTokens, function(index, token) {
+				if (token.value === event.attrs.value)
+					event.preventDefault();
+			});
+		})
+		.tokenfield({
+		  autocomplete: {
+		    source: items_in_categories,
+		    delay: 100,
+		    appendTo: "#container_org_items"
+		  },
+		  showAutocompleteOnFocus: false
+		});
+};
+
+// ------------------------------------------
 get_db_itemcategories();
 get_db_orgcategories();
-get_item_source();
-
+get_item_source(initialize_tokenfield);
