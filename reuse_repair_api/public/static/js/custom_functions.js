@@ -1,3 +1,4 @@
+var base_url = 'http://localhost:4000';
 var item_categories = {};
 var org_categories = {};
 var items_in_categories = [];
@@ -90,9 +91,7 @@ function get_key(get_value, dictionary) {
 
 function get_item_source(callback) {
 
-    $.get(base_url + "/admin/itemcategories/items", {
-
-    }, function (data) {
+    $.get(base_url + "/admin/itemcategories/items", function (data) {
        	items_in_categories = JSON.parse(data);
        	callback();
     });

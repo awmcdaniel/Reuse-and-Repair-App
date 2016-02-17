@@ -3,35 +3,43 @@
     <ion-content overflow-scroll="true" padding="true" scroll="false" class="has-header">
     <ion-scroll direction="y" style="height: 100%">
     
+
+    
+
 <div class="list">
 
-  <a class="item item-icon-left" href="#">
+  <div id="map" ng-if="organization.zip || (organization.city && organization.state)"></div>
+
+  <a class="item item-icon-left">
     <i class="icon ion-ios-location"></i>
     <h2>{{organization.name}}</h2>
+    
     <p ng-if="organization.street1">{{organization.street1}}</p>
     <p ng-if="organization.street2">{{organization.street2}}</p>
     <p> 
       <span ng-if="organization.city">{{organization.city}}</span>
       <span ng-if="organization.state">{{organization.state}},</span> 
       <span ng-if="organization.zip">{{organization.zip}}</span></p>
+      <input id="address" value="{{organization.street1}} {{organization.street2}}, {{organization.city}} {{organization.state}}, {{organization.zip}}" hidden />
+
   </a>
 
-  <a class="item item-icon-left" href="#" ng-if="organization.notes">
+  <a class="item item-icon-left" ng-if="organization.notes">
     <i class="icon ion-information-circled"></i>
     {{organization.notes}}
   </a>
 
-  <a class="item item-icon-left" ng-if="organization.webpage" ng-click="openWEB('{{organization.webpage}}')" href="#">
+  <a class="item item-icon-left" ng-if="organization.webpage" ng-click="openWEB('{{organization.webpage}}')" >
     <i class="icon ion-link"></i>
     Webpage
   </a>
 
-  <a class="item item-icon-left" href="#" ng-if="organization.phone">
+  <a class="item item-icon-left" ng-if="organization.phone">
     <i class="icon ion-ios-telephone"></i>
     {{organization.phone}}
   </a>
 
-  <a class="item item-icon-left" href="#">
+  <a class="item item-icon-left" >
     <i class="icon ion-ios-calendar-outline"></i>
 
     <div class="row">

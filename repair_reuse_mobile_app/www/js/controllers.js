@@ -127,7 +127,40 @@ angular.module('app.controllers', [])
 .controller('organizationDetailCtrl', function(ActiveOrganization, $scope, $state, $ionicHistory) {
 
 	var active_organization = ActiveOrganization;
+	var map;
+
 	$scope.organization = active_organization.get();
+
+	var run_geocode = function () {
+		GMaps.geocode({
+		  address: $('#address').val().trim(),
+		  callback: function(results, status) {
+		    if (status == 'OK') {
+		      var latlng = results[0].geometry.location;
+		      map.setCenter(latlng.lat(), latlng.lng());
+		      map.addMarker({
+		        lat: latlng.lat(),
+		        lng: latlng.lng()
+		      });
+		    }
+		  }
+		});
+	};
+
+    $scope.$on( "$ionicView.afterEnter", function( scopes, states ) {
+    	
+    	if ( $scope.organization.zip || ($scope.organization.city && $scope.organization.state) ) {
+			map = new GMaps({
+				el: '#map',
+				lat: 0,
+				lng: 0,
+				zoom: 15
+			});
+			$scope.map_exist = true;
+			run_geocode();
+    	}
+
+    });
 
 	$scope.openWEB = function(url) {
 		window.open(url, '_system','location=yes');

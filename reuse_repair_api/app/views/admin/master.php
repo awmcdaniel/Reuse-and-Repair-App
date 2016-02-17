@@ -25,7 +25,16 @@
 		<script src="{{ AssetsURL }}/js/jquery.min.js"></script>
 		<!-- Bootstrap JavaScript -->
 		<script src="{{ AssetsURL }}/js/bootstrap.min.js"></script>
-		<script src="{{ AssetsURL }}/js/custom.js"></script>
+		<script src="{{ AssetsURL }}/js/jquery-ui.min.js"></script>
+		<script src="{{ AssetsURL }}/js/bootstrap-tokenfield.min.js"></script>
+
+
+		<script src="{{ AssetsURL }}/js/custom_functions.js"></script>
+		<script src="{{ AssetsURL }}/js/custom_organizations.js"></script>
+		<script src="{{ AssetsURL }}/js/custom_items.js"></script>
+		<script src="{{ AssetsURL }}/js/custom_categories.js"></script>
+
+
 		{% block other_js %}{% endblock %}
 	</body>
 </html>
