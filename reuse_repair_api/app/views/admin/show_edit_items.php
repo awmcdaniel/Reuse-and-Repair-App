@@ -73,3 +73,11 @@
 </div>
 
 {% endblock %}
+
+{% block other_js %}
+<script type="text/javascript">
+
+</script>
+{% endblock %}
+
+
