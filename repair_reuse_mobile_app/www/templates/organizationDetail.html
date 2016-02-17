@@ -21,7 +21,7 @@
     {{organization.notes}}
   </a>
 
-  <a class="item item-icon-left" ng-if="organization.webpage" onclick="window.open('{{organization.webpage}}', '_system', 'location=yes');" href="#">
+  <a class="item item-icon-left" ng-if="organization.webpage" ng-click="openWEB('{{organization.webpage}}')" href="#">
     <i class="icon ion-link"></i>
     Webpage
   </a>

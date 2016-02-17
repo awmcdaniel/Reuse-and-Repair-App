@@ -129,6 +129,10 @@ angular.module('app.controllers', [])
 	var active_organization = ActiveOrganization;
 	$scope.organization = active_organization.get();
 
+	$scope.openWEB = function(url) {
+		window.open(url, '_system','location=yes');
+	};
+
     $scope.goBackHistory = function() {
         $ionicHistory.goBack();
     };
