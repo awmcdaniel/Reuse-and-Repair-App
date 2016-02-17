@@ -7,11 +7,12 @@
 
 
     <ion-content overflow-scroll="true" padding="true" scroll="false" class="has-header">
+    <ion-scroll direction="y" style="height: 100%">
           <ion-list>
               <ion-item ng-if="organizations" ng-repeat="org in organizations" ng-click="btn_getOrganizationDetail({{org}})">
                 <h3>{{org.name}}</h3> <h6>{{org.zip}}</h6>
               </ion-item>
           </ion-list>
-
+          </ion-scroll>
     </ion-content>
 </ion-view>
