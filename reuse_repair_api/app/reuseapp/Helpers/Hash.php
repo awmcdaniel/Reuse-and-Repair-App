@@ -1,0 +1,32 @@
+<?php
+
+namespace Reuseapp\Helpers;
+
+/**
+ * for hashing passwords
+ */
+class Hash
+{
+    protected $config;
+
+    public function __construct($config)
+    {
+        $this->config = $config;
+    }
+
+    public function password($password)
+    {
+        //uses php password hasher
+        return password_hash(
+            $password,
+            $this->config->get('app.hash.algo'),
+            ['cost' => $this->config->get('app.hash.cost')]
+        );
+    }
+
+    public function passwordCheck($password, $hash)
+    {
+        //php hash verifier
+        return password_verify($password, $hash);
+    }
+}
