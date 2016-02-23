@@ -4,7 +4,7 @@ header("Access-Control-Allow-Origin: *");
 session_cache_limiter(false);
 session_start();
 
-ini_set('display_errors', 'On'); //remove for publishing
+ini_set('display_errors', 'On'); //remove for production
 
 define('INC_ROOT', dirname(__DIR__)); //root folder
 
