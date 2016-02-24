@@ -127,40 +127,17 @@ angular.module('app.controllers', [])
 .controller('organizationDetailCtrl', function(ActiveOrganization, $scope, $state, $ionicHistory) {
 
 	var active_organization = ActiveOrganization;
-	var map;
+
 
 	$scope.organization = active_organization.get();
 
-	var run_geocode = function () {
-		GMaps.geocode({
-		  address: $('#address').val().trim(),
-		  callback: function(results, status) {
-		    if (status == 'OK') {
-		      var latlng = results[0].geometry.location;
-		      map.setCenter(latlng.lat(), latlng.lng());
-		      map.addMarker({
-		        lat: latlng.lat(),
-		        lng: latlng.lng()
-		      });
-		    }
-		  }
-		});
-	};
-
     $scope.$on( "$ionicView.afterEnter", function( scopes, states ) {
-    	
-    	if ( $scope.organization.zip || ($scope.organization.city && $scope.organization.state) ) {
-			map = new GMaps({
-				el: '#map',
-				lat: 0,
-				lng: 0,
-				zoom: 15
-			});
-			$scope.map_exist = true;
-			run_geocode();
-    	}
 
     });
+
+    $scope.drawMap = function() {
+    	$state.go('organizationMap');
+    }
 
 	$scope.openWEB = function(url) {
 		window.open(url, '_system','location=yes');
@@ -170,4 +147,76 @@ angular.module('app.controllers', [])
         $ionicHistory.goBack();
     };
 
+})
+
+.controller('OrganizationMapCtrl', function(ActiveOrganization,$scope, $ionicLoading, $compile) {
+
+	var active_organization = ActiveOrganization;
+	$scope.address = active_organization.address();
+
+	var address = $scope.address;
+
+
+	function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+	  infoWindow.setPosition(pos);
+	  infoWindow.setContent(browserHasGeolocation ?
+	                        'Error: The Geolocation service failed.' :
+	                        'Error: Your browser doesn\'t support geolocation.');
+	}
+
+	function initMap(address) {
+
+	  var myLatlng = {lat: 0, lng: 0};
+	  var marker;
+
+	  var map = new google.maps.Map(document.getElementById('map'), {
+	    zoom: 15,
+	    center: myLatlng
+	  });
+
+	  marker = new google.maps.Marker({
+	    position: myLatlng,
+	    map: map,
+	  });
+
+	  var geocoder = new google.maps.Geocoder();
+	  geocoder.geocode({'address': address}, function(results, status) {
+	    if (status === google.maps.GeocoderStatus.OK) {
+	      map.setCenter(results[0].geometry.location);
+	      marker = new google.maps.Marker({
+	        map: map,
+	        position: results[0].geometry.location
+	      });
+	    } else {
+	      console.log('Geocode was not successful for the following reason: ' + status);
+	    }
+	  });
+
+	  var infoWindow = new google.maps.InfoWindow({map: map});
+
+	  // Try HTML5 geolocation.
+	  if (navigator.geolocation) {
+	    navigator.geolocation.getCurrentPosition(function(position) {
+	      var pos = {
+	        lat: position.coords.latitude,
+	        lng: position.coords.longitude
+	      };
+
+	      infoWindow.setPosition(pos);
+	      infoWindow.setContent('You');
+	      map.setCenter(pos);
+	    }, function() {
+	      handleLocationError(true, infoWindow, map.getCenter());
+	    });
+	  } else {
+	    // Browser doesn't support Geolocation
+	    handleLocationError(false, infoWindow, map.getCenter());
+	  }
+
+	}
+
+	$scope.getMap = function() {
+		initMap(address);
+	};
+  
 })

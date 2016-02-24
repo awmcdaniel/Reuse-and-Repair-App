@@ -31,6 +31,8 @@ angular.module('app.services', [])
 })
 
 .factory('RepairCategories', function($http) {
+
+	//get the id of the 'repair items'
 	var API_PATH =  'http://localhost:4000/api/itemcategory/1';
 
 	function query () {
@@ -55,7 +57,7 @@ angular.module('app.services', [])
 		return $http.get(API_PATH).then(function(response){
 					var result_arr = response.data.data;
 					result_arr.forEach(function(arr_obj, index, array) {
-						if(arr_obj['description'] == "Repair Items") {
+						if(arr_obj['description'].toLowerCase() == "Repair Items") {
 							result_arr.splice(index, 1);
 						}
 					});
@@ -125,6 +127,16 @@ angular.module('app.services', [])
 		},
 		hours: function() {
 			return active.hours;
+		},
+		address: function() {
+			var addr = "";
+			addr += (active.street1 + " ");
+			addr += (active.street2 + " ");
+			addr += (active.city + " ");
+			addr += (active.state + " ");
+			addr += active.zip;
+
+			return addr;
 		}
 	}
 })

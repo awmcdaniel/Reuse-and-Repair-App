@@ -90,6 +90,13 @@ angular.module('app.routes', [])
       controller: 'organizationDetailCtrl'
     })
 
+    .state('organizationMap', {
+      cache: false,
+      url: '/organization_map',
+      templateUrl: 'templates/organizationMap.html',
+      controller: 'OrganizationMapCtrl'
+    })
+
 
     ;
 

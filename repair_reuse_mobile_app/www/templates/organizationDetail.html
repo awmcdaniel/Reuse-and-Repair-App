@@ -8,9 +8,7 @@
 
 <div class="list">
 
-  <div id="map" ng-if="organization.zip || (organization.city && organization.state)"></div>
-
-  <a class="item item-icon-left">
+  <a class="item item-icon-left" ng-click="drawMap()">
     <i class="icon ion-ios-location"></i>
     <h2>{{organization.name}}</h2>
     
