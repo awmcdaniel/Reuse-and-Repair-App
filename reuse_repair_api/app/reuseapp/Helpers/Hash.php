@@ -7,6 +7,7 @@ namespace Reuseapp\Helpers;
  */
 
 if(!function_exists('hash_equals')) {
+    // source: http://php.net/manual/en/function.hash-equals.php#115635
   function hash_equals($str1, $str2) {
     if(strlen($str1) != strlen($str2)) {
       return false;
@@ -18,7 +19,7 @@ if(!function_exists('hash_equals')) {
     }
   }
 }
-        
+
 class Hash
 {
     protected $config;
