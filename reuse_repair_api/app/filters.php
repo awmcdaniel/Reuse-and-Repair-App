@@ -1,5 +1,6 @@
 <?php
 
+/* ADMIN */
 $authenticationCheck = function ($required) use ($app) {
     return function () use ($required, $app) {
         if ((!$app->auth && $required) || ($app->auth && !$required)) {

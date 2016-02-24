@@ -2,7 +2,7 @@
 
 namespace Reuseapp\Middleware;
 
-use Exception;
+//use Exception;
 use Slim\Middleware;
 
 class CsrfMiddleware extends Middleware
@@ -26,7 +26,9 @@ class CsrfMiddleware extends Middleware
         if (in_array($this->app->request()->getMethod(), ['POST', 'PUT', 'DELETE'])) {
             $submittedToken = $this->app->request()->post($this->key) ?: '';
             if (!$this->app->hash->hashCheck($token, $submittedToken)) {
-                throw new Exception('CSRF token mismatched');
+                //throw new Exception('CSRF token mismatched');
+                echo "CSRF token mismatched";
+                die();
             }
         }
 
