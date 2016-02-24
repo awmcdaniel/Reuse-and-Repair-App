@@ -35,9 +35,12 @@ class Hash
         return hash('sha256', $input);
     }
 
+
     public function hashCheck($known, $user)
     {
-        return hash_equals($known, $user);
+        //return hash_equals($known, $user);
+        return ($known === $user);
     }
+
 
 }
