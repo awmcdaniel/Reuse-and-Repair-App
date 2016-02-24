@@ -23,7 +23,7 @@ function get_all_itemcategories($db)
     return $results;
 };
 
-$app->get('/admin/itemcategories', function () use ($app, $db) {
+$app->get('/admin/itemcategories', $authenticated_user(), function () use ($app, $db) {
 
     $app->render('admin/show_itemcategories.php', [
         'results' => get_all_itemcategories($db),
@@ -31,7 +31,7 @@ $app->get('/admin/itemcategories', function () use ($app, $db) {
 
 });
 
-$app->get('/admin/itemcategories/items', function () use ($app, $db) {
+$app->get('/admin/itemcategories/items', $authenticated_user(), function () use ($app, $db) {
 
     $temp = get_all_itemcategories($db);
 

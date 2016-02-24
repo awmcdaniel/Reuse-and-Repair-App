@@ -9,12 +9,17 @@ class User extends Eloquent
     protected $table = 'users';
 
     protected $fillable = [
-        'email',
         'username',
         'password',
-        'active',
-        'active_hash',
-        'remember_token',
-        'remember_identifier',
     ];
+
+    public function getIdentity()
+    {
+        return "$this->username";
+    }
+
+    public function active()
+    {
+        return "$this->active";
+    }
 }

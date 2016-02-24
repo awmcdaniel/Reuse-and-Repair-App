@@ -117,8 +117,18 @@ $app->post('/api/organization', function () use ($app, $db) {
 
         //add to organizations table
         $post_data = $app->request()->post();
-        $result    = $db->organizations->insert($post_data); //returns the index where it was inserted (aka, the org_id)
-
+        $result    = $db->organizations->insert([
+            'org_type' => isset($post_data['org_type']) ? $post_data['org_type'] : null,
+            'name'     => isset($post_data['name']) ? $post_data['name'] : null,
+            'street1'  => isset($post_data['street1']) ? $post_data['street1'] : null,
+            'street2'  => isset($post_data['street2']) ? $post_data['street2'] : null,
+            'city'     => isset($post_data['city']) ? $post_data['city'] : null,
+            'state'    => isset($post_data['state']) ? $post_data['state'] : null,
+            'zip'      => isset($post_data['zip']) ? $post_data['zip'] : null,
+            'webpage'  => isset($post_data['webpage']) ? $post_data['webpage'] : null,
+            'phone'    => isset($post_data['phone']) ? $post_data['phone'] : null,
+            'notes'    => isset($post_data['notes']) ? $post_data['notes'] : null,
+        ]);
         $query = $db->organizations()->where('id', $result);
         if ($row = $query->fetch()) {
 
@@ -169,7 +179,18 @@ $app->put('/api/organization/:id', function ($id) use ($app, $db) {
     if ($row = $query->fetch()) {
 
         $post_data = $app->request()->put();
-        $result    = $query->update($post_data);
+        $result    = $query->update([
+            'org_type' => isset($post_data['org_type']) ? $post_data['org_type'] : null,
+            'name'     => isset($post_data['name']) ? $post_data['name'] : null,
+            'street1'  => isset($post_data['street1']) ? $post_data['street1'] : null,
+            'street2'  => isset($post_data['street2']) ? $post_data['street2'] : null,
+            'city'     => isset($post_data['city']) ? $post_data['city'] : null,
+            'state'    => isset($post_data['state']) ? $post_data['state'] : null,
+            'zip'      => isset($post_data['zip']) ? $post_data['zip'] : null,
+            'webpage'  => isset($post_data['webpage']) ? $post_data['webpage'] : null,
+            'phone'    => isset($post_data['phone']) ? $post_data['phone'] : null,
+            'notes'    => isset($post_data['notes']) ? $post_data['notes'] : null,
+        ]);
 
         //get the type as text instead of id
         $row        = $db->organizations()->where("id", intval($id))->fetch();

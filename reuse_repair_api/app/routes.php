@@ -22,7 +22,7 @@ foreach ($routes_api as $api_fname) {
 Load the WEB page routes
 ===============================================*/
 $routes_web = array(
-    'home.php',
+
 );
 
 define("ROUTES_WEB", "routes/web/");
@@ -37,9 +37,19 @@ $routes_admin = array(
     'organizations.php',
     'itemcategories.php',
     'items.php',
+    'logout.php',
+    'login.php',
+    'register.php',
 );
 
 define("ROUTES_ADMIN", "routes/admin/");
 foreach ($routes_admin as $admin_fname) {
     require_once ROUTES_ADMIN . $admin_fname;
 }
+
+/* ============================================
+DEFAULT
+===============================================*/
+$app->get('/', function () use ($app) {
+    echo "hello";
+})->name('home');

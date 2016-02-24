@@ -4,6 +4,7 @@
   <div class="modal-dialog">
 
     <form id="form_insert_items" method="POST">
+    <input type="hidden" name="{{csrf_key}}" value="{{csrf_token}}"></input>
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -42,6 +43,7 @@
   <div class="modal-dialog">
 
     <form id="form_delete_items" method="POST">
+    <input type="hidden" name="{{csrf_key}}" value="{{csrf_token}}"></input>
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>

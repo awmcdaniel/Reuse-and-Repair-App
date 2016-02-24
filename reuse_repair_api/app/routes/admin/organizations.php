@@ -3,7 +3,7 @@
 /* ===========================================================================
 LIST ALL
 =========================================================================== */
-$app->get('/admin/organizations', function () use ($app, $db) {
+$app->get('/admin/organizations', $authenticated_user(), function () use ($app, $db) {
     $results = array();
     foreach ($db->organizations()->order('name') as $row) {
 
@@ -41,7 +41,7 @@ $app->get('/admin/organizations', function () use ($app, $db) {
 
 })->name('organizations.showall');
 
-$app->get('/admin/organizations/:org_id', function ($org_id) use ($app, $db) {
+$app->get('/admin/organizations/:org_id', $authenticated_user(), function ($org_id) use ($app, $db) {
     $results  = array();
     $filters  = array();
     $org_name = $db->organizations()->where('id=?', $org_id)->fetch()['name'];
@@ -91,7 +91,7 @@ $app->get('/admin/organizations/:org_id', function ($org_id) use ($app, $db) {
 Add/Update multiple items to organization entity
 =========================================================================== */
 
-$app->post('/admin/organizations/items', function () use ($app, $db) {
+$app->post('/admin/organizations/items', $authenticated_user(), function () use ($app, $db) {
 
     $org_id    = $app->request()->post('id');
     $items_arr = $app->request()->post('items');

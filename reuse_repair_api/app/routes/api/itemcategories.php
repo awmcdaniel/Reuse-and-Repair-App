@@ -88,8 +88,11 @@ $app->post('/api/itemcategory', function () use ($app, $db) {
 
         //no duplicate found
         $post_data = $app->request()->post();
-        $result    = $db->itemcategories->insert($post_data); //returns the index
-        $query     = $db->itemcategories()->where('id', $result);
+        $result    = $db->itemcategories->insert([
+            'description' => $post_data['description'],
+        ]);
+
+        $query = $db->itemcategories()->where('id', $result);
         if ($row = $query->fetch()) {
 
             $results = array(
@@ -123,7 +126,9 @@ $app->put('/api/itemcategory/:id', function ($id) use ($app, $db) {
     if ($row = $query->fetch()) {
 
         $post_data = $app->request()->put();
-        $result    = $query->update($post_data); //returns true/false
+        $result    = $query->update([
+            'description' => $post_data['description'],
+        ]);
 
         $row     = $db->itemcategories()->where("id", intval($id))->fetch();
         $results = array(
@@ -148,20 +153,28 @@ DELETE ONE
 =========================================================================== */
 
 $app->delete('/api/itemcategory/:id', function ($id) use ($app, $db) {
+
     $app->response()->header("Content-Type", "application/json");
 
     $query = $db->itemcategories()->where('id', $id);
+
     if ($query->fetch()) {
+
         $result = $query->delete();
+
         echo json_encode(array(
             "status"  => true,
             "message" => "Item category deleted successfully",
         ));
+
     } else {
+
         $app->response()->setStatus(404);
+
         echo json_encode(array(
             "status"  => 404,
             "message" => "Item category id $id does not exist",
         ));
+
     }
 });

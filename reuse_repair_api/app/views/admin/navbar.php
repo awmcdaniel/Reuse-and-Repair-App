@@ -24,7 +24,7 @@
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Log Out</a></li>
+            <li><a href="{{ urlFor('logout') }}"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Log Out</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

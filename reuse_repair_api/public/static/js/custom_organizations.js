@@ -377,10 +377,12 @@ $("#form_delete_organization").submit(function(){
 
 	//get all the input data
 	var id = $(this).find("input[name=id]").val();
+	var postData = $(this).serializeArray();
 
 	$.ajax({
 			url: base_url + '/api/organization/' + id,
 			type: 'delete',
+			data: postData,
 			dataType: "json", 
 			success: function (data) {
 				setTimeout(function() {
@@ -403,10 +405,18 @@ $("#form_delete_organization").submit(function(){
 $(document).on('click', '.delete_item', function() {
 	var id = $(this).attr('data-record-id');
 
+	var token_value = $("#token").val();
+	var token_name = $("#token").attr('name');
+
+	var postData = [
+		{"name": token_name, "value": token_value}
+	];
+
 	event.preventDefault();
 	$.ajax({
 			url: base_url + '/api/organizationitems/' + id,
 			type: 'delete',
+			data: postData,
 			dataType: "json", 
 			success: function (data) {
 				setTimeout(function() {
@@ -429,7 +439,14 @@ $("#btn_org_add_item").click(function() {
 $("#form_insert_organizationitem").submit(function() {
 	event.preventDefault();
 	
-	var postData = [];
+	var token_value = $("#token").val();
+	var token_name = $("#token").attr('name');
+
+
+	var postData = [
+		{"name": token_name, "value": token_value}
+	];
+	
 	var org_id = $(this).find("input[name=id]").val();
 
 	$("#input_org_items").tokenfield('beautify', false);
@@ -444,6 +461,7 @@ $("#form_insert_organizationitem").submit(function() {
 		postData.push(items);
 	});
 
+	console.log(postData);
 	// send the data
 	$.ajax({
 			url: base_url + '/admin/organizations/items',
@@ -538,16 +556,10 @@ $("#form_insert_organizationhours").submit(function(){
 	event.preventDefault();
 
   	var id = $("#modal-insert-organizationhours input[name=id]").val();
-
+  	var token = $("#modal-insert-organizationhours #token").attr('value');
+  	$("#modal-insert-organizationhours #token").val(token);
   	var postData = $(this).serializeArray();
-
-  	$.each(postData, function(index, object) {
-  		if( object['value'] == "") {
-  			object['value'] = 'null';
-  		}
-  	});
-
-
+  	console.log(postData);
 	// send the data
 	$.ajax({
 			url: base_url + '/api/organizationhours/' + id,

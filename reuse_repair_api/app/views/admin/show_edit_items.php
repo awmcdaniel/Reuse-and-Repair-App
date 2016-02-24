@@ -2,6 +2,7 @@
 
 {% block body_content %}
 <div class="container" id="body-edit-items">
+<input type="hidden" name="{{csrf_key}}" id="token" value="{{csrf_token}}">
 
 <div class="page-header">
   <h1>{{organization}}
@@ -79,5 +80,3 @@
 
 </script>
 {% endblock %}
-
-

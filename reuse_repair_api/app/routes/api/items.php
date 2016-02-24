@@ -93,7 +93,10 @@ $app->post('/api/item', function () use ($app, $db) {
 
         //no duplicate found
         $post_data = $app->request()->post();
-        $result    = $db->items->insert($post_data); //returns the index
+        $result    = $db->items->insert([
+            'description' => $post_data['description'],
+            'category'    => $post_data['category'],
+        ]);
 
         $query = $db->items()->where('id', $result);
         if ($row = $query->fetch()) {
@@ -142,8 +145,11 @@ $app->put('/api/item/:id', function ($id) use ($app, $db) {
     if ($row = $query->fetch()) {
 
         $post_data = $app->request()->put();
-        $result    = $query->update($post_data); //returns true/false
-        $row       = $db->items()->where("id", intval($id))->fetch();
+        $result    = $query->update([
+            'description' => $post_data['description'],
+        ]);
+
+        $row = $db->items()->where("id", intval($id))->fetch();
 
         $item_category = null;
 

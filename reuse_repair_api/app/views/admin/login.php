@@ -13,15 +13,30 @@
   </head>
   <body>
 
-
     <div class="container">
-
-      <form class="form-signin" id="form-admin-login" method="POST">
+      {% if failedLogin %}
+      <div class="alert alert-danger" role="alert">{{ failedLogin }}</div>
+      {% endif %}
+      <form class="form-signin" id="form-admin-login" action="{{ urlFor('login.post') }}" method="POST" autocomplete="off">
+         <input type="hidden" name="{{csrf_key}}" value="{{csrf_token}}"></input>
         <h2 class="form-signin-heading" id="heading">ADMIN CMS</h2>
+
         <label for="input_username" class="sr-only">Username</label>
-        <input type="email" id="input_username" name="input_username" class="form-control" placeholder="Username" required autofocus>
+        <input type="text" id="input_username" name="username" class="form-control" placeholder="Username" autofocus>
+        <span class="help-block">
+          {% if errors.first('username') %}
+            {{ errors.first('username') }}
+          {% endif %}
+        </span>
+
         <label for="input_password" class="sr-only">Password</label>
-        <input type="password" id="input_password" name="input_password" class="form-control" placeholder="Password" required>
+        <input type="password" id="input_password" name="password" class="form-control" placeholder="Password" >
+        <span class="help-block">
+          {% if errors.first('password') %}
+            {{ errors.first('password') }}
+          {% endif %}
+        </span>
+
         <button class="btn btn-lg btn-primary btn-block" type="submit" id="button_signin">Sign in</button>
       </form>
 

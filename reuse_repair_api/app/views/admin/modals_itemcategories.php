@@ -9,6 +9,7 @@
       </div>
       <div class="modal-body">
         <form id="form_insert_itemcategories" method="POST">
+          <input type="hidden" name="{{csrf_key}}" value="{{csrf_token}}"></input>
           <input type="text" name="id" class="hidden" disabled>
           <div class="form-group">
             <label for="input_description" >Description</label>
@@ -31,6 +32,7 @@
   <div class="modal-dialog">
 
     <form id="form_delete_itemcategories" method="DELETE">
+    <input type="hidden" name="{{csrf_key}}" value="{{csrf_token}}"></input>
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>

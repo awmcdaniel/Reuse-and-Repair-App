@@ -11,8 +11,12 @@ define('INC_ROOT', dirname(__DIR__)); //root folder
 require INC_ROOT . '/vendor/autoload.php';
 require INC_ROOT . '/plugins/NotORM.php';
 
+use Illuminate\Database\Capsule\Manager as Capsule;
 use Noodlehaus\Config;
+use RandomLib\Factory as RandomLib;
 use Reuseapp\Helpers\Hash;
+use Reuseapp\Middleware\BeforeMiddleware;
+use Reuseapp\Middleware\CsrfMiddleware;
 use Reuseapp\User\User;
 use Reuseapp\Validation\Validator;
 use Slim\Slim;
@@ -34,14 +38,21 @@ $app->configureMode($app->config('mode'), function () use ($app) {
 });
 
 /* ============================================
+Middlewares
+===============================================*/
+$app->add(new BeforeMiddleware);
+$app->add(new CsrfMiddleware);
+
+/* ============================================
 DATABASE
 ===============================================*/
-$app->container->singleton('db', function () {
-    $dbhost   = '127.0.0.1';
-    $dbuser   = 'root';
-    $dbpass   = '';
-    $dbname   = 'test_api';
-    $dbmethod = 'mysql:host=127.0.0.1;dbname=';
+
+$app->container->singleton('db', function () use ($app) {
+    $dbhost   = $app->config->get('db.host');
+    $dbuser   = $app->config->get('db.username');
+    $dbpass   = $app->config->get('db.password');
+    $dbname   = $app->config->get('db.name');
+    $dbmethod = $app->config->get('db.method');
 
     $dsn = $dbmethod . $dbname;
     $pdo = new PDO($dsn, $dbuser, $dbpass);
@@ -50,6 +61,21 @@ $app->container->singleton('db', function () {
     return $db;
 });
 $db = $app->db;
+
+$capsule = new Capsule;
+
+$capsule->addConnection([
+    'driver'    => $app->config->get('db.driver'),
+    'host'      => $app->config->get('db.host'),
+    'database'  => $app->config->get('db.name'),
+    'username'  => $app->config->get('db.username'),
+    'password'  => $app->config->get('db.password'),
+    'charset'   => $app->config->get('db.charset'),
+    'collation' => $app->config->get('db.collation'),
+    'prefix'    => $app->config->get('db.prefix'),
+]);
+
+$capsule->bootEloquent();
 
 /* ============================================
 VIEWS
@@ -64,8 +90,8 @@ $view->parserExtensions = [
 
 $app->hook('slim.before', function () use ($app) {
     $app->view()->appendData(array(
-        'AssetsURL'    => 'http://localhost:4000/static',
-        'baseAdminURL' => 'http://localhost:4000/admin',
+        'AssetsURL'    => $app->config->get('app.staticUrl'),
+        'baseAdminURL' => $app->config->get('app.adminUrl'),
     ));
 });
 
@@ -81,12 +107,18 @@ $app->container->singleton('hash', function () use ($app) {
 });
 
 $app->container->singleton('validation', function () use ($app) {
-    return new Validator;
+    return new Validator($app->user);
+});
+
+$app->container->singleton('randomlib', function () use ($app) {
+    $factory = new RandomLib;
+    return $factory->getMediumStrengthGenerator();
 });
 
 /* ============================================
 ROUTES
 ===============================================*/
+require 'filters.php';
 require 'routes.php';
 
 /* ============================================

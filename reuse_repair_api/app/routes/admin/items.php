@@ -1,6 +1,6 @@
 <?php
 
-$app->get('/admin/items', function () use ($app, $db) {
+$app->get('/admin/items', $authenticated_user(), function () use ($app, $db) {
 
     $results = array();
     foreach ($db->items() as $row) {

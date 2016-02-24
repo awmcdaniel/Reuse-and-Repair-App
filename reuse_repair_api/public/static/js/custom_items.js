@@ -166,10 +166,12 @@ $("#form_delete_items").submit(function(){
 
 	//get all the input data
 	var item_id = $(this).find("input[name=id]").val();
+	var postData = $(this).serializeArray();
 
 	$.ajax({
 			url: base_url + '/api/item/' + item_id,
 			type: 'delete',
+			data: postData,
 			dataType: "json", 
 			success: function (data) {
 				setTimeout(function() {

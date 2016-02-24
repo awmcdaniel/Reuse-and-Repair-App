@@ -141,12 +141,16 @@ $("#form_delete_itemcategories").submit(function(){
 
 	//get all the input data
 	var itemcat_id = $(this).find("input[name=id]").val();
+	var postData = $(this).serializeArray();
+	console.log(postData);
 
 	$.ajax({
 			url: base_url + '/api/itemcategory/' + itemcat_id,
 			type: 'delete',
+			data: postData,
 			dataType: "json", 
 			success: function (data) {
+				console.log(data);
 				setTimeout(function() {
 					$("#record_"+itemcat_id).remove();
 				}, 600);
