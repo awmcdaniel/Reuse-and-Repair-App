@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"cate",
+				"category_id"
+			],
+			[
+				"text",
+				"text-decoration"
+			],
+			[
 				"marg",
 				"margin-bottom"
 			],
@@ -100,51 +108,36 @@
 	"buffers":
 	[
 		{
-			"file": "app/views/admin/modals_categories.php",
+			"file": "app/routes/web/organizations.php",
 			"settings":
 			{
-				"buffer_size": 1358,
+				"buffer_size": 1419,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "app/views/admin/modals_items.php",
+			"file": "app/views/web/organizations.php",
 			"settings":
 			{
-				"buffer_size": 1348,
+				"buffer_size": 2996,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "app/views/admin/modals_organizations.php",
+			"file": "public/static/css/web_content.css",
 			"settings":
 			{
-				"buffer_size": 3742,
+				"buffer_size": 1539,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "public/static/js/custom.js",
+			"contents": "C:\\Users\\McDaniel\\Desktop\\School\\CS 419 - Software Projects\\reuse_repair_api\\public\n\nphp -S localhost:4000\n\n/admin\n\n\ntest.sql file\n--testuser\n--password1\n\n/api\n\n/web",
 			"settings":
 			{
-				"buffer_size": 1920,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "public/static/css/admin_content.css",
-			"settings":
-			{
-				"buffer_size": 863,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "app/views/admin/footer.php",
-			"settings":
-			{
-				"buffer_size": 225,
-				"line_ending": "Windows"
+				"buffer_size": 165,
+				"line_ending": "Windows",
+				"name": "C:\\Users\\McDaniel\\Desktop\\School\\CS 419 - Software"
 			}
 		}
 	],
@@ -261,15 +254,35 @@
 	},
 	"expanded_folders":
 	[
-		"/E/OneDrive/OneDrive for Business/github_projects/Reuse-and-Repair-App/reuse_repair_api",
-		"/E/OneDrive/OneDrive for Business/github_projects/Reuse-and-Repair-App/reuse_repair_api/app",
-		"/E/OneDrive/OneDrive for Business/github_projects/Reuse-and-Repair-App/reuse_repair_api/app/views",
-		"/E/OneDrive/OneDrive for Business/github_projects/Reuse-and-Repair-App/reuse_repair_api/app/views/admin",
-		"/E/OneDrive/OneDrive for Business/github_projects/Reuse-and-Repair-App/reuse_repair_api/public",
-		"/E/OneDrive/OneDrive for Business/github_projects/Reuse-and-Repair-App/reuse_repair_api/test"
+		"/C/Users/McDaniel/Desktop/School/CS 419 - Software Projects/reuse_repair_api",
+		"/C/Users/McDaniel/Desktop/School/CS 419 - Software Projects/reuse_repair_api/app",
+		"/C/Users/McDaniel/Desktop/School/CS 419 - Software Projects/reuse_repair_api/app/routes",
+		"/C/Users/McDaniel/Desktop/School/CS 419 - Software Projects/reuse_repair_api/app/routes/admin",
+		"/C/Users/McDaniel/Desktop/School/CS 419 - Software Projects/reuse_repair_api/app/routes/web",
+		"/C/Users/McDaniel/Desktop/School/CS 419 - Software Projects/reuse_repair_api/app/views",
+		"/C/Users/McDaniel/Desktop/School/CS 419 - Software Projects/reuse_repair_api/app/views/admin",
+		"/C/Users/McDaniel/Desktop/School/CS 419 - Software Projects/reuse_repair_api/app/views/web",
+		"/C/Users/McDaniel/Desktop/School/CS 419 - Software Projects/reuse_repair_api/public",
+		"/C/Users/McDaniel/Desktop/School/CS 419 - Software Projects/reuse_repair_api/public/static",
+		"/C/Users/McDaniel/Desktop/School/CS 419 - Software Projects/reuse_repair_api/public/static/css"
 	],
 	"file_history":
 	[
+		"/C/Users/McDaniel/Desktop/School/CS 419 - Software Projects/reuse_repair_api/app/views/web/items.php",
+		"/C/Users/McDaniel/Desktop/School/CS 419 - Software Projects/reuse_repair_api/app/routes/web/items.php",
+		"/C/Users/McDaniel/Desktop/School/CS 419 - Software Projects/reuse_repair_api/app/views/web/categories.php",
+		"/C/Users/McDaniel/Desktop/School/CS 419 - Software Projects/reuse_repair_api/public/static/css/web_content.css",
+		"/C/Users/McDaniel/Desktop/School/CS 419 - Software Projects/reuse_repair_api/app/views/web/organizations.php",
+		"/C/Users/McDaniel/Desktop/School/CS 419 - Software Projects/reuse_repair_api/app/routes/web/organizations.php",
+		"/C/Users/McDaniel/Desktop/School/CS 419 - Software Projects/reuse_repair_api/app/routes.php",
+		"/C/Users/McDaniel/Desktop/School/CS 419 - Software Projects/reuse_repair_api/app/routes/web/categories.php",
+		"/C/Users/McDaniel/Desktop/School/CS 419 - Software Projects/reuse_repair_api/README.md",
+		"/C/Users/McDaniel/Desktop/School/CS 419 - Software Projects/reuse_repair_api/app/views/web/master.php",
+		"/C/Users/McDaniel/Desktop/School/CS 419 - Software Projects/reuse_repair_api/public/static/css/admin_content.css",
+		"/C/Users/McDaniel/Desktop/School/CS 419 - Software Projects/reuse_repair_api/app/views/admin/modals_items.php",
+		"/C/Users/McDaniel/Desktop/School/CS 419 - Software Projects/reuse_repair_api/public/static/js/custom.js",
+		"/C/Users/McDaniel/Desktop/School/CS 419 - Software Projects/reuse_repair_api/app/views/admin/footer.php",
+		"/C/Users/McDaniel/Desktop/School/CS 419 - Software Projects/reuse_repair_api/app/views/admin/modals_categories.php",
 		"/E/OneDrive/OneDrive for Business/github_projects/Reuse-and-Repair-App/reuse_repair_api/app/routes/admin/itemcategories.php",
 		"/E/OneDrive/OneDrive for Business/github_projects/Reuse-and-Repair-App/reuse_repair_api/app/routes/admin/organizations.php",
 		"/E/OneDrive/OneDrive for Business/github_projects/Reuse-and-Repair-App/reuse_repair_api/app/views/admin/show_organizations.php",
@@ -382,22 +395,7 @@
 		"/E/xampp/htdocs/ReuseRepairAPI/database/seeds/DatabaseSeeder.php",
 		"/E/xampp/htdocs/ReuseRepairAPI/database/seeds/MakerSeed.php",
 		"/E/xampp/htdocs/ReuseRepairAPI/database/seeds/VehiclesSeed.php",
-		"/E/xampp/htdocs/ReuseRepairAPI/database/migrations/2016_01_19_075707_makers_table.php",
-		"/E/xampp/htdocs/ReuseRepairAPI/app/Vehicle.php",
-		"/E/xampp/htdocs/ReuseRepairAPI/resources/views/hi.blade.php",
-		"/E/xampp/htdocs/ReuseRepairAPI/app/Http/routes.php",
-		"/E/xampp/htdocs/ReuseRepairAPI/app/Http/Controllers/VehicleController.php",
-		"/E/xampp/htdocs/ReuseRepairAPI/app/Http/Controllers/MakerController.php",
-		"/E/xampp/htdocs/ReuseRepairAPI/app/Http/Requests/CreateMakerRequest.php",
-		"/E/xampp/htdocs/ReuseRepairAPI/app/Http/Controllers/MakerVehiclesController.php",
-		"/E/xampp/htdocs/ReuseRepairAPI/app/Http/Kernel.php",
-		"/E/xampp/htdocs/ReuseRepairAPI/database/migrations/2014_10_12_100000_create_password_resets_table.php",
-		"/E/xampp/htdocs/ReuseRepairAPI/app/User.php",
-		"/E/xampp/htdocs/ReuseRepairAPI/ReuseRepairAPI.sublime-project",
-		"/C/Users/Shadow/Desktop/lab 1/answers.txt",
-		"/C/Users/Shadow/Desktop/lab 1/answerts.txt",
-		"/G/App Engine Projects/419-project-reuse-recycle/main.py",
-		"/G/App Engine Projects/419-reuse-recycle/main.py"
+		"/E/xampp/htdocs/ReuseRepairAPI/database/migrations/2016_01_19_075707_makers_table.php"
 	],
 	"find":
 	{
@@ -454,62 +452,89 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "app/views/admin/modals_categories.php",
+					"file": "app/routes/web/organizations.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1358,
+						"buffer_size": 1419,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								1358
+								1419,
+								1419
 							]
 						],
 						"settings":
 						{
-							"auto_name": "",
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 2,
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "app/views/admin/modals_items.php",
+					"file": "app/views/web/organizations.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1348,
+						"buffer_size": 2996,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1050,
-								1050
+								2903,
+								2903
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 495.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "public/static/css/web_content.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1539,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								639,
+								639
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -519,117 +544,31 @@
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "app/views/admin/modals_organizations.php",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 3742,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3741,
-								3062
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": -0.0,
-						"translation.y": 918.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
 					"buffer": 3,
-					"file": "public/static/js/custom.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1920,
+						"buffer_size": 165,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								535,
-								535
+								83,
+								83
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+							"auto_name": "C:\\Users\\McDaniel\\Desktop\\School\\CS 419 - Software",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "public/static/css/admin_content.css",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 863,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								801,
-								801
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 283.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "app/views/admin/footer.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 225,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								193,
-								193
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
 					"type": "text"
 				}
 			]

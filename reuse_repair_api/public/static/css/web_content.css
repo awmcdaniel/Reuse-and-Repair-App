@@ -1,0 +1,94 @@
+/* =======================================
+	GENERAL / GLOBAL
+   ======================================== */
+
+@font-face {
+  font-family: BebasNeue;
+  src: url('../fonts/BebasNeue.otf');
+}
+
+/* ------- Custom globals --------*/
+body {
+	background-color: #CCD790;
+}
+
+table {
+	background-color: #fff;
+}
+
+div.page-header {
+	background-color: #fff;
+	color: #507727;
+	margin: 20px 0 0;
+}
+
+.internal-link {
+	color: #000;
+}
+
+.internal-link:hover, .internal-link:visited:hover {
+	color: #D67814;
+	text-decoration: underline;
+}
+
+.internal-link:visited {
+	color: #507727;
+}
+
+.external-link {
+	color: #D67814;
+}
+
+.external-link:hover {
+	color: #D67814;
+	text-decoration: underline;
+}
+
+.external-link:visited {
+	color: #507727;
+}
+
+
+/* =========================================== 
+	Bootstrap Tokenfield
+   =========================================== */
+
+span.ui-helper-hidden-accessible{
+	display: none;
+}
+
+.token {
+	max-width: 100%;
+}
+.token > span {
+	max-width: 100% !important;
+}
+
+/* =========================================== 
+	Smaller Screen Sizes
+   =========================================== */
+@media screen and (max-width: 480px) {
+
+	#table_organizations.table thead tr th,
+	#table_organizations.table tbody tr td {
+		max-width: 100%;
+	}
+
+    #table_organizations.table tbody tr td {
+    	display: block;
+    }
+
+    .table>tbody>tr>td {
+    	border: 0px;
+    }
+
+    .table>tbody>tr {
+    	margin-bottom: 5px;
+    	margin-top: 5px;
+    }
+
+    #table_organizations.table tbody tr td:last-child {
+    	border-bottom: 1px solid lightgray;
+    }
+
+}

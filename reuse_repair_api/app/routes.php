@@ -22,7 +22,9 @@ foreach ($routes_api as $api_fname) {
 Load the WEB page routes
 ===============================================*/
 $routes_web = array(
-
+    'categories.php',
+    'items.php',
+    'organizations.php',
 );
 
 define("ROUTES_WEB", "routes/web/");
