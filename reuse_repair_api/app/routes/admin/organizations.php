@@ -5,14 +5,29 @@ LIST ALL
 =========================================================================== */
 $app->get('/admin/organizations', $authenticated_user(), function () use ($app, $db) {
     $results = array();
+    $filters = array();
     foreach ($db->organizations()->order('name') as $row) {
 
         $org_type = null;
+        $org_id   = null;
         $query    = $db->organizationtype->where('id', intval($row['org_type']));
         if ($data = $query->fetch()) {
+            $org_id   = $data['id'];
             $org_type = $data['description'];
         }
 
+        // update filter
+        if (!array_key_exists($org_id, $filters)) {
+            $filters[$org_id] = array(
+                'description' => $org_type,
+                'count'       => 1,
+            );
+        } else {
+            $count                     = $filters[$org_id]['count'];
+            $filters[$org_id]['count'] = intval($count + 1);
+        }
+
+        //get descriptions
         $service_items = $db->organizationitems->select('item_id')->where('org_id', intval($row['id']));
         $items         = array();
         foreach ($service_items as $key => $value) {
@@ -23,6 +38,7 @@ $app->get('/admin/organizations', $authenticated_user(), function () use ($app, 
             'id'            => $row['id'],
             'name'          => utf8_encode($row['name']),
             'org_type'      => $org_type,
+            'org_id'        => $org_id,
             'street_1'      => $row['street1'],
             'street_2'      => $row['street2'],
             'city'          => $row['city'],
@@ -37,6 +53,7 @@ $app->get('/admin/organizations', $authenticated_user(), function () use ($app, 
 
     $app->render('admin/show_organizations.php', [
         'results' => $results,
+        'filters' => $filters,
     ]);
 
 })->name('organizations.showall');

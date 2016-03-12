@@ -515,6 +515,32 @@ $("#form_insert_organizationitem").submit(function() {
 
 });
 
+
+$(".filter_cb").on('click', function(){
+	var is_checked =  $(this).is(':checked');
+	var id = $(this).attr('value');
+
+
+	if (!is_checked) {
+
+		$('.row_' + id).removeClass('animated lightSpeedIn').addClass('animated bounceOut');
+
+		setTimeout(function() {
+			$('.row_' + id).hide();
+		}, 600);
+
+	} else {
+
+		$('.row_' + id).removeClass('animated bounceOut').addClass('animated lightSpeedIn');
+		
+		setTimeout(function() {
+			$('.row_' + id).show();
+		}, 300);
+	}
+	
+});
+
+
 /*==========================================================
 	Business Hours
   ========================================================== */

@@ -3,6 +3,8 @@
 $app->get('/admin/items', $authenticated_user(), function () use ($app, $db) {
 
     $results = array();
+    $filters = array();
+
     foreach ($db->items() as $row) {
 
         $cat_desc = null;
@@ -13,6 +15,18 @@ $app->get('/admin/items', $authenticated_user(), function () use ($app, $db) {
         if ($data = $query->fetch()) {
             $cat_desc = $data['description'];
             $cat_id   = $data['id'];
+
+            //update filter list
+            if (!array_key_exists($row['category'], $filters)) {
+                $filters[$row['category']] = array(
+                    'description' => $cat_desc,
+                    'count'       => 1,
+                );
+            } else {
+                $count                              = $filters[$row['category']]['count'];
+                $filters[$row['category']]['count'] = intval($count + 1);
+            }
+
         }
 
         $results[] = array(
@@ -27,5 +41,6 @@ $app->get('/admin/items', $authenticated_user(), function () use ($app, $db) {
 
     $app->render('admin/show_items.php', [
         'results' => $results,
+        'filters' => $filters,
     ]);
 });

@@ -11,6 +11,7 @@
 		<link rel="stylesheet" type="text/css" href="{{ AssetsURL }}/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="{{ AssetsURL }}/css/admin_content.css">
 		<link rel="stylesheet" type="text/css" href="{{ AssetsURL }}/css/bootstrap-tokenfield.min.css">
+		<link rel="stylesheet" type="text/css" href="{{ AssetsURL }}/css/toastr.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="{{ AssetsURL }}/css/animate.css">
 		{% block other_css %}{% endblock %}
@@ -27,12 +28,14 @@
 		<script src="{{ AssetsURL }}/js/bootstrap.min.js"></script>
 		<script src="{{ AssetsURL }}/js/jquery-ui.min.js"></script>
 		<script src="{{ AssetsURL }}/js/bootstrap-tokenfield.min.js"></script>
-
+		<script src="{{ AssetsURL }}/js/toastr.min.js"></script>
 
 		<script src="{{ AssetsURL }}/js/custom_functions.js"></script>
 		<script src="{{ AssetsURL }}/js/custom_organizations.js"></script>
 		<script src="{{ AssetsURL }}/js/custom_items.js"></script>
 		<script src="{{ AssetsURL }}/js/custom_categories.js"></script>
+
+
 
 
 		{% block other_js %}{% endblock %}

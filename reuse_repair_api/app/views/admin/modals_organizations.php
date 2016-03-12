@@ -169,6 +169,8 @@
 
         <div class="modal-body">
           <div class="form-horizontal">
+          <p class="bg-warning">Format: HH:MM:SS </p>
+
 
             <div class="form-group">
               <label class="col-sm-2 control-label"></label>

@@ -13,9 +13,31 @@
     <button class="btn btn btn-primary" data-toggle="modal" href='#modal-edit-organization' id="btn_add_organizations">
         <i class="fa fa-plus-circle"></i> New Record
       </button>
+    <button class="btn btn-warning" data-toggle="collapse" data-target="#filter_container">
+      <i class="fa fa-filter"></i> Filters
+    </button>
+
   </h1>
 
+
 </div>
+
+
+<div class="panel panel-default collapse bg-gray" id="filter_container">
+{% if filters is defined %}
+  <div class="panel-body">
+  {% for key, value in filters %}
+    <label class="checkbox-inline" for="cb_{{key}}">
+    <input type="checkbox" value="{{key}}" class="filter_cb" id="cb_{{key}}" checked>
+
+      {{ value.description }} <span class="badge">{{value.count}}</span>
+    </label>
+  {% endfor %}
+  </div>
+{% endif %}
+</div>
+
+
 
   <table class="table table-hover" id="table_organizations">
     <thead>
@@ -28,13 +50,13 @@
     </thead>
     <tbody id="tbody-organizations">
     {% for item in results %}
-      <tr class="filter_{{item.org_type}}" id="record_{{item.id}}">
+      <tr class="row_{{item.org_id}}" id="record_{{item.id}}">
         <td id="org_type_{{item.id}}" class="col-md-1 hidden-xs">{{ item.org_type }}</td>
         <td class="col-md-3">
           <strong><span id="org_name_{{item.id}}" class="row_org_name">{{ item.name }}</span></strong><br/>
           {% if item.webpage is defined %}
             {% if (item.webpage|length) and (item.webpage is not null) %}
-            <a href="{{ item.webpage }}" id="org_url_{{item.id}}" class="row_org_url" target="_blank">WWW</a>
+            <a href="{{ item.webpage }}" id="org_url_{{item.id}}" class="row_org_url" target="_blank">Website</a>
             {% endif %}
           {% endif %}
 
@@ -84,16 +106,16 @@
         </td>
         <td class="col-md-1">
           <div class="btn-group btn-group-xs" role="group" aria-label="...">
-            <button class="btn edit-org-entry org_edit btn-gray-dark1" data-toggle="modal" href='#modal-edit-organization' data-record-id="{{item.id}}">
+            <button class="btn edit-org-entry org_edit btn-primary" data-toggle="modal" href='#modal-edit-organization' data-record-id="{{item.id}}">
               <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
             </button>
-            <a class="btn org_edit btn-gray-dark2" href="organizations/{{item.id}}">
+            <a class="btn org_edit btn-success" href="organizations/{{item.id}}">
               <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
             </a>
-            <button class="btn add-orghours-entry org_edit btn-gray-dark2" data-toggle="modal" href='#modal-insert-organizationhours' data-record-id="{{item.id}}" data-record-name="{{item.name}}">
+            <button class="btn add-orghours-entry org_edit btn-info" data-toggle="modal" href='#modal-insert-organizationhours' data-record-id="{{item.id}}" data-record-name="{{item.name}}">
               <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
             </button>
-            <button class="btn delete-org-entry org_edit btn-gray-dark1" data-toggle="modal" href='#modal-delete-organization' data-record-id="{{item.id}}" data-record-name="{{item.name}}">
+            <button class="btn delete-org-entry org_edit btn-danger" data-toggle="modal" href='#modal-delete-organization' data-record-id="{{item.id}}" data-record-name="{{item.name}}">
               <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
             </button>
           </div>

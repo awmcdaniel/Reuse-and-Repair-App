@@ -34,7 +34,7 @@
   <div class="panel-body">
   {% for key, value in filters %}
   	<label class="checkbox-inline" for="cb_{{key}}">
-    <input type="checkbox" value="{{key}}" id="cb_{{key}}" checked>
+    <input type="checkbox" value="{{key}}" class="filter_cb" id="cb_{{key}}" checked>
 
     	{{ value.description }} <span class="badge">{{value.count}}</span>
     </label>
@@ -57,7 +57,7 @@
 
 	<tbody id="tbody-org-items">
 	{% for item in results %}
-		<tr id="record_{{item.record_id}}">
+		<tr id="record_{{item.record_id}}" class="row_{{item.category_id}}">
 			<td class="col-md-4">{{ item.category }}</td>
 			<td class="col-md-7">{{ item.description }}</td>
 			<td class="col-md-1">
@@ -76,7 +76,5 @@
 {% endblock %}
 
 {% block other_js %}
-<script type="text/javascript">
 
-</script>
 {% endblock %}

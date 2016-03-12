@@ -88,9 +88,17 @@ $app->post('/api/itemcategory', function () use ($app, $db) {
 
         //no duplicate found
         $post_data = $app->request()->post();
-        $result    = $db->itemcategories->insert([
-            'description' => $post_data['description'],
-        ]);
+
+        if (strtolower($post_data['description']) == 'repair items') {
+            $result = $db->itemcategories->insert([
+                'description' => $post_data['description'],
+                'id'          => 1,
+            ]);
+        } else {
+            $result = $db->itemcategories->insert([
+                'description' => $post_data['description'],
+            ]);
+        }
 
         $query = $db->itemcategories()->where('id', $result);
         if ($row = $query->fetch()) {
