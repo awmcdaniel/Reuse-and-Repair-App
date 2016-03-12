@@ -54,7 +54,10 @@ $app->get('/api/itemcategory/:id', function ($id) use ($app, $db) {
             'items'       => $item_list,
         );
 
-        echo json_encode(["data" => $results]);
+        echo json_encode([
+            "status" => 200,
+            "data"   => $results,
+        ]);
 
     } else {
 
@@ -108,7 +111,10 @@ $app->post('/api/itemcategory', function () use ($app, $db) {
                 'description' => $row['description'],
             );
 
-            echo json_encode(["data" => $results]);
+            echo json_encode([
+                "status" => 200,
+                "data"   => $results,
+            ]);
 
         } else {
 

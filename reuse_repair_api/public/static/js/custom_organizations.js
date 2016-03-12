@@ -333,12 +333,19 @@ $("#form_insert_organization").submit(function(event) {
 		postData_filtered.push(object);
 	});
 
-	console.log(postData_filtered);
 	$.ajax({
 			url: action,
 			type: method,
 			data: postData_filtered,
-			dataType: "json", 
+			dataType: "json",
+			complete: function(xhr, textStatus) {
+				if (xhr['status'] != 200 ) {
+					var resp_obj = JSON.parse(xhr['responseText']);
+					var status = resp_obj['status'];
+					var message = resp_obj['message'];
+					toastr.error(message, "Error Code: " + status);
+				}
+			}, 
 			success: function (response) {
 
 				if (method === "POST") {
@@ -426,14 +433,9 @@ $(document).on('click', '.delete_item', function() {
 			}
 		})
 	.done(function(data) {
-		console.log('done');
 	});
 });
 
-
-$("#btn_org_add_item").click(function() {
-	console.log("button");
-});
 
 
 $("#form_insert_organizationitem").submit(function() {
@@ -461,15 +463,26 @@ $("#form_insert_organizationitem").submit(function() {
 		postData.push(items);
 	});
 
-	console.log(postData);
 	// send the data
 	$.ajax({
 			url: base_url + '/admin/organizations/items',
 			type: 'POST',
 			dataType: "json", 
 			data: postData,
+			complete: function(xhr, textStatus) {
+				if (xhr['status'] != 200 ) {
+					var resp_obj = JSON.parse(xhr['responseText']);
+					var status = resp_obj['status'];
+					var message = resp_obj['message'];
+					toastr.error(message, "Error Code: " + status);
+				}
+			},
 			success: function (response) {
-				console.log(response);
+
+				if (response['already_exist'].length > 0) {
+					toastr.info("Some items not added. Already Exist.")
+				};
+
 				$('#input_org_items').tokenfield('setTokens', []);
 
 				var frag = document.createDocumentFragment();
@@ -585,7 +598,6 @@ $("#form_insert_organizationhours").submit(function(){
   	var token = $("#modal-insert-organizationhours #token").attr('value');
   	$("#modal-insert-organizationhours #token").val(token);
   	var postData = $(this).serializeArray();
-  	console.log(postData);
 	// send the data
 	$.ajax({
 			url: base_url + '/api/organizationhours/' + id,
@@ -593,7 +605,6 @@ $("#form_insert_organizationhours").submit(function(){
 			dataType: "json", 
 			data: postData,
 			success: function (data) {
-				console.log(data);
 			}
 		})
 	.done(function(data) {

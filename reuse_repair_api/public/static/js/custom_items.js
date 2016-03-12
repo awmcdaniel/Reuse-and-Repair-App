@@ -63,7 +63,15 @@ $("#form_insert_items").submit(function(event) {
 			url: action,
 			type: method,
 			data: postData,
-			dataType: "json", 
+			dataType: "json",
+			complete: function(xhr, textStatus) {
+				if (xhr['status'] != 200 ) {
+					var resp_obj = JSON.parse(xhr['responseText']);
+					var status = resp_obj['status'];
+					var message = resp_obj['message'];
+					toastr.error(message, "Error Code: " + status);
+				}
+			},
 			success: function (response) {
 
 				var new_id = response['data']['id'];

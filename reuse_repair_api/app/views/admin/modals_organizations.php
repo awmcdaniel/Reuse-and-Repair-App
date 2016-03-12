@@ -21,7 +21,7 @@
 
           <div class="form-group">
             <label for="input_name" >Name</label>
-            <input type="text" class="form-control" id="input_name" name="name" placeholder="Organization Name">
+            <input type="text" class="form-control" id="input_name" name="name" placeholder="Organization Name" required>
           </div>
 
           <div class="form-group">

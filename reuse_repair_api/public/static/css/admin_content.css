@@ -7,6 +7,11 @@
   src: url('../fonts/BebasNeue.otf');
 }
 
+
+#toast-container {
+	top: 70px;
+}
+
 /* ------- Bootstrap override --------*/
 .btn {
 	border: 0px;

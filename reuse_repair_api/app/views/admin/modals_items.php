@@ -21,7 +21,7 @@
 
           <div class="form-group">
             <label for="input_description" >Description</label>
-            <input type="text" class="form-control" id="input_description" name="description" placeholder="Description">
+            <input type="text" class="form-control" id="input_description" name="description" placeholder="Description" required>
           </div>
 
 
