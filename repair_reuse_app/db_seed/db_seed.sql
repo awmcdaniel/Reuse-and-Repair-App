@@ -1,19 +1,17 @@
-DROP DATABASE IF EXISTS test_api;
-CREATE DATABASE IF NOT EXISTS test_api;
-USE test_api;
+USE repair_reuse_app;
 
-CREATE TABLE Users (
+CREATE TABLE users (
 	id 			int UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	username		varchar(255) NOT NULL,
 	password		varchar(255) NOT NULL
 );
 
-CREATE TABLE OrganizationType (
+CREATE TABLE organizationtype (
 	id 			int UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	description		varchar(255)
 );
 
-CREATE TABLE Organizations (
+CREATE TABLE organizations (
 	id 			int UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	org_type		int UNSIGNED,
 	name 		varchar(255) NOT NULL,
@@ -27,40 +25,40 @@ CREATE TABLE Organizations (
 	notes		varchar(255) DEFAULT NULL,
 	created_at	datetime,
 	updated_at	datetime,
-	FOREIGN KEY (org_type) REFERENCES OrganizationType (id)
+	FOREIGN KEY (org_type) REFERENCES organizationtype (id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
 );
 
-CREATE TABLE ItemCategories (
+CREATE TABLE itemcategories (
 	id 			int UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	description		varchar(255)
 );
 
-CREATE TABLE Items (
+CREATE TABLE items (
 	id 			int UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	description 	varchar(255) NOT NULL,
 	category		int UNSIGNED,
 	created_at	datetime,
 	updated_at	datetime,
-	FOREIGN KEY (category) REFERENCES ItemCategories (id)
+	FOREIGN KEY (category) REFERENCES itemcategories (id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
 );
 
-CREATE TABLE OrganizationItems (
+CREATE TABLE organizationitems (
 	id 			int UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	org_id		int UNSIGNED NOT NULL,
 	item_id		int UNSIGNED NOT NULL,
-	FOREIGN KEY (org_id) REFERENCES Organizations (id)
+	FOREIGN KEY (org_id) REFERENCES organizations (id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
-	FOREIGN KEY (item_id) REFERENCES Items (id)
+	FOREIGN KEY (item_id) REFERENCES items (id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
 );
 
-CREATE TABLE OrganizationHours (
+CREATE TABLE organizationhours (
 	org_id 		int UNSIGNED UNIQUE NOT NULL,
 	mon_start		time,
 	mon_end		time,
@@ -76,26 +74,26 @@ CREATE TABLE OrganizationHours (
 	sat_end		time,
 	sun_start		time,
 	sun_end		time,
-	FOREIGN KEY (org_id) REFERENCES Organizations (id)
+	FOREIGN KEY (org_id) REFERENCES organizations (id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
 );
 
 /* ========================================================================
-	ADD Users ENTITIES
+	ADD users ENTITIES
    ======================================================================== */
 INSERT INTO
-	Users (`username`, `password`)
+	users (`username`, `password`)
 VALUES
 	("TestUser", "password1"),
 	("TestUser2", "password1")
 	;
 	
 /* ========================================================================
-	ADD OrganizationType ENTITIES
+	ADD organizationtype ENTITIES
    ======================================================================== */
 INSERT INTO 
-	OrganizationType (`id`, `description`)
+	organizationtype (`id`, `description`)
 VALUES 
 	(1, "Reuse"),
 	(2, "Repair"),
@@ -103,19 +101,19 @@ VALUES
 	;
 
 /* ========================================================================
-	ADD ItemCategories ENTITIES
+	ADD itemcategories ENTITIES
    ======================================================================== */
 INSERT INTO 
-	ItemCategories(`id`, `description`)
+	itemcategories(`id`, `description`)
 VALUES 
-	(1, "Repair Items"),
+	(1, "Repair items"),
 	(2, "Household"),
 	(3, "Bedding/Bath"),
 	(4, "Children's Goods"),
 	(5, "Appliances - Small"),
 	(6, "Appliances - Large"),
 	(7, "Building/Home Improvement"),
-	(8, "Wearable Items"),
+	(8, "Wearable items"),
 	(9, "Usable Electronics"),
 	(10, "Sporting Equipment/Camping"),
 	(11, "Garden"),
@@ -126,270 +124,17 @@ VALUES
 	(16, "Miscellaneous")
 	;
 	
-/* ========================================================================
-	PROCEDURES FOR CREATING OrganizationItems ENTITIES
-   ======================================================================== */	
 
-DELIMITER $$  
-CREATE PROCEDURE addHousehold(IN orgID INT(255))
-	BEGIN
-      		DECLARE num INT(255) Default 14;
-    	simple_loop: LOOP
-    		INSERT INTO OrganizationItems (`org_id`, `item_id`)
-    		VALUES (orgID, num);
-    		SET num = num + 1;
-         	IF num > 29 THEN
-        		LEAVE simple_loop;
-        	END IF; 	
-   	END LOOP simple_loop;
-	END $$
-DELIMITER ;
-
-DELIMITER $$  
-CREATE PROCEDURE addBeddingBath(IN orgID INT(255))
-	BEGIN
-      		DECLARE num INT(255) Default 30;
-    	simple_loop: LOOP
-    		INSERT INTO OrganizationItems (`org_id`, `item_id`)
-    		VALUES (orgID, num);
-    		SET num = num + 1;
-         	IF num > 35 THEN
-        		LEAVE simple_loop;
-        	END IF; 	
-   	END LOOP simple_loop;
-	END $$
-DELIMITER ;
-
-DELIMITER $$  
-CREATE PROCEDURE addChildrensGoods(IN orgID INT(255))
-	BEGIN
-      		DECLARE num INT(255) Default 36;
-    	simple_loop: LOOP
-    		INSERT INTO OrganizationItems (`org_id`, `item_id`)
-    		VALUES (orgID, num);
-    		SET num = num + 1;
-         	IF num > 47 THEN
-        		LEAVE simple_loop;
-        	END IF; 	
-   	END LOOP simple_loop;
-	END $$
-DELIMITER ;
-
-DELIMITER $$  
-CREATE PROCEDURE addAppliancesSmall(IN orgID INT(255))
-	BEGIN
-      		DECLARE num INT(255) Default 54;
-    	simple_loop: LOOP
-    		INSERT INTO OrganizationItems (`org_id`, `item_id`)
-    		VALUES (orgID, num);
-    		SET num = num + 1;
-         	IF num > 60 THEN
-        		LEAVE simple_loop;
-        	END IF; 	
-   	END LOOP simple_loop;
-	END $$
-DELIMITER ;
-
-DELIMITER $$  
-CREATE PROCEDURE addAppliancesLarge(IN orgID INT(255))
-	BEGIN
-      		DECLARE num INT(255) Default 61;
-    	simple_loop: LOOP
-    		INSERT INTO OrganizationItems (`org_id`, `item_id`)
-    		VALUES (orgID, num);
-    		SET num = num + 1;
-         	IF num > 65 THEN
-        		LEAVE simple_loop;
-        	END IF; 	
-   	END LOOP simple_loop;
-	END $$
-DELIMITER ;
-
-DELIMITER $$  
-CREATE PROCEDURE addBuildingHomeImprovement(IN orgID INT(255))
-	BEGIN
-      		DECLARE num INT(255) Default 66;
-    	simple_loop: LOOP
-    		INSERT INTO OrganizationItems (`org_id`, `item_id`)
-    		VALUES (orgID, num);
-    		SET num = num + 1;
-         	IF num > 88 THEN
-        		LEAVE simple_loop;
-        	END IF; 	
-   	END LOOP simple_loop;
-	END $$
-DELIMITER ;
-
-DELIMITER $$  
-CREATE PROCEDURE addSportingEquipmentCamping(IN orgID INT(255))
-	BEGIN
-      		DECLARE num INT(255) Default 119;
-    	simple_loop: LOOP
-    		INSERT INTO OrganizationItems (`org_id`, `item_id`)
-    		VALUES (orgID, num);
-    		SET num = num + 1;
-         	IF num > 137 THEN
-        		LEAVE simple_loop;
-        	END IF; 	
-   	END LOOP simple_loop;
-	END $$
-DELIMITER ;
-
-DELIMITER $$  
-CREATE PROCEDURE addGarden(IN orgID INT(255))
-	BEGIN
-      		DECLARE num INT(255) Default 138;
-    	simple_loop: LOOP
-    		INSERT INTO OrganizationItems (`org_id`, `item_id`)
-    		VALUES (orgID, num);
-    		SET num = num + 1;
-         	IF num > 146 THEN
-        		LEAVE simple_loop;
-        	END IF; 	
-   	END LOOP simple_loop;
-	END $$
-DELIMITER ;
-
-DELIMITER $$  
-CREATE PROCEDURE addMedicalSupplies(IN orgID INT(255))
-	BEGIN
-      		DECLARE num INT(255) Default 156;
-    	simple_loop: LOOP
-    		INSERT INTO OrganizationItems (`org_id`, `item_id`)
-    		VALUES (orgID, num);
-    		SET num = num + 1;
-         	IF num > 167 THEN
-        		LEAVE simple_loop;
-        	END IF; 	
-   	END LOOP simple_loop;
-	END $$
-DELIMITER ;
-
-DELIMITER $$  
-CREATE PROCEDURE addOfficeEquipment(IN orgID INT(255))
-	BEGIN
-      		DECLARE num INT(255) Default 168;
-    	simple_loop: LOOP
-    		INSERT INTO OrganizationItems (`org_id`, `item_id`)
-    		VALUES (orgID, num);
-    		SET num = num + 1;
-         	IF num > 174 THEN
-        		LEAVE simple_loop;
-        	END IF; 	
-   	END LOOP simple_loop;
-	END $$
-DELIMITER ;
-
-DELIMITER $$  
-CREATE PROCEDURE addPackingMaterials(IN orgID INT(255))
-	BEGIN
-      		DECLARE num INT(255) Default 179;
-    	simple_loop: LOOP
-    		INSERT INTO OrganizationItems (`org_id`, `item_id`)
-    		VALUES (orgID, num);
-    		SET num = num + 1;
-         	IF num > 181 THEN
-        		LEAVE simple_loop;
-        	END IF; 	
-   	END LOOP simple_loop;
-	END $$
-DELIMITER ;
-
-DELIMITER $$  
-CREATE PROCEDURE addBrownPaperShoppingBags(IN orgID INT(255))
-	BEGIN
-    		INSERT INTO OrganizationItems (`org_id`, `item_id`)
-    		VALUES 
-    			(orgID, 187),
-    			(orgID, 192)
-			;
-	END $$
-DELIMITER ;
-
-DELIMITER $$  
-CREATE PROCEDURE addCDsVideoGames(IN orgID INT(255))
-	BEGIN
-    		INSERT INTO OrganizationItems (`org_id`, `item_id`)
-    		VALUES 
-    			(orgID, 101),
-    			(orgID, 106)
-			;
-	END $$
-DELIMITER ;
-
-DELIMITER $$  
-CREATE PROCEDURE addWearableItems(IN orgID INT(255))
-	BEGIN
-      		DECLARE num INT(255) Default 89;
-    	simple_loop: LOOP
-    		INSERT INTO OrganizationItems (`org_id`, `item_id`)
-    		VALUES (orgID, num);
-    		SET num = num + 1;
-         	IF num > 96 THEN
-        		LEAVE simple_loop;
-        	END IF; 	
-   	END LOOP simple_loop;
-	END $$
-DELIMITER ;
-
-DELIMITER $$  
-CREATE PROCEDURE addComputersMonitors1(IN orgID INT(255))
-	BEGIN
-    		INSERT INTO OrganizationItems (`org_id`, `item_id`)
-    		VALUES 
-    			(orgID, 103),
-    			(orgID, 109)
-			;
-	END $$
-DELIMITER ;
-
-DELIMITER $$  
-CREATE PROCEDURE addComputersMonitors2(IN orgID INT(255))
-	BEGIN
-    		INSERT INTO OrganizationItems (`org_id`, `item_id`)
-    		VALUES 
-    			(orgID, 169),
-    			(orgID, 172)
-			;
-	END $$
-DELIMITER ;
-
-DELIMITER $$  
-CREATE PROCEDURE addUseableElectronics(IN orgID INT(255))
-	BEGIN
-      		DECLARE num INT(255) Default 97;
-    	simple_loop: LOOP
-    		INSERT INTO OrganizationItems (`org_id`, `item_id`)
-    		VALUES (orgID, num);
-    		SET num = num + 1;
-         	IF num > 118 THEN
-        		LEAVE simple_loop;
-        	END IF; 	
-   	END LOOP simple_loop;
-	END $$
-DELIMITER ;
-
-DELIMITER $$  
-CREATE PROCEDURE addFoodUnopened(IN orgID INT(255))
-	BEGIN
-    		INSERT INTO OrganizationItems (`org_id`, `item_id`)
-    		VALUES 
-    			(orgID, 152),
-    			(orgID, 154),
-    			(orgID, 155)
-			;
-	END $$
-DELIMITER ;
 	
 /* ========================================================================
-	ADD Items ENTITIES
+	ADD items ENTITIES
    ======================================================================== */
 
 INSERT INTO
-	Items (`id`, `description`, `category`)
+	items (`id`, `description`, `category`)
 VALUES
 
-	(1, 'Cell phones', 1),				/* category = Repair Items */
+	(1, 'Cell phones', 1),				/* category = Repair items */
 	(2, 'Small appliances', 1),
 	(3, 'Books', 1),
 	(4, 'Clothes', 1),
@@ -484,7 +229,7 @@ VALUES
 	(87, 'Vinyl', 7),
 	(88, 'Windows', 7),
 	
-	(89, 'Belts', 8),					/* category = Wearable Items */				
+	(89, 'Belts', 8),					/* category = Wearable items */				
 	(90, 'Boots', 8),
 	(91, 'Clothes', 8),
 	(92, 'Coats', 8),
@@ -600,12 +345,12 @@ VALUES
 	;
 	
 /* ========================================================================
-	ADD REUSE Organizations ENTITIES WITH CORRESPONDING Hours AND OrganizationItems ENTITIES
+	ADD REUSE organizations ENTITIES WITH CORRESPONDING Hours AND organizationitems ENTITIES
    ======================================================================== */
 
 /* 1 - ALBANY-CORVALLIS REUSEIT */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(1, 1, 'Albany-Corvallis ReUseIt', 
 	Null, 
@@ -619,7 +364,7 @@ VALUES
 	;
 	
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(1,
@@ -632,31 +377,19 @@ VALUES
 	Null, Null)
 	;
 	
-CALL addAppliancesLarge(1);
-CALL addAppliancesSmall(1);
-CALL addBeddingBath(1);
-CALL addSportingEquipmentCamping(1);
-CALL addBrownPaperShoppingBags(1);
-CALL addBuildingHomeImprovement(1);
-CALL addChildrensGoods(1);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (1, 189);		/* computer paper */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (1, 182);		/* egg cartons */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (1, 184);		/* fabric */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (1, 183);		/* firewood */
-CALL addFoodUnopened(1);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (1, 153);		/* food garden */
-CALL addGarden(1);
-CALL addUseableElectronics(1);
-CALL addMedicalSupplies(1);
-CALL addPackingMaterials(1);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (1, 186);		/* pet supplies */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (1, 188);		/* vehicles parts */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (1, 193);		/* garden pots */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (1, 194);		/* office supplies */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (1, 189);		/* computer paper */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (1, 182);		/* egg cartons */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (1, 184);		/* fabric */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (1, 183);		/* firewood */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (1, 153);		/* food garden */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (1, 186);		/* pet supplies */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (1, 188);		/* vehicles parts */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (1, 193);		/* garden pots */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (1, 194);		/* office supplies */
 
 /* 2 - ARC THRIFT STORES (CORVALLIS) */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(2, 1, 'Arc Thrift Stores (Corvallis)',
 	'928 NW Beca Ave.',
@@ -670,7 +403,7 @@ VALUES
 	;
 	
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(2,
@@ -683,26 +416,16 @@ VALUES
 	'10:00', '17:30')
 	;
 	
-CALL addAppliancesSmall(2);
-CALL addBeddingBath(2);
-CALL addSportingEquipmentCamping(2);
-CALL addBrownPaperShoppingBags(2);
-CALL addChildrensGoods(2);
-CALL addWearableItems(2);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (2, 184);		/* fabric */
-CALL addGarden(2);
-CALL addUseableElectronics(2);
-CALL addHousehold(2);
-CALL addMedicalSupplies(2);
-CALL addOfficeEquipment(2);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (2, 186);		/* pet supplies */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (2, 188);		/* vehicles parts */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (2, 193);		/* garden pots */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (2, 194);		/* office supplies */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (2, 184);		/* fabric */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (2, 186);		/* pet supplies */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (2, 188);		/* vehicles parts */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (2, 193);		/* garden pots */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (2, 194);		/* office supplies */
 
 /* 3 - ARC THRIFT STORES (Philomath) */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(3, 1, 'Arc Thrift Stores (Philomath)',
 	'936 Main St.',
@@ -716,7 +439,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(3,
@@ -729,26 +452,15 @@ VALUES
 	'12:00', '17:30')
 	;
 	
-CALL addAppliancesSmall(3);
-CALL addBeddingBath(3);
-CALL addSportingEquipmentCamping(3);
-CALL addBrownPaperShoppingBags(3);
-CALL addChildrensGoods(3);
-CALL addWearableItems(3);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (3, 184);		/* fabric */
-CALL addGarden(3);
-CALL addUseableElectronics(3);
-CALL addHousehold(3);
-CALL addMedicalSupplies(3);
-CALL addOfficeEquipment(3);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (3, 186);		/* pet supplies */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (3, 188);		/* vehicles parts */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (3, 193);		/* garden pots */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (3, 194);		/* office supplies */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (3, 184);		/* fabric */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (3, 186);		/* pet supplies */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (3, 188);		/* vehicles parts */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (3, 193);		/* garden pots */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (3, 194);		/* office supplies */
 
 /* 4 - BEEKMAN PLACE ANTIQUE MALL */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(4, 1, 'Beekman Place Antique Mall',
 	'601 SW Western Blvd.',
@@ -762,7 +474,7 @@ VALUES
 	;
 	
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(4,
@@ -775,11 +487,11 @@ VALUES
 	'11:00', '17:00')
 	;	
 	
-CALL addHousehold(4);
+
 
 /* 5 - BENTON COUNTY EXTENSION - 4H ACTIVITIES */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(5, 1, 'Benton County Extension - 4H Activities',
 	'1849 NW 9th St.',
@@ -793,7 +505,7 @@ VALUES
 	;
 	
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(5,
@@ -806,13 +518,13 @@ VALUES
 	Null, Null)
 	;
 	
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (5, 14);			/* art supplies */
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (5, 184);		/* fabric */
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (5, 51);			/* school supplies */
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (5, 14);			/* art supplies */
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (5, 184);		/* fabric */
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (5, 51);			/* school supplies */
 
 /* 6 - BENTON COUNTY MASTER GARDENS */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(6, 1, 'Benton County Master Gardens',
 	'1849 NW 9th St.',
@@ -826,7 +538,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(6,
@@ -839,12 +551,12 @@ VALUES
 	Null, Null)
 	;
 	
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (6, 16);		/* books */
-CALL addGarden(6);
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (6, 16);		/* books */
+
 
 /* 7 - BOOK BIN */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(7, 1, 'Book Bin',
 	'215 SW 4th St.',
@@ -858,7 +570,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(7,
@@ -871,12 +583,12 @@ VALUES
 	'09:00', '19:00')
 	;	
 	
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (7, 16);		/* books */
-CALL addCDsVideoGames(7);
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (7, 16);		/* books */
+
 
 /* 8 - BROWSER'S BOOKSTORE */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(8, 1, 'Browser\'s Bookstore',
 	'121 NW 4th St.',
@@ -890,7 +602,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(8,
@@ -903,12 +615,12 @@ VALUES
 	Null, Null)
 	;
 	
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (8, 16);		/* books */
-CALL addCDsVideoGames(8);
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (8, 16);		/* books */
+
 
 /* 9 - BOYS & GIRLS CLUB/STARS (AFTER SCHOOL PROGRAMS) */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(9, 1, 'Boy & Girls Club/STARS (after school programs)',
 	'1112 NW Circle Blvd.',
@@ -922,7 +634,7 @@ VALUES
 	;
 	
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(9,
@@ -935,21 +647,18 @@ VALUES
 	Null, Null)
 	;
 	
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (9, 14);			/* art supplies */
-CALL addBrownPaperShoppingBags(9);
-CALL addCDsVideoGames(9);
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (9, 189);		/* computer paper */
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (9, 182);		/* egg cartons */
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (9, 184);		/* fabric */
-CALL addGarden(9);
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (9, 51);			/* school supplies */
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (9, 28);			/* toiletries */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (9, 193);		/* garden pots */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (9, 194);		/* office supplies */
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (9, 14);			/* art supplies */
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (9, 189);		/* computer paper */
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (9, 182);		/* egg cartons */
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (9, 184);		/* fabric */
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (9, 51);			/* school supplies */
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (9, 28);			/* toiletries */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (9, 193);		/* garden pots */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (9, 194);		/* office supplies */
 
 /* 10 - BUCKINGHAM PALACE */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(10, 1, 'Buckingham Palace',
 	'600 SW 3rd St.',
@@ -963,7 +672,7 @@ VALUES
 	;
 	
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(10,
@@ -976,17 +685,14 @@ VALUES
 	Null, Null)
 	;
 
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (10, 14);			/* art supplies */
-CALL addSportingEquipmentCamping(10);
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (10, 16);			/* books */
-CALL addBrownPaperShoppingBags(10);
-CALL addCDsVideoGames(10);
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (10, 184);			/* fabric */
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (10, 24);			/* furniture */
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (10, 14);			/* art supplies */
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (10, 16);			/* books */
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (10, 184);			/* fabric */
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (10, 24);			/* furniture */
 
 /* 11 -  CALVARY COMMUNITY OUTREACH */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(11, 1, 'Calvary Community Outreach',
 	'2125 NW Lester Ave.',
@@ -1000,7 +706,7 @@ VALUES
 	;
 	
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(11,
@@ -1015,7 +721,7 @@ VALUES
 	
 /* 12 - CARDV (Center Against Rape/Domestic Violence) */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(12, 1, 'CARDV (Center Against Rape/Domestic Violence)',
 	'4786 SW Philomath Blvd.',
@@ -1029,7 +735,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(12,
@@ -1042,15 +748,13 @@ VALUES
 	Null, Null)
 	;
 	
-CALL addAppliancesSmall(12);
-CALL addFoodUnopened(12);
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (12, 153);				/* food garden */
-CALL addUseableElectronics(12);
-CALL addHousehold(12);
+
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (12, 153);				/* food garden */
+
 
 /* 13 - CAREER CLOSET FOR WOMEN */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(13, 1, 'Career Closet for Women',
 	'942 NW 9th St.',
@@ -1064,7 +768,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(13,
@@ -1077,11 +781,11 @@ VALUES
 	Null, Null)
 	;
 	
-CALL addWearableItems(13);
+
 
 /* 14 - CAT'S MEOW HUMANE SOCIETY THRIFT SHOP */	
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(14, 1, 'Cat\'s Meow Humane Society Thrift Shop',
 	'411 SW 3rd St.',
@@ -1095,7 +799,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(14,
@@ -1108,24 +812,15 @@ VALUES
 	Null, Null)
 	;	
 	
-CALL addAppliancesSmall(14);
-CALL addBeddingBath(14);
-CALL addSportingEquipmentCamping(14);
-CALL addBrownPaperShoppingBags(14);
-CALL addChildrensGoods(14);
-CALL addWearableItems(14);
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (14, 184);				/* fabric */
-CALL addGarden(14);
-CALL addUseableElectronics(14);
-CALL addHousehold(14);
-CALL addMedicalSupplies(14);
-CALL addOfficeEquipment(14);
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (14, 186);				/* pet supplies */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (14, 194);		/* office supplies */
+
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (14, 184);				/* fabric */
+
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (14, 186);				/* pet supplies */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (14, 194);		/* office supplies */
 
 /* 15 - CHILDREN'S FARM HOME */	
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(15, 1, 'Children\'s Farm Home',
 	'4455 NE Hwy. 20',
@@ -1139,7 +834,7 @@ VALUES
 	;
 	
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(15,
@@ -1152,21 +847,17 @@ VALUES
 	Null, Null)
 	;
 	
-CALL addAppliancesSmall(15);
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (15, 14);				/* art supplies */
-CALL addSportingEquipmentCamping(15);
-CALL addBuildingHomeImprovement(15);
-CALL addChildrensGoods(15);
-CALL addWearableItems(15);
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (15, 24);				/*  furniture */
-CALL addGarden(15);
-CALL addUseableElectronics(15);
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (15, 28);				/* toiletries */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (15, 194);		/* office supplies */
+
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (15, 14);				/* art supplies */
+
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (15, 24);				/*  furniture */
+
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (15, 28);				/* toiletries */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (15, 194);		/* office supplies */
 
 /* 16 - CHINTIMINI WILDLIFE REHABILITATION CENTER */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(16, 1, 'Chintimini Wildlife Rehabilitation Center',
 	'311 Lewisburg Rd.',
@@ -1180,7 +871,7 @@ VALUES
 	;
 	
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(16,
@@ -1193,16 +884,14 @@ VALUES
 	Null, Null)
 	;
 	
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (16, 153);				/* food garden */
-CALL addGarden(16);
-CALL addMedicalSupplies(16);
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (16, 186);				/* pet supplies */
-CALL addBeddingBath(16);
-CALL addBuildingHomeImprovement(16);
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (16, 153);				/* food garden */
+
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (16, 186);				/* pet supplies */
+
 
 /* 17 - COMMUNITY OUTREACH (HOMELESS SHELTER) */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(17, 1, 'Community Outreach (Homeless Shelter)',
 	'865 NW Reiman Ave.',
@@ -1216,7 +905,7 @@ VALUES
 	;
 	
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(17,
@@ -1229,16 +918,16 @@ VALUES
 	Null, Null)
 	;
 	
-CALL addFoodUnopened(17);
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (17, 153);				/* food garden */
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (17, 14);				/* art supplies */
-CALL addBeddingBath(17);
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (17, 51);				/* school supplies */
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (17, 28);				/* toiletries */
+
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (17, 153);				/* food garden */
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (17, 14);				/* art supplies */
+
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (17, 51);				/* school supplies */
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (17, 28);				/* toiletries */
 
 /* 18 - CORVALLIS ENVIRONMENTAL CENTER */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(18, 1, 'Corvallis Environmental Center',
 	'214 SW Monroe Ave.',
@@ -1252,7 +941,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(18,
@@ -1265,15 +954,15 @@ VALUES
 	Null, Null)
 	;	
 	
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (18, 14);				/* art supplies */
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (18, 189);				/* computer paper */
-CALL addOfficeEquipment(18);
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (18, 51);				/* school supplies */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (18, 193);		/* garden pots */
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (18, 14);				/* art supplies */
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (18, 189);				/* computer paper */
+
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (18, 51);				/* school supplies */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (18, 193);		/* garden pots */
 
 /* 19 - CORVALLIS BICYCLE COLLECTIVE */	
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(19, 1, 'Corvallis Bicycle Collective',
 	'33900 SE Roche Ln./Hwy. 34',
@@ -1287,7 +976,7 @@ VALUES
 	;
 	
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(19,
@@ -1300,11 +989,11 @@ VALUES
 	'12:00', '16:00')
 	;	
 	
-CALL addSportingEquipmentCamping(19);
+
 
 /* 20 - CORVALLIS FURNITURE */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(20, 1, 'Corvallis Furniture',
 	'720 NE Granger Ave.',
@@ -1318,7 +1007,7 @@ VALUES
 	;
 	
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(20,
@@ -1331,12 +1020,12 @@ VALUES
 	'10:00', '15:00')
 	;	
 	
-CALL addSportingEquipmentCamping(20);
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (20, 24);				/* furniture */
+
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (20, 24);				/* furniture */
 
 /* 21 - CORVALLIS-UZHHOROD SISTER CITIES/THE TOUCH PROJECT */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(21, 1, 'Corvallis-Uzhhorod Sister Cities/The TOUCH Project',
 	Null,
@@ -1350,7 +1039,7 @@ VALUES
 	;
 	
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(21,
@@ -1363,11 +1052,11 @@ VALUES
 	Null, Null)
 	;
 	
-CALL addMedicalSupplies(21);
+
 
 /* 22 - COSMIC CHAMELEON */	
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(22, 1, 'Cosmic Chameleon',
 	'138 SW 2nd St.',
@@ -1381,7 +1070,7 @@ VALUES
 	;
 	
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(22,
@@ -1394,13 +1083,11 @@ VALUES
 	Null, Null)
 	;
 	
-CALL addBrownPaperShoppingBags(22);
-CALL addChildrensGoods(22);
-CALL addWearableItems(22);
+
 
 /* 23 - CRAIGSLIST (CORVALLIS.CRAIGSLIST.ORG) AND FREECYCLE.ORG */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(23, 1, 'Cosmic Chameleon',
 	Null,
@@ -1414,7 +1101,7 @@ VALUES
 	;
 	
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(23,
@@ -1427,33 +1114,20 @@ VALUES
 	Null, Null)
 	;
 	
-CALL addAppliancesLarge(23);
-CALL addAppliancesSmall(23);
-CALL addBeddingBath(23);
-CALL addBrownPaperShoppingBags(23);
-CALL addBuildingHomeImprovement(23);
-CALL addChildrensGoods(23);
-CALL addWearableItems(23);
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (23, 189);				/* computer paper */
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (23, 182);				/* egg cartons */
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (23, 184);				/* fabric */
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (23, 183);				/* firewood */
-CALL addFoodUnopened(23);
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (23, 153);				/* food garden */
-CALL addGarden(23);
-CALL addUseableElectronics(23);
-CALL addHousehold(23);
-CALL addMedicalSupplies(23);
-CALL addOfficeEquipment(23);
-CALL addPackingMaterials(23);
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (23, 186);				/* pet supplies */
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (23, 188);				/* vehicles parts */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (23, 193);		/* garden pots */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (23, 194);		/* office supplies */
+
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (23, 189);				/* computer paper */
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (23, 182);				/* egg cartons */
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (23, 184);				/* fabric */
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (23, 183);				/* firewood */
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (23, 153);				/* food garden */
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (23, 186);				/* pet supplies */
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (23, 188);				/* vehicles parts */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (23, 193);		/* garden pots */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (23, 194);		/* office supplies */
 
 /* 24 - FIRST ALTERNATIVE CO-OP RECYCLING CENTER  (SOUTH STORE)*/
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(24, 1, 'First Alternative Co-op Recycling Center (South Store)',
 	'1007 SE 3rd St.',
@@ -1467,7 +1141,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(24,
@@ -1480,14 +1154,12 @@ VALUES
 	'07:00', '22:00')
 	;
 	
-CALL addAppliancesLarge(24);
-CALL addAppliancesSmall(24);
-CALL addPackingMaterials(24);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (24, 193);		/* garden pots */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (24, 193);		/* garden pots */
 
 /* 25 - FIRST ALTERNATIVE CO-OP RECYCLING CENTER  (NORTH STORE)*/
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(25, 1, 'First Alternative Co-op Recycling Center (North Store)',
 	'2885 NW Grant St.',
@@ -1501,7 +1173,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(25,
@@ -1514,15 +1186,14 @@ VALUES
 	'07:00', '22:00')
 	;
 	
-CALL addBrownPaperShoppingBags(25);
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (25, 182);				/* egg cartons */
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (25, 160);				/* eyeglasses */
-CALL addFoodUnopened(25);
-INSERT INTO OrganizationItems (`org_id`, `item_id`) VALUES (25, 175);				/* printer refills */
+
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (25, 182);				/* egg cartons */
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (25, 160);				/* eyeglasses */
+INSERT INTO organizationitems (`org_id`, `item_id`) VALUES (25, 175);				/* printer refills */
 
 /* 26 - FURNITURE EXCHANGE */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(26, 1, 'Furniture Exchange',
 	'210 NW 2nd St.',
@@ -1536,7 +1207,7 @@ VALUES
 	;
 	
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(26,
@@ -1549,11 +1220,11 @@ VALUES
 	Null, Null)
 	;	
 	
-CALL addHousehold(26);
+
 
 /* 27 - FURNITURE SHARE (FORMERLY BENTON FS) */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(27, 1, 'Furniture Share (Formerly Benton FS)',
 	'155 SE Lily Ave.',
@@ -1567,7 +1238,7 @@ VALUES
 	;	
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(27,
@@ -1580,15 +1251,11 @@ VALUES
 	Null, Null)
 	;	
 	
-CALL addAppliancesLarge(27);
-CALL addAppliancesSmall(27);
-CALL addBeddingBath(27);
-CALL addUseableElectronics(27);
-CALL addHousehold(27);
+
 
 /* 28 - HOME GROWN GARDENS */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(28, 1, 'Home Grown Gardens',
 	'4845 SE 3rd St.',
@@ -1602,7 +1269,7 @@ VALUES
 	;	
 	
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(28,
@@ -1615,11 +1282,11 @@ VALUES
 	'12:00', '17:00')
 	;	
 	
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (28, 193);		/* garden pots */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (28, 193);		/* garden pots */
 
 /* 29 - GARLAND NURSERY */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(29, 1, 'Garland Nursey',
 	'5470 NE Hwy. 20',
@@ -1633,7 +1300,7 @@ VALUES
 	;	
 	
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(29,
@@ -1646,11 +1313,11 @@ VALUES
 	'10:00', '17:00')
 	;
 	
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (29, 193);		/* garden pots */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (29, 193);		/* garden pots */
 
 /* 30 - GOODWILL INDUSTRIES */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(30, 1, 'Goodwill Industries',
 	'1325 NW 9th St.',
@@ -1664,7 +1331,7 @@ VALUES
 	;	
 	
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(30,
@@ -1677,26 +1344,17 @@ VALUES
 	Null, Null)
 	;
 	
-CALL addAppliancesLarge(30);
-CALL addAppliancesSmall(30);
-CALL addBeddingBath(30);
-CALL addSportingEquipmentCamping(30);
-CALL addBuildingHomeImprovement(30);
-CALL addChildrensGoods(30);
-CALL addWearableItems(30);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (30, 184);		/*  fabric */
-CALL addGarden(30);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (30, 193);		/*  garden pots */
-CALL addUseableElectronics(30);
-CALL addHousehold(30);
-CALL addMedicalSupplies(30);
-CALL addOfficeEquipment(30);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (30, 186);		/*  pet supplies */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (30, 194);		/* office supplies */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (30, 184);		/*  fabric */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (30, 193);		/*  garden pots */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (30, 186);		/*  pet supplies */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (30, 194);		/* office supplies */
 
 /* 31- HABITAT FOR HUMANITY RESTORE */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(31, 1, 'Habitat for Humanity ReStore',
 	'4840 SW Philomath Blvd.',
@@ -1710,7 +1368,7 @@ VALUES
 	;	
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(31,
@@ -1723,23 +1381,16 @@ VALUES
 	Null, Null)
 	;	
 	
-CALL addAppliancesLarge(31);
-CALL addAppliancesSmall(31);
-CALL addSportingEquipmentCamping(31);
-CALL addBrownPaperShoppingBags(31);
-CALL addBuildingHomeImprovement(31);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (31, 183);		/*  firewood */
-CALL addGarden(31);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (31, 193);		/*  garden pots */
-CALL addUseableElectronics(31);
-CALL addHousehold(31);
-CALL addMedicalSupplies(31);
-CALL addOfficeEquipment(31);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (31, 194);		/* office supplies */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (31, 183);		/*  firewood */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (31, 193);		/*  garden pots */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (31, 194);		/* office supplies */
 
 /* 32 - HAPPY TRAILS RECORDS, TAPES, & CDS */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(32, 1, 'Happy Trails Records, Tapes, & CDs',
 	'100 SW 3rd St.',
@@ -1753,7 +1404,7 @@ VALUES
 	;	
 	
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(32,
@@ -1766,11 +1417,11 @@ VALUES
 	'12:00', '18:00')
 	;
 	
-CALL addCDsVideoGames(32);
+
 
 /* 33 - HEARTLAND HUMANE SOCIETY */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(33, 1, 'Heartland Humane Society',
 	'398 SW Twin Oaks Cir.',
@@ -1784,7 +1435,7 @@ VALUES
 	;	
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(33,
@@ -1797,12 +1448,12 @@ VALUES
 	'12:00', '17:00')
 	;	
 	
-CALL addSportingEquipmentCamping(33);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (33, 186);		/* pet supplies */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (33, 186);		/* pet supplies */
 
 /* 34 - HOME LIFE INC (FOR DEVELOP. DISABLED) */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(34, 1, 'Home Life Inc. (for develop. disabled)',
 	'2068 NW Fillmore Ave.',
@@ -1816,7 +1467,7 @@ VALUES
 	;	
 	
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(34,
@@ -1829,19 +1480,15 @@ VALUES
 	Null, Null)
 	;
 	
-CALL addBeddingBath(34);
-CALL addWearableItems(34);
-CALL addGarden(34);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (34, 193);		/* garden pots */
-CALL addUseableElectronics(34);
-CALL addHousehold(34);
-CALL addOfficeEquipment(34);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (34, 194);		/* office supplies */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (34, 188);		/* vehicles parts */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (34, 193);		/* garden pots */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (34, 194);		/* office supplies */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (34, 188);		/* vehicles parts */
 
 /* 35 - JACKSON STREET YOUTH SHELTER */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(35, 1, 'Jackson Street Youth Shelter',
 	'555 NW Jackson St.',
@@ -1855,7 +1502,7 @@ VALUES
 	;	
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(35,
@@ -1868,19 +1515,16 @@ VALUES
 	Null, Null)
 	;
 	
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (35, 14);		/* art supplies */
-CALL addBeddingBath(35);
-CALL addSportingEquipmentCamping(35);
-CALL addBuildingHomeImprovement(35);
-CALL addCDsVideoGames(35);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (35, 153);		/* art supplies */
-CALL addGarden(35);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (35, 194);		/* office supplies */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (35, 28);		/* toiletries */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (35, 14);		/* art supplies */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (35, 153);		/* art supplies */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (35, 194);		/* office supplies */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (35, 28);		/* toiletries */
 
 /* 36 - LINN BENTON FOOD SHARE (LARGE FOOD DONATIONS) */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(36, 1, 'Linn Benton Food Share',
 	'545 SW 2nd St.',
@@ -1894,7 +1538,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(36,
@@ -1907,11 +1551,11 @@ VALUES
 	Null, Null)
 	;
 	
-CALL addFoodUnopened(36);
+
 	
 /* 37 - LIONS CLUB (BOX INSIDE ELKS LODGE) */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(37, 1, 'Lions Club',
 	'1400 NW 9th St.',
@@ -1925,7 +1569,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(37,
@@ -1938,11 +1582,11 @@ VALUES
 	'12:00', '17:00')
 	;	
 	
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (37, 160);		/* eyeglasses */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (37, 160);		/* eyeglasses */
 
 /* 38 - LOVE INC (FOR LOW INCOME CITIZENS) */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(38, 1, 'Love INC',
 	'2330 NW Professional Dr.',
@@ -1956,7 +1600,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(38,
@@ -1969,27 +1613,17 @@ VALUES
 	Null, Null)
 	;
 	
-CALL addAppliancesLarge(38);
-CALL addAppliancesSmall(38);
-CALL addBeddingBath(38);
-CALL addSportingEquipmentCamping(38);
-CALL addChildrensGoods(38);
-CALL addWearableItems(38);
-CALL addComputersMonitors2(38);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (38, 184);		/* fabric */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (38, 183);		/* firewood */
-CALL addFoodUnopened(38);
-CALL addGarden(38);
-CALL addUseableElectronics(38);
-CALL addHousehold(38);
-CALL addMedicalSupplies(38);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (38, 194);		/* office supplies */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (38, 186);		/* pet supplies */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (38, 188);		/* vehicle parts */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (38, 184);		/* fabric */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (38, 183);		/* firewood */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (38, 194);		/* office supplies */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (38, 186);		/* pet supplies */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (38, 188);		/* vehicle parts */
 
 /* 39 - MANO PASTEGA HOUSE (GOOD SAM PATIENT FAMILY HOUSING) */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(39, 1, 'Mano Pastega House',
 	'3505 NW Samaritan Dr.',
@@ -2003,7 +1637,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(39,
@@ -2016,13 +1650,12 @@ VALUES
 	Null, Null)
 	;
 	
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (39, 16);		/* books */
-CALL addCDsVideoGames(39);
-CALL addFoodUnopened(39);
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (39, 16);		/* books */
+
 
 /* 40 - MARY'S RIVER GLEANERS (FOR LOW INCOME CITIZENS) */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(40, 1, 'Mary\'s River Gleaners',
 	'PO Box 2309',
@@ -2036,7 +1669,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(40,
@@ -2049,29 +1682,21 @@ VALUES
 	Null, Null)
 	;
 
-CALL addAppliancesLarge(40);
-CALL addAppliancesSmall(40);
-CALL addBeddingBath(40);
-CALL addSportingEquipmentCamping(40);
-CALL addBrownPaperShoppingBags(40);
-CALL addChildrensGoods(40);
-CALL addWearableItems(40);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (40, 184);		/* fabric */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (40, 183);		/* firewood */
-CALL addFoodUnopened(40);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (40, 153);		/* food garden */
-CALL addGarden(40);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (40, 193);		/* garden pots */
-CALL addUseableElectronics(40);
-CALL addHousehold(40);
-CALL addMedicalSupplies(40);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (40, 194);		/* office supplies */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (40, 186);		/* pet supplies */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (40, 188);		/* vehicles parts */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (40, 184);		/* fabric */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (40, 183);		/* firewood */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (40, 153);		/* food garden */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (40, 193);		/* garden pots */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (40, 194);		/* office supplies */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (40, 186);		/* pet supplies */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (40, 188);		/* vehicles parts */
 
 /* 41 - MIDWAY FARMS */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(41, 1, 'Midway Farms',
 	'6980 US Hwy. 20',
@@ -2085,7 +1710,7 @@ VALUES
 	;
 	
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(41,
@@ -2098,12 +1723,12 @@ VALUES
 	Null, Null)
 	;
 
-CALL addBrownPaperShoppingBags(41);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (41, 182);		/* egg cartons */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (41, 182);		/* egg cartons */
 
 /* 42 - NEIGHBOR TO NEIGHBOR */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(42, 1, 'Neighbor to Neighbor',
 	'1123 Main St.',
@@ -2117,7 +1742,7 @@ VALUES
 	;	
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(42,
@@ -2130,12 +1755,12 @@ VALUES
 	Null, Null)
 	;
 	
-CALL addFoodUnopened(42);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (42, 153);		/* food garden */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (42, 153);		/* food garden */
 
 /* 43 - OSBORN AQUATIC CENTER */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES
 	(43, 1, 'Osborn Aquatic Center',
 	'1940 NW Highland Dr.',
@@ -2149,7 +1774,7 @@ VALUES
 	;
 	
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(43,
@@ -2162,11 +1787,11 @@ VALUES
 	Null, Null)
 	;
 
-CALL addAppliancesLarge(43);
+
 
 /* 44 - OSU EMERGENCY FOOD PANTRY */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES		
 	(44, 1, 'OSU Emergency Food Pantry', 
 	'2150 SW Jefferson Way',
@@ -2180,7 +1805,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(44, 
@@ -2193,13 +1818,13 @@ VALUES
 	NULL, NULL)
 	;
 	
-CALL addFoodUnopened(44);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (44, 153);		/* food garden */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (44, 28);		/* toiletries */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (44, 153);		/* food garden */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (44, 28);		/* toiletries */
 
 /* 45 - OSU FOLK CLUB THRIFT SHOP */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES		
 	(45, 1, 'OSU Folk Club Thrift Shop', 
 	'144 NW 2nd St.', 
@@ -2213,7 +1838,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(45, 
@@ -2226,24 +1851,17 @@ VALUES
 	NULL, NULL)
 	;
 	
-CALL addAppliancesSmall(45);
-CALL addBeddingBath(45);
-CALL addSportingEquipmentCamping(45);
-CALL addBrownPaperShoppingBags(45);
-CALL addChildrensGoods(45);
-CALL addWearableItems(45);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (45, 184);		/* fabric */
-CALL addGarden(45);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (45, 193);		/* garden pots */
-CALL addCDsVideoGames(45);
-CALL addHousehold(45);
-CALL addMedicalSupplies(45);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (45, 194);		/* office supplies */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (45, 186);		/* pet supplies */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (45, 184);		/* fabric */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (45, 193);		/* garden pots */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (45, 194);		/* office supplies */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (45, 186);		/* pet supplies */
 
 /* 46 - OSU ORGANIC GROWERS CLUB (CROP & SOIL SCIENCE DEPT.) */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES		
 	(46, 1, 'OSU Organic Growers Club (Crop & Soil Science Dept)', 
 	NULL, 
@@ -2257,7 +1875,7 @@ VALUES
 	;
 	
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(46, 
@@ -2270,11 +1888,11 @@ VALUES
 	NULL, NULL)
 	;
 	 
-CALL addGarden(46);
+
 
 /* 47 - PAK MAIL (TIMBERHILL SHOPPING CTR.) */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(47, 1, 
 	'Pak Mail (Timberhill Shopping Ctr)', 
@@ -2289,7 +1907,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(47, 
@@ -2302,11 +1920,11 @@ VALUES
 	NULL, NULL)
 	;
 	
-CALL addPackingMaterials(47);
+
 
 /* 48 - PARENT ENHANCEMENT PROGRAM  */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(48, 1, 
 	'Parent Enhancement Program', 
@@ -2321,7 +1939,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(48,
@@ -2334,20 +1952,18 @@ VALUES
 	 NULL, NULL)
 	 ;
 
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (48, 14);		/* art supplies */
-CALL addSportingEquipmentCamping(48);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (48, 16);		/* books */
-CALL addBrownPaperShoppingBags(48);
-CALL addChildrensGoods(48);
-CALL addWearableItems(48);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (48, 184);		/* fabric */
-CALL addFoodUnopened(48);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (48, 194);		/* office supplies */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (48, 28);		/* toiletries */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (48, 14);		/* art supplies */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (48, 16);		/* books */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (48, 184);		/* fabric */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (48, 194);		/* office supplies */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (48, 28);		/* toiletries */
 
 /* 49 - PASTORS FOR PEACE-CARAVAN TO CUBA */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(49, 1, 'Pastors for Peace-Caravan to Cuba', 
 	NULL, 
@@ -2361,7 +1977,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(49,
@@ -2374,14 +1990,11 @@ VALUES
 	NULL, NULL)
 	;
 
-CALL addSportingEquipmentCamping(49);
-CALL addComputersMonitors1(49);
-CALL addComputersMonitors2(49);
-CALL addMedicalSupplies(49);
+
 
 /* 50 - PHILOMATH COMMUNITY GARDEN */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(50, 1, 
 	'Philomath Community Garden', 
@@ -2396,7 +2009,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(50, 
@@ -2409,11 +2022,11 @@ VALUES
 	NULL, NULL)
 	;
 	
-CALL addGarden(50);
+
 
 /* 51 - PHILOMATH COMMUNITY SERVICES */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(51, 1, 'Philomath Community Services', 
 	'360 S 9th St.', 
@@ -2427,7 +2040,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(51, 
@@ -2440,15 +2053,15 @@ VALUES
 	NULL, NULL)
 	;
 	
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (51, 16);		/* books */
-CALL addChildrensGoods(51);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (51, 183);		/* firewood */
-CALL addFoodUnopened(51);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (51, 153);		/* food garden */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (51, 16);		/* books */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (51, 183);		/* firewood */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (51, 153);		/* food garden */
 
 /* 52 - PLAY IT AGAIN SPORTS */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(52, 1, 'Play It Again Sports', 
 	'1422 NW 9th St.', 
@@ -2462,7 +2075,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(52, 
@@ -2475,11 +2088,11 @@ VALUES
 	'10:00:00', '17:00:00')
 	;
 	
-CALL addSportingEquipmentCamping(52);
+
 
 /* 53 - PRESBYTERIAN PIECEMAKERS */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(53, 1, 'Presbyterian Piecemakers', 
 	'114 SW 8th St.', 
@@ -2493,7 +2106,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(53, 
@@ -2506,11 +2119,11 @@ VALUES
 	NULL, NULL)
 	;
 	
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (53, 184);		/* fabric */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (53, 184);		/* fabric */
 
 /* 54 - PUBLIC LIBRARY CORVALLIS, FRIENDS OF */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(54, 1, 'Public Library Corvallis, Friends of', 
 	'645 NW Monroe Ave.', 
@@ -2524,7 +2137,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(54, 
@@ -2537,12 +2150,11 @@ VALUES
 	'13:00:00', '17:00:00')
 	;
 	
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (54, 16);		/* books */
-CALL addCDsVideoGames(54);
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (54, 16);		/* books */
 
 /* 55 - QUILTS FROM CARING HANDS */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(55, 1, 'Quilts From Caring Hands', 
 	'1495 NW 20th St.', 
@@ -2556,7 +2168,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(55, 
@@ -2569,11 +2181,11 @@ VALUES
 	NULL, NULL)
 	;
 	
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (55, 184);		/* fabric */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (55, 184);		/* fabric */
 
 /* 56 - RAPID REFILL INK */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(56, 1, 'Rapid Refill Ink', 
 	'254 SW Madison Ave.', 
@@ -2587,7 +2199,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(56, 
@@ -2600,11 +2212,11 @@ VALUES
 	NULL, NULL)
 	;
 	
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (56, 175);		/* ink refill */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (56, 175);		/* ink refill */
 
 /* 57 - RE-VOLVE (WOMEN'S RESALE BOUTIQUE) */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(57, 1, 're-volve (Women\'s Resale Boutique)', 
 	'103 SW 2nd St.', 
@@ -2618,7 +2230,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(57, 
@@ -2631,12 +2243,11 @@ VALUES
 	NULL, NULL)
 	;
 	
-CALL addBrownPaperShoppingBags(57);
-CALL addWearableItems(57);
+
 
 /* 58 - SCHOOLS - PUBLIC, PRIVATE, CHARTER */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(58, 1, 'Schools - Public, Private, Charter', 
 	NULL, 
@@ -2650,7 +2261,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(58, 
@@ -2663,14 +2274,14 @@ VALUES
 	NULL, NULL)
 	;
 	
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (58, 14);		/* art supplies */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (58, 16);		/* books */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (58, 194);		/* office supplies */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (58, 51);		/* school supplies */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (58, 14);		/* art supplies */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (58, 16);		/* books */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (58, 194);		/* office supplies */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (58, 51);		/* school supplies */
 
 /* 59 - SECOND GLANCE */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(59, 1, 'Second Glance', 
 	'312 SW 3rd St.', 
@@ -2684,7 +2295,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(59, 
@@ -2697,12 +2308,11 @@ VALUES
 	'12:00:00', '17:00:00')
 	;
 	
-CALL addBrownPaperShoppingBags(59);
-CALL addWearableItems(59);
+
 
 /* 60 - THE ANNEX */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(60, 1, 'The Annex', 
 	'214 SW Jefferson Ave.', 
@@ -2716,7 +2326,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(60, 
@@ -2729,12 +2339,11 @@ VALUES
 	'12:00:00', '17:00:00')
 	;
 
-CALL addBrownPaperShoppingBags(60);
-CALL addWearableItems(60);
+
 
 /* 61 - THE ALLEY */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(61, 1, 'The Alley', 
 	'312 SW Jefferson Ave.', 
@@ -2748,7 +2357,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(61, 
@@ -2761,12 +2370,11 @@ VALUES
 	'12:00:00', '17:00:00')
 	;
 	
-CALL addBrownPaperShoppingBags(61);
-CALL addWearableItems(61);
+
 
 /* 62 - SENIOR CENTER OF CORVALLIS */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(62, 1, 'Senior Center of Corvallis', 
 	'2601 NW Tyler Ave.', 
@@ -2780,7 +2388,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(62, 
@@ -2793,14 +2401,14 @@ VALUES
 	NULL, NULL)
 	;
 	
-CALL addCDsVideoGames(62);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (62, 102);		/* cellphones */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (62, 153);		/* food garden */
-CALL addMedicalSupplies(62);
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (62, 102);		/* cellphones */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (62, 153);		/* food garden */
+
 
 /* 63 -SOUTH CORVALLIS FOOD BANK */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(63, 1, 'South Corvallis Food Bank', 
 	'1798 SW 3rd St.',
@@ -2814,7 +2422,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(63, 
@@ -2827,12 +2435,12 @@ VALUES
 	NULL, NULL)
 	;
 	
-CALL addFoodUnopened(63);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (63, 153);		/* food garden */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (63, 153);		/* food garden */
 
 /* 64 - ST. VINCENT DE PAUL FOOD BANK */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(64, 1, 'St. Vincent de Paul Food Bank', 
 	'501 NW 25th St.', 
@@ -2846,7 +2454,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(64, 
@@ -2859,12 +2467,12 @@ VALUES
 	NULL, NULL)
 	 ;
 	 
-CALL addFoodUnopened(64);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (64, 153);		/* food garden */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (64, 153);		/* food garden */
 
 /* 65 - STONE SOUP (ST. MARY'S CHURCH */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(65, 1, 'Stone Soup  (St Mary\'s Church)', 
 	'501 NW 25th St.', 
@@ -2878,7 +2486,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(65, 
@@ -2891,21 +2499,14 @@ VALUES
 	NULL, NULL)
 	;
 	
-CALL addAppliancesSmall(65);
-CALL addBeddingBath(65);
-CALL addBrownPaperShoppingBags(65);
-CALL addCDsVideoGames(65);
-CALL addChildrensGoods(65);
-CALL addWearableItems(65);
-CALL addFoodUnopened(65);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (65, 153);		/* food garden */
-CALL addHousehold(65);
-CALL addOfficeEquipment(65);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (65, 186);		/* pet supplies */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (65, 153);		/* food garden */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (65, 186);		/* pet supplies */
 
 /* 66 - UPS STORE (PHILOMATH) */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(66, 1, 'UPS Store (Philomath)', 
 	'5060 SW Philomath Blvd.', 
@@ -2919,7 +2520,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES		
 	(66, 
@@ -2932,11 +2533,11 @@ VALUES
 	NULL, NULL)
 	;
 	
-CALL addPackingMaterials(66);
+
 
 /* 67 - UPS STORE (CORVALLIS) */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(67, 1, 'UPS Stores (Corvallis)', 
 	'922 NW Circle Blvd.',
@@ -2950,7 +2551,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(67, 
@@ -2963,11 +2564,11 @@ VALUES
 	NULL, NULL)
 	;
 	
-CALL addPackingMaterials(67);
+
 
 /* 68 - VINA MOSES */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(68, 1, 'Vina Moses', 
 	'968 NW Garfield Ave.', 
@@ -2981,7 +2582,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(68, 
@@ -2994,26 +2595,20 @@ VALUES
 	NULL, NULL)
 	;
 	
-CALL addAppliancesSmall(68);
-CALL addBeddingBath(68);
-CALL addSportingEquipmentCamping(68);
-CALL addBrownPaperShoppingBags(68);
-CALL addChildrensGoods(68);
-CALL addWearableItems(68);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (68, 160);		/* eyeglasses */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (68, 184);		/* fabric */
-CALL addFoodUnopened(68);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (68, 153);		/* food garden */
-CALL addGarden(68);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (68, 193);		/* garden pots */
-CALL addUseableElectronics(68);
-CALL addHousehold(68);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (68, 194);		/* office supplies */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (68, 186);		/* pet supplies */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (68, 160);		/* eyeglasses */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (68, 184);		/* fabric */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (68, 153);		/* food garden */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (68, 193);		/* garden pots */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (68, 194);		/* office supplies */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (68, 186);		/* pet supplies */
 
 /* 69 - SPAETH HERITAGE HOUSE */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(69, 1, 'Spaeth Heritage House', 
 	'135 N 13th St.', 
@@ -3027,7 +2622,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(69, 
@@ -3040,15 +2635,15 @@ VALUES
 	NULL, NULL)
 	;
 	
-CALL addBuildingHomeImprovement(69);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (69, 24);		/* furniture */
-CALL addGarden(69);
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (69, 193);		/* garden pots */
-CALL addHousehold(69);
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (69, 24);		/* furniture */
+
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (69, 193);		/* garden pots */
+
 
 /* 70 - BELLVUE COMPUTERS */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(70, 2, 'Bellevue Computers', 
 	'1865 NW 9th St.', 
@@ -3062,7 +2657,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(70, 
@@ -3075,11 +2670,11 @@ VALUES
 	NULL, NULL)
 	;
 	
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (70, 5);		/* computers */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (70, 5);		/* computers */
 
 /* 71 - BOOK BINDING */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(71, 2, 'Book Binding', 
 	'108 SW 3rd St.', 
@@ -3093,7 +2688,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(71, 
@@ -3106,11 +2701,11 @@ VALUES
 	NULL, NULL)
 	;
 	
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (71, 3);		/* books */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (71, 3);		/* books */
 
 /* 72 - CELL PHONE SICK BAY */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(72, 2, 'Cell Phone Sick Bay', 
 	'252 Sw Madison Ave.', 
@@ -3124,7 +2719,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(72, 
@@ -3137,12 +2732,12 @@ VALUES
 	NULL, NULL)
 	;
 	
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (72,  1);		/* cellphones */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (72,  5);		/* computers */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (72,  1);		/* cellphones */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (72,  5);		/* computers */
 
 /* 73 - CORVALLIS TECHNICAL*/
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(73, 2, 'Covallis Technical',
 	'966 NW Circle Blvd.',
@@ -3156,7 +2751,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(73, 
@@ -3169,11 +2764,11 @@ VALUES
 	NULL, NULL)
 	;
 	
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (73,  5);		/* computers */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (73,  5);		/* computers */
 
 /* 74 - FOAM MAN */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(74, 2, 'Foam Man', 
 	'2511 NW 9th St.',
@@ -3187,7 +2782,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(74, 
@@ -3200,11 +2795,11 @@ VALUES
 	NULL, NULL)
 	;
 
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (74,  13);		/* upholstery furniture */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (74,  13);		/* upholstery furniture */
 
 /* 75 - FOOTWISE */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(75, 2, 'Footwise', 
 	'301 SW Madison Ave.',
@@ -3218,7 +2813,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(75, 
@@ -3231,11 +2826,11 @@ VALUES
 	'11:00:00', '17:00:00')
 	;
 
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (75,  10);		/* sandles */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (75,  10);		/* sandles */
 	
 /* 76 - FURNITURE RESTORATION CENTER */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(76, 2, 'Furniture Restoration Center', 
 	'1321 Main St.',
@@ -3249,7 +2844,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(76, 
@@ -3262,11 +2857,11 @@ VALUES
 	NULL, NULL)
 	;	
 	
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (76,  6);		/* furniture */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (76,  6);		/* furniture */
 	
 /* 77 - GEEKS 'N' NERDS */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(77, 2, 'Geeks \'N\' Nerds', 
 	'950 SE Gear St.',
@@ -3280,7 +2875,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES
 	(77, 
@@ -3293,12 +2888,12 @@ VALUES
 	NULL, NULL)
 	;
 	
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (77,  1);		/* cell phones */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (77,  5);		/* computers */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (77,  1);		/* cell phones */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (77,  5);		/* computers */
 
 /* 78 - OSU REPAIR FAIR */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(78, 2, 'OSU Repair Fair', 
 	'Oregon State University Property Services Building',
@@ -3312,7 +2907,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(78, 
@@ -3325,13 +2920,13 @@ VALUES
 	NULL, NULL)
 	;	
 	
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (78,  2);		/* small appliances */
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (78,  5);		/* computers */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (78,  2);		/* small appliances */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (78,  5);		/* computers */
 
 
 /* 79 - PK FURNITURE REPAIR & REFINISHING */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(79, 2, 'PK Furniture Repair & Refinishing', 
 	'5270 Corvallis-Newport Hwy.', 
@@ -3345,7 +2940,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(79, 
@@ -3358,11 +2953,11 @@ VALUES
 	NULL, NULL)
 	;
 	
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (79,  6);		/* furniture */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (79,  6);		/* furniture */
 
 /* 80 - CORVALLIS POWER EQUIPMENT */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(80, 2, 'Corvallis Power Equipment', 
 	'713 NE Circle Blvd.',
@@ -3376,7 +2971,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(80, 
@@ -3389,11 +2984,11 @@ VALUES
 	NULL, NULL)
 	;
 	
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (80,  8);		/* lawn power equipment */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (80,  8);		/* lawn power equipment */
 
 /* 81 - ROBNETT'S */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(81, 2, 'Robnett\'s', 
 	'400 SW 2nd St.',
@@ -3407,7 +3002,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(81, 
@@ -3420,11 +3015,11 @@ VALUES
 	'10:00:00', '16:00:00')
 	;
 
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (81,  8);		/* lawn power equipment */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (81,  8);		/* lawn power equipment */
 
 /* 82 - SEDLACK */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(82, 2, 'Sedlack', 
 	'225 SW 2nd St.', 
@@ -3438,7 +3033,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(82, 
@@ -3451,11 +3046,11 @@ VALUES
 	'12:00:00', '16:00:00')
 	;
 
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (82,  11);		/* shoes, boots */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (82,  11);		/* shoes, boots */
 
 /* 83 - SPECIALTY SEWING BY LESLIE */
 INSERT INTO
-	Organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
+	organizations (`id`, `org_type`, `name`, `street1`, `street2`, `city`, `state`, `zip`, `webpage`, `phone`, `notes`)
 VALUES	
 	(83, 2, 'Specialty Sewing By Leslie', 
 	'225 SW Madison Ave.',
@@ -3469,7 +3064,7 @@ VALUES
 	;
 
 INSERT INTO
-	OrganizationHours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
+	organizationhours (`org_id` , `mon_start`, `mon_end`, `tue_start`, `tue_end`, `wed_start`, `wed_end`, 
 	`thu_start`, `thu_end`, `fri_start`, `fri_end`, `sat_start`, `sat_end`, `sun_start`, `sun_end`)
 VALUES	
 	(83, 
@@ -3482,17 +3077,535 @@ VALUES
 	NULL, NULL)
 	;
 
-INSERT INTO OrganizationItems(`org_id`, `item_id`) VALUES (83,  4);		/* clothes */
+INSERT INTO organizationitems(`org_id`, `item_id`) VALUES (83,  4);		/* clothes */
+
+
+
+/* ========================================================================
+	PROCEDURES FOR CREATING organizationitems ENTITIES
+   ======================================================================== */	
+
+DELIMITER $$
+CREATE PROCEDURE addHousehold(IN orgID INT(255))
+	BEGIN
+      	DECLARE num INT(255) Default 14;
+    	simple_loop: LOOP
+    		INSERT INTO organizationitems (`org_id`, `item_id`)
+    		VALUES (orgID, num);
+    		SET num = num + 1;
+         	IF num > 29 THEN
+        		LEAVE simple_loop;
+        	END IF;
+   	END LOOP simple_loop;
+	END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE addBeddingBath(IN orgID INT(255))
+	BEGIN
+      	DECLARE num INT(255) Default 30;
+    	simple_loop: LOOP
+    		INSERT INTO organizationitems (`org_id`, `item_id`)
+    		VALUES (orgID, num);
+    		SET num = num + 1;
+         	IF num > 35 THEN
+        		LEAVE simple_loop;
+        	END IF; 	
+   	END LOOP simple_loop;
+	END $$
+DELIMITER;
+
+DELIMITER $$
+CREATE PROCEDURE addChildrensGoods(IN orgID INT(255))
+	BEGIN
+      	DECLARE num INT(255) Default 36;
+    	simple_loop: LOOP
+    		INSERT INTO organizationitems (`org_id`, `item_id`)
+    		VALUES (orgID, num);
+    		SET num = num + 1;
+         	IF num > 47 THEN
+        		LEAVE simple_loop;
+        	END IF; 	
+   	END LOOP simple_loop;
+	END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE addAppliancesSmall(IN orgID INT(255))
+	BEGIN
+      	DECLARE num INT(255) Default 54;
+    	simple_loop: LOOP
+    		INSERT INTO organizationitems (`org_id`, `item_id`)
+    		VALUES (orgID, num);
+    		SET num = num + 1;
+         	IF num > 60 THEN
+        		LEAVE simple_loop;
+        	END IF; 	
+   	END LOOP simple_loop;
+	END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE addAppliancesLarge(IN orgID INT(255))
+	BEGIN
+      	DECLARE num INT(255) Default 61;
+    	simple_loop: LOOP
+    		INSERT INTO organizationitems (`org_id`, `item_id`)
+    		VALUES (orgID, num);
+    		SET num = num + 1;
+         	IF num > 65 THEN
+        		LEAVE simple_loop;
+        	END IF; 	
+   	END LOOP simple_loop;
+	END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE addBuildingHomeImprovement(IN orgID INT(255))
+	BEGIN
+      	DECLARE num INT(255) Default 66;
+    	simple_loop: LOOP
+    		INSERT INTO organizationitems (`org_id`, `item_id`)
+    		VALUES (orgID, num);
+    		SET num = num + 1;
+         	IF num > 88 THEN
+        		LEAVE simple_loop;
+        	END IF; 	
+   	END LOOP simple_loop;
+	END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE addSportingEquipmentCamping(IN orgID INT(255))
+	BEGIN
+      	DECLARE num INT(255) Default 119;
+    	simple_loop: LOOP
+    		INSERT INTO organizationitems (`org_id`, `item_id`)
+    		VALUES (orgID, num);
+    		SET num = num + 1;
+         	IF num > 137 THEN
+        		LEAVE simple_loop;
+        	END IF; 	
+   	END LOOP simple_loop;
+	END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE addGarden(IN orgID INT(255))
+	BEGIN
+      	DECLARE num INT(255) Default 138;
+    	simple_loop: LOOP
+    		INSERT INTO organizationitems (`org_id`, `item_id`)
+    		VALUES (orgID, num);
+    		SET num = num + 1;
+         	IF num > 146 THEN
+        		LEAVE simple_loop;
+        	END IF; 	
+   	END LOOP simple_loop;
+	END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE addMedicalSupplies(IN orgID INT(255))
+	BEGIN
+      	DECLARE num INT(255) Default 156;
+    	simple_loop: LOOP
+    		INSERT INTO organizationitems (`org_id`, `item_id`)
+    		VALUES (orgID, num);
+    		SET num = num + 1;
+         	IF num > 167 THEN
+        		LEAVE simple_loop;
+        	END IF; 	
+   	END LOOP simple_loop;
+	END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE addOfficeEquipment(IN orgID INT(255))
+	BEGIN
+      	DECLARE num INT(255) Default 168;
+    	simple_loop: LOOP
+    		INSERT INTO organizationitems (`org_id`, `item_id`)
+    		VALUES (orgID, num);
+    		SET num = num + 1;
+         	IF num > 174 THEN
+        		LEAVE simple_loop;
+        	END IF; 	
+   	END LOOP simple_loop;
+	END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE addPackingMaterials(IN orgID INT(255))
+	BEGIN
+      	DECLARE num INT(255) Default 179;
+    	simple_loop: LOOP
+    		INSERT INTO organizationitems (`org_id`, `item_id`)
+    		VALUES (orgID, num);
+    		SET num = num + 1;
+         	IF num > 181 THEN
+        		LEAVE simple_loop;
+        	END IF; 	
+   	END LOOP simple_loop;
+	END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE addBrownPaperShoppingBags(IN orgID INT(255))
+	BEGIN
+		INSERT INTO organizationitems (`org_id`, `item_id`)
+		VALUES 
+			(orgID, 187),
+			(orgID, 192)
+		;
+	END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE addCDsVideoGames(IN orgID INT(255))
+	BEGIN
+		INSERT INTO organizationitems (`org_id`, `item_id`)
+		VALUES 
+			(orgID, 101),
+			(orgID, 106)
+		;
+	END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE addWearableItems(IN orgID INT(255))
+	BEGIN
+      	DECLARE num INT(255) Default 89;
+    	simple_loop: LOOP
+    		INSERT INTO organizationitems (`org_id`, `item_id`)
+    		VALUES (orgID, num);
+    		SET num = num + 1;
+         	IF num > 96 THEN
+        		LEAVE simple_loop;
+        	END IF; 	
+   	END LOOP simple_loop;
+	END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE addComputersMonitors1(IN orgID INT(255))
+	BEGIN
+		INSERT INTO organizationitems (`org_id`, `item_id`)
+		VALUES 
+			(orgID, 103),
+			(orgID, 109)
+		;
+	END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE addComputersMonitors2(IN orgID INT(255))
+	BEGIN
+		INSERT INTO organizationitems (`org_id`, `item_id`)
+		VALUES 
+			(orgID, 169),
+			(orgID, 172)
+		;
+	END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE addUseableElectronics(IN orgID INT(255))
+	BEGIN
+      	DECLARE num INT(255) Default 97;
+    	simple_loop: LOOP
+    		INSERT INTO organizationitems (`org_id`, `item_id`)
+    		VALUES (orgID, num);
+    		SET num = num + 1;
+         	IF num > 118 THEN
+        		LEAVE simple_loop;
+        	END IF; 	
+   	END LOOP simple_loop;
+	END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE addFoodUnopened(IN orgID INT(255))
+	BEGIN
+		INSERT INTO organizationitems (`org_id`, `item_id`)
+		VALUES 
+			(orgID, 152),
+			(orgID, 154),
+			(orgID, 155)
+		;
+	END $$
+DELIMITER ;
+
+
+
+CALL addAppliancesLarge(1);
+CALL addAppliancesSmall(1);
+CALL addBeddingBath(1);
+CALL addSportingEquipmentCamping(1);
+CALL addBrownPaperShoppingBags(1);
+CALL addBuildingHomeImprovement(1);
+CALL addChildrensGoods(1);
+CALL addFoodUnopened(1);
+CALL addGarden(1);
+CALL addUseableElectronics(1);
+CALL addMedicalSupplies(1);
+CALL addPackingMaterials(1);
+CALL addAppliancesSmall(2);
+CALL addBeddingBath(2);
+CALL addSportingEquipmentCamping(2);
+CALL addBrownPaperShoppingBags(2);
+CALL addChildrensGoods(2);
+CALL addWearableItems(2);
+CALL addGarden(2);
+CALL addUseableElectronics(2);
+CALL addHousehold(2);
+CALL addMedicalSupplies(2);
+CALL addOfficeEquipment(2);
+CALL addAppliancesSmall(3);
+CALL addBeddingBath(3);
+CALL addSportingEquipmentCamping(3);
+CALL addBrownPaperShoppingBags(3);
+CALL addChildrensGoods(3);
+CALL addWearableItems(3);
+CALL addGarden(3);
+CALL addUseableElectronics(3);
+CALL addHousehold(3);
+CALL addMedicalSupplies(3);
+CALL addOfficeEquipment(3);
+CALL addCDsVideoGames(7);
+CALL addCDsVideoGames(8);
+CALL addBrownPaperShoppingBags(9);
+CALL addCDsVideoGames(9);
+CALL addGarden(9);
+CALL addSportingEquipmentCamping(10);
+CALL addBrownPaperShoppingBags(10);
+CALL addCDsVideoGames(10);
+CALL addAppliancesSmall(12);
+CALL addFoodUnopened(12);
+CALL addUseableElectronics(12);
+CALL addHousehold(12);
+CALL addAppliancesSmall(14);
+CALL addBeddingBath(14);
+CALL addSportingEquipmentCamping(14);
+CALL addBrownPaperShoppingBags(14);
+CALL addChildrensGoods(14);
+CALL addWearableItems(14);
+CALL addGarden(14);
+CALL addUseableElectronics(14);
+CALL addHousehold(14);
+CALL addMedicalSupplies(14);
+CALL addOfficeEquipment(14);
+CALL addAppliancesSmall(15);
+CALL addSportingEquipmentCamping(15);
+CALL addBuildingHomeImprovement(15);
+CALL addChildrensGoods(15);
+CALL addWearableItems(15);
+CALL addGarden(15);
+CALL addUseableElectronics(15);
+CALL addGarden(16);
+CALL addMedicalSupplies(16);
+CALL addBeddingBath(16);
+CALL addBuildingHomeImprovement(16);
+CALL addFoodUnopened(17);
+CALL addBeddingBath(17);
+CALL addOfficeEquipment(18);
+CALL addSportingEquipmentCamping(19);
+CALL addSportingEquipmentCamping(20);
+CALL addMedicalSupplies(21);
+CALL addBrownPaperShoppingBags(22);
+CALL addChildrensGoods(22);
+CALL addWearableItems(22);
+CALL addAppliancesLarge(23);
+CALL addAppliancesSmall(23);
+CALL addBeddingBath(23);
+CALL addBrownPaperShoppingBags(23);
+CALL addBuildingHomeImprovement(23);
+CALL addChildrensGoods(23);
+CALL addWearableItems(23);
+CALL addFoodUnopened(23);
+CALL addGarden(23);
+CALL addUseableElectronics(23);
+CALL addHousehold(23);
+CALL addMedicalSupplies(23);
+CALL addOfficeEquipment(23);
+CALL addPackingMaterials(23);
+CALL addAppliancesLarge(24);
+CALL addAppliancesSmall(24);
+CALL addPackingMaterials(24);
+CALL addBrownPaperShoppingBags(25);
+CALL addFoodUnopened(25);
+CALL addHousehold(26);
+CALL addAppliancesLarge(27);
+CALL addAppliancesSmall(27);
+CALL addBeddingBath(27);
+CALL addUseableElectronics(27);
+CALL addHousehold(27);
+CALL addAppliancesLarge(30);
+CALL addAppliancesSmall(30);
+CALL addBeddingBath(30);
+CALL addSportingEquipmentCamping(30);
+CALL addBuildingHomeImprovement(30);
+CALL addChildrensGoods(30);
+CALL addWearableItems(30);
+CALL addGarden(30);
+CALL addUseableElectronics(30);
+CALL addHousehold(30);
+CALL addMedicalSupplies(30);
+CALL addOfficeEquipment(30);
+CALL addAppliancesLarge(31);
+CALL addAppliancesSmall(31);
+CALL addSportingEquipmentCamping(31);
+CALL addBrownPaperShoppingBags(31);
+CALL addBuildingHomeImprovement(31);
+CALL addGarden(31);
+CALL addUseableElectronics(31);
+CALL addHousehold(31);
+CALL addMedicalSupplies(31);
+CALL addOfficeEquipment(31);
+CALL addCDsVideoGames(32);
+CALL addSportingEquipmentCamping(33);
+CALL addBeddingBath(34);
+CALL addWearableItems(34);
+CALL addGarden(34);
+CALL addUseableElectronics(34);
+CALL addHousehold(34);
+CALL addOfficeEquipment(34);
+CALL addBeddingBath(35);
+CALL addSportingEquipmentCamping(35);
+CALL addBuildingHomeImprovement(35);
+CALL addCDsVideoGames(35);
+CALL addGarden(35);
+CALL addFoodUnopened(36);
+CALL addAppliancesLarge(38);
+CALL addAppliancesSmall(38);
+CALL addBeddingBath(38);
+CALL addSportingEquipmentCamping(38);
+CALL addChildrensGoods(38);
+CALL addWearableItems(38);
+CALL addComputersMonitors2(38);
+CALL addFoodUnopened(38);
+CALL addGarden(38);
+CALL addUseableElectronics(38);
+CALL addHousehold(38);
+CALL addMedicalSupplies(38);
+CALL addCDsVideoGames(39);
+CALL addFoodUnopened(39);
+CALL addAppliancesLarge(40);
+CALL addAppliancesSmall(40);
+CALL addBeddingBath(40);
+CALL addSportingEquipmentCamping(40);
+CALL addBrownPaperShoppingBags(40);
+CALL addChildrensGoods(40);
+CALL addWearableItems(40);
+CALL addFoodUnopened(40);
+CALL addGarden(40);
+CALL addUseableElectronics(40);
+CALL addHousehold(40);
+CALL addMedicalSupplies(40);
+CALL addBrownPaperShoppingBags(41);
+CALL addFoodUnopened(42);
+CALL addAppliancesLarge(43);
+CALL addFoodUnopened(44);
+CALL addAppliancesSmall(45);
+CALL addBeddingBath(45);
+CALL addSportingEquipmentCamping(45);
+CALL addBrownPaperShoppingBags(45);
+CALL addChildrensGoods(45);
+CALL addWearableItems(45);
+CALL addGarden(45);
+CALL addCDsVideoGames(45);
+CALL addHousehold(45);
+CALL addMedicalSupplies(45);
+CALL addGarden(46);
+CALL addPackingMaterials(47);
+CALL addSportingEquipmentCamping(48);
+CALL addBrownPaperShoppingBags(48);
+CALL addChildrensGoods(48);
+CALL addWearableItems(48);
+CALL addFoodUnopened(48);
+CALL addSportingEquipmentCamping(49);
+CALL addComputersMonitors1(49);
+CALL addComputersMonitors2(49);
+CALL addMedicalSupplies(49);
+CALL addGarden(50);
+CALL addChildrensGoods(51);
+CALL addFoodUnopened(51);
+CALL addSportingEquipmentCamping(52);
+CALL addCDsVideoGames(54);
+CALL addBrownPaperShoppingBags(57);
+CALL addWearableItems(57);
+CALL addBrownPaperShoppingBags(59);
+CALL addWearableItems(59);
+CALL addBrownPaperShoppingBags(60);
+CALL addWearableItems(60);
+CALL addBrownPaperShoppingBags(61);
+CALL addWearableItems(61);
+CALL addCDsVideoGames(62);
+CALL addMedicalSupplies(62);
+CALL addFoodUnopened(63);
+CALL addFoodUnopened(64);
+CALL addAppliancesSmall(65);
+CALL addBeddingBath(65);
+CALL addBrownPaperShoppingBags(65);
+CALL addCDsVideoGames(65);
+CALL addChildrensGoods(65);
+CALL addWearableItems(65);
+CALL addFoodUnopened(65);
+CALL addHousehold(65);
+CALL addOfficeEquipment(65);
+CALL addPackingMaterials(66);
+CALL addPackingMaterials(67);
+CALL addAppliancesSmall(68);
+CALL addBeddingBath(68);
+CALL addSportingEquipmentCamping(68);
+CALL addBrownPaperShoppingBags(68);
+CALL addChildrensGoods(68);
+CALL addWearableItems(68);
+CALL addFoodUnopened(68);
+CALL addGarden(68);
+CALL addUseableElectronics(68);
+CALL addHousehold(68);
+CALL addBuildingHomeImprovement(69);
+CALL addGarden(69);
+CALL addHousehold(69);
+CALL addHousehold(4);
+CALL addGarden(6);
+CALL addWearableItems(13);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* ==================================================
-	Automatically add an entry for Organization in OrganizationHours.
+	Automatically add an entry for Organization in organizationhours.
 	NOTE: place this at the very end of the file!
 ====================================================*/
-
 CREATE TRIGGER new_org_added
-AFTER INSERT ON Organizations
+AFTER INSERT ON organizations
 FOR EACH ROW
-	INSERT INTO OrganizationHours (org_id)
+	INSERT INTO organizationhours (org_id)
 	VALUES (NEW.id);	
 
 /* END OF FILE: DO NOT MAKE ENTRIES BELOW */
