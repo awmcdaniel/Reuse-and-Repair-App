@@ -1,9 +1,13 @@
 <?php
+if (!defined('PASSWORD_BCRYPT')) {
+    define('PASSWORD_BCRYPT', 1);
+}
+
 return array(
     'app'  => [
-        'url'       => 'http://localhost:4000',
-        'staticUrl' => 'http://localhost:4000/static',
-        'adminUrl'  => 'http://localhost:4000/admin',
+        'url'       => 'http://myapp.sustainablecorvallis.org/',
+        'staticUrl' => 'http://myapp.sustainablecorvallis.org/static',
+        'adminUrl'  => 'http://myapp.sustainablecorvallis.org/admin',
         'hash'      => [
             'algo' => PASSWORD_BCRYPT,
             'cost' => 10,
@@ -11,14 +15,14 @@ return array(
     ],
     'db'   => [
         'driver'    => 'mysql',
-        'host'      => '127.0.0.1',
-        'name'      => 'test_api',
+        'host'      => 'localhost',
+        'name'      => 'repair_reuse_app',
         'username'  => 'root',
         'password'  => '',
         'charset'   => 'utf8',
         'collation' => 'utf8_unicode_ci',
         'prefix'    => '',
-        'method'    => 'mysql:host=127.0.0.1;dbname=',
+        'method'    => 'mysql:host=localhost;dbname=',
     ],
     'auth' => [
         'session'  => 'user_id',

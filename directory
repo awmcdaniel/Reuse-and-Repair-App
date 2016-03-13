@@ -1,0 +1,26 @@
+/repair_reuse_app
+        /app
+            /config
+            /Reuseapp
+                /Helpers
+                /Middleware
+                /User
+                /Validation
+            /routes
+                /admin
+                /api
+                /web
+            /views
+                /admin
+                /web
+        /db_seed
+        /plugins
+            /NotORM
+        /public
+            /static
+                /css
+                /fonts
+                /js
+        vendor/
+
+

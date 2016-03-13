@@ -1,4 +1,8 @@
 <?php
+if (!defined('PASSWORD_BCRYPT')) {
+    define('PASSWORD_BCRYPT', 1);
+}
+
 return array(
     'app'  => [
         'url'       => 'http://localhost:4000',
