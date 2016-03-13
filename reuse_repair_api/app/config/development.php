@@ -24,16 +24,6 @@ return array(
         'session'  => 'user_id',
         'remember' => 'user_r',
     ],
-    'mail' => [
-        'smtp_auth'   => true,
-        'smtp_secure' => 'tls',
-        'host'        => 'smtp.gmail.com',
-        'username'    => '',
-        'password'    => '',
-        'port'        => 587,
-        'html'        => true,
-
-    ],
     'twig' => [
         'debug' => true,
     ],
